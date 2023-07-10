@@ -1,21 +1,16 @@
 import classNames from 'classnames';
 
-interface OfferCardProps {
-	headline: string;
-	image: string;
-	isFavorite?: boolean;
-	isPremium?: boolean;
-	price: number;
-	rating: 0 | 1 | 2 | 3 | 4 | 5;
-	type: string;
-}
+import type { ServerOffer } from '../../types/offer';
+
+type OfferCardProps = Pick<ServerOffer, 'id' | 'isFavorite' | 'isPremium' | 'previewImage' | 'price' | 'rating' | 'title' | 'type'>
+
 export function PlaceCard({
-	headline,
-	image,
-	isFavorite = false,
-	isPremium = false,
+	isFavorite,
+	isPremium,
+	previewImage,
 	price,
 	rating,
+	title,
 	type
 }: OfferCardProps) {
 	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
@@ -40,7 +35,7 @@ export function PlaceCard({
 						alt="Place image"
 						className="place-card__image"
 						height={200}
-						src={image}
+						src={previewImage}
 						width={260}
 					/>
 				</a>
@@ -65,7 +60,7 @@ export function PlaceCard({
 					</div>
 				</div>
 				<h2 className="place-card__name">
-					<a href="#">{headline}</a>
+					<a href="#">{title}</a>
 				</h2>
 				<p className="place-card__type">{type}</p>
 			</div>
