@@ -1,7 +1,7 @@
 const enum Default {
 	Amount = 0,
 }
-export interface MainPageProps {
+export type MainPageProps = {
 	offersAmount?: number;
 }
 export const MainPage = ({ offersAmount = Default.Amount }: MainPageProps) => (

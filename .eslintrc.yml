@@ -23,8 +23,12 @@ rules:
     - error
     - tab
     - SwitchCase: 1
+  "@typescript-eslint/consistent-type-exports":
+    - error
+    - fixMixedExportsWithInlineTypeSpecifier: true
+  "@typescript-eslint/consistent-type-imports": error
 overrides:
 - files:
   - "*test*"
   rules:
-    "@typescript-eslint/unbound-method": 'off'
+    "@typescript-eslint/unbound-method": off
