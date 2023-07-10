@@ -14,11 +14,11 @@ export const MainPage = ({ offersAmount = Default.Amount }: MainPageProps) => (
 					<div className="header__left">
 						<a className="header__logo-link header__logo-link--active">
 							<img
-								className="header__logo"
-								src="img/logo.svg"
 								alt="6 cities logo"
-								width={81}
+								className="header__logo"
 								height={41}
+								src="img/logo.svg"
+								width={81}
 							/>
 						</a>
 					</div>
@@ -91,11 +91,11 @@ export const MainPage = ({ offersAmount = Default.Amount }: MainPageProps) => (
 						<b className="places__found">
 							{offersAmount} places to stay in Amsterdam
 						</b>
-						<form className="places__sorting" action="#" method="get">
+						<form action="#" className="places__sorting" method="get">
 							<span className="places__sorting-caption">Sort by</span>
 							<span className="places__sorting-type" tabIndex={0}>
 								Popular
-								<svg className="places__sorting-arrow" width={7} height={4}>
+								<svg className="places__sorting-arrow" height={4} width={7}>
 									<use xlinkHref="#icon-arrow-select" />
 								</svg>
 							</span>
@@ -119,43 +119,43 @@ export const MainPage = ({ offersAmount = Default.Amount }: MainPageProps) => (
 						</form>
 						<div className="cities__places-list places__list tabs__content">
 							<PlaceCard
-								image="img/apartment-01.jpg"
-								price={120}
-								isPremium
-								type="Apartment"
 								headline="Beautiful & luxurious apartment at great location"
+								image="img/apartment-01.jpg"
+								isPremium
+								price={120}
 								rating={4}
+								type="Apartment"
 							/>
 							<PlaceCard
-								image="img/room.jpg"
-								price={80}
-								isFavorite
-								type="Private room"
 								headline="Wood and stone place"
+								image="img/room.jpg"
+								isFavorite
+								price={80}
 								rating={4}
+								type="Private room"
 							/>
 							<PlaceCard
+								headline="Canal View Prinsengracht"
 								image="img/apartment-02.jpg"
 								price={132}
-								type="Apartment"
-								headline="Canal View Prinsengracht"
 								rating={4}
+								type="Apartment"
 							/>
 							<PlaceCard
-								image="img/apartment-03.jpg"
-								price={180}
-								type="Apartment"
 								headline="Nice, cozy, warm big bed apartment"
+								image="img/apartment-03.jpg"
 								isPremium
+								price={180}
 								rating={5}
+								type="Apartment"
 							/>
 							<PlaceCard
-								image="img/room.jpg"
-								price={80}
-								type="Apartment"
 								headline="Wood and stone place"
+								image="img/room.jpg"
 								isFavorite
+								price={80}
 								rating={4}
+								type="Apartment"
 							/>
 						</div>
 					</section>

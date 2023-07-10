@@ -1,22 +1,22 @@
 import classNames from 'classnames';
 
 interface OfferCardProps {
-	isPremium?: boolean;
-	image: string;
-	price: number;
-	isFavorite?: boolean;
-	type: string;
 	headline: string;
-	rating: 0 |1 | 2 | 3 | 4 | 5;
+	image: string;
+	isFavorite?: boolean;
+	isPremium?: boolean;
+	price: number;
+	rating: 0 | 1 | 2 | 3 | 4 | 5;
+	type: string;
 }
 export function PlaceCard({
-	isPremium = false,
-	image,
-	price,
-	isFavorite = false,
-	type,
 	headline,
-	rating
+	image,
+	isFavorite = false,
+	isPremium = false,
+	price,
+	rating,
+	type
 }: OfferCardProps) {
 	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
 	const favoriteClass = classNames(
@@ -37,11 +37,11 @@ export function PlaceCard({
 			<div className="cities__image-wrapper place-card__image-wrapper">
 				<a href="#">
 					<img
+						alt="Place image"
 						className="place-card__image"
+						height={200}
 						src={image}
 						width={260}
-						height={200}
-						alt="Place image"
 					/>
 				</a>
 			</div>
@@ -52,7 +52,7 @@ export function PlaceCard({
 						<span className="place-card__price-text">/&nbsp;night</span>
 					</div>
 					<button className={favoriteClass} type="button">
-						<svg className="place-card__bookmark-icon" width={18} height={19}>
+						<svg className="place-card__bookmark-icon" height={19} width={18}>
 							<use xlinkHref="#icon-bookmark" />
 						</svg>
 						<span className="visually-hidden">{favoriteLabel}</span>

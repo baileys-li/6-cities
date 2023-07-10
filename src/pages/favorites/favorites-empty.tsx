@@ -6,11 +6,11 @@ export const FavoritesEmpty = () => (
 					<div className="header__left">
 						<a className="header__logo-link" href="main.html">
 							<img
-								className="header__logo"
-								src="img/logo.svg"
 								alt="6 cities logo"
-								width={81}
+								className="header__logo"
 								height={41}
+								src="img/logo.svg"
+								width={81}
 							/>
 						</a>
 					</div>
@@ -54,11 +54,11 @@ export const FavoritesEmpty = () => (
 		<footer className="footer">
 			<a className="footer__logo-link" href="main.html">
 				<img
-					className="footer__logo"
-					src="img/logo.svg"
 					alt="6 cities logo"
-					width={64}
+					className="footer__logo"
 					height={33}
+					src="img/logo.svg"
+					width={64}
 				/>
 			</a>
 		</footer>

@@ -6,11 +6,11 @@ export const OfferPageEmpty = () => (
 					<div className="header__left">
 						<a className="header__logo-link" href="main.html">
 							<img
-								className="header__logo"
-								src="img/logo.svg"
 								alt="6 cities logo"
-								width={81}
+								className="header__logo"
 								height={41}
+								src="img/logo.svg"
+								width={81}
 							/>
 						</a>
 					</div>
@@ -36,44 +36,44 @@ export const OfferPageEmpty = () => (
 					<div className="offer__gallery">
 						<div className="offer__image-wrapper">
 							<img
+								alt="Photo studio"
 								className="offer__image"
 								src="img/room.jpg"
-								alt="Photo studio"
 							/>
 						</div>
 						<div className="offer__image-wrapper">
 							<img
+								alt="Photo studio"
 								className="offer__image"
 								src="img/apartment-01.jpg"
-								alt="Photo studio"
 							/>
 						</div>
 						<div className="offer__image-wrapper">
 							<img
+								alt="Photo studio"
 								className="offer__image"
 								src="img/apartment-02.jpg"
-								alt="Photo studio"
 							/>
 						</div>
 						<div className="offer__image-wrapper">
 							<img
+								alt="Photo studio"
 								className="offer__image"
 								src="img/apartment-03.jpg"
-								alt="Photo studio"
 							/>
 						</div>
 						<div className="offer__image-wrapper">
 							<img
+								alt="Photo studio"
 								className="offer__image"
 								src="img/studio-01.jpg"
-								alt="Photo studio"
 							/>
 						</div>
 						<div className="offer__image-wrapper">
 							<img
+								alt="Photo studio"
 								className="offer__image"
 								src="img/apartment-01.jpg"
-								alt="Photo studio"
 							/>
 						</div>
 					</div>
@@ -88,7 +88,7 @@ export const OfferPageEmpty = () => (
 								Beautiful &amp; luxurious studio at great location
 							</h1>
 							<button className="offer__bookmark-button button" type="button">
-								<svg className="offer__bookmark-icon" width={31} height={33}>
+								<svg className="offer__bookmark-icon" height={33} width={31}>
 									<use xlinkHref="#icon-bookmark" />
 								</svg>
 								<span className="visually-hidden">To bookmarks</span>
@@ -136,11 +136,11 @@ export const OfferPageEmpty = () => (
 							<div className="offer__host-user user">
 								<div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
 									<img
+										alt="Host avatar"
 										className="offer__avatar user__avatar"
+										height={74}
 										src="img/avatar-angelina.jpg"
 										width={74}
-										height={74}
-										alt="Host avatar"
 									/>
 								</div>
 								<span className="offer__user-name">Angelina</span>
@@ -168,11 +168,11 @@ export const OfferPageEmpty = () => (
 									<div className="reviews__user user">
 										<div className="reviews__avatar-wrapper user__avatar-wrapper">
 											<img
+												alt="Reviews avatar"
 												className="reviews__avatar user__avatar"
+												height={54}
 												src="img/avatar-max.jpg"
 												width={54}
-												height={54}
-												alt="Reviews avatar"
 											/>
 										</div>
 										<span className="reviews__user-name">Max</span>
@@ -210,11 +210,11 @@ export const OfferPageEmpty = () => (
 							<div className="near-places__image-wrapper place-card__image-wrapper">
 								<a href="#">
 									<img
+										alt="Place image"
 										className="place-card__image"
+										height={200}
 										src="img/room.jpg"
 										width={260}
-										height={200}
-										alt="Place image"
 									/>
 								</a>
 							</div>
@@ -230,8 +230,8 @@ export const OfferPageEmpty = () => (
 									>
 										<svg
 											className="place-card__bookmark-icon"
-											width={18}
 											height={19}
+											width={18}
 										>
 											<use xlinkHref="#icon-bookmark" />
 										</svg>
@@ -254,11 +254,11 @@ export const OfferPageEmpty = () => (
 							<div className="near-places__image-wrapper place-card__image-wrapper">
 								<a href="#">
 									<img
+										alt="Place image"
 										className="place-card__image"
+										height={200}
 										src="img/apartment-02.jpg"
 										width={260}
-										height={200}
-										alt="Place image"
 									/>
 								</a>
 							</div>
@@ -274,8 +274,8 @@ export const OfferPageEmpty = () => (
 									>
 										<svg
 											className="place-card__bookmark-icon"
-											width={18}
 											height={19}
+											width={18}
 										>
 											<use xlinkHref="#icon-bookmark" />
 										</svg>
@@ -301,11 +301,11 @@ export const OfferPageEmpty = () => (
 							<div className="near-places__image-wrapper place-card__image-wrapper">
 								<a href="#">
 									<img
+										alt="Place image"
 										className="place-card__image"
+										height={200}
 										src="img/apartment-03.jpg"
 										width={260}
-										height={200}
-										alt="Place image"
 									/>
 								</a>
 							</div>
@@ -321,8 +321,8 @@ export const OfferPageEmpty = () => (
 									>
 										<svg
 											className="place-card__bookmark-icon"
-											width={18}
 											height={19}
+											width={18}
 										>
 											<use xlinkHref="#icon-bookmark" />
 										</svg>
