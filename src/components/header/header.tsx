@@ -1,7 +1,8 @@
 import classNames from 'classnames';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { AppRoute } from '../../constants/routes';
+import { Link } from '../link/Link';
 
 export function Header() {
 	const { pathname } = useLocation();
@@ -14,7 +15,7 @@ export function Header() {
 							className={classNames('header__logo-link', {
 								'header__logo-link--active': pathname === AppRoute.Main,
 							})}
-							to={AppRoute.Main}
+							href={AppRoute.Main}
 						>
 							<img
 								alt="6 cities logo"
@@ -30,7 +31,7 @@ export function Header() {
 							<li className="header__nav-item user">
 								<Link
 									className="header__nav-link header__nav-link--profile"
-									to={AppRoute.Favorites}
+									href={AppRoute.Favorites}
 								>
 									<div className="header__avatar-wrapper user__avatar-wrapper"></div>
 									<span className="header__user-name user__name">
@@ -40,9 +41,9 @@ export function Header() {
 								</Link>
 							</li>
 							<li className="header__nav-item">
-								<a className="header__nav-link" href="#">
+								<Link className="header__nav-link" href={AppRoute.Login}>
 									<span className="header__signout">Sign out</span>
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</nav>
