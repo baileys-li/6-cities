@@ -1,20 +1,17 @@
-import type { ReactNode } from 'react';
-
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 import { AuthorizationStatus } from '../constants';
 import { AppRoute } from '../constants/routes';
 
 interface AccessRouteProps {
-	children: ReactNode;
 	status: AuthorizationStatus;
 }
 
 
 // eslint-disable-next-line react/display-name
-const createAccessRoute = (accessStatus: AuthorizationStatus, navigateRoute: string) => ({children, status}: AccessRouteProps) => {
+const createAccessRoute = (accessStatus: AuthorizationStatus, navigateRoute: string) => ({ status}: AccessRouteProps) => {
 	if (status === accessStatus) {
-		return children;
+		return <Outlet />;
 	}
 
 	return <Navigate to={navigateRoute} />;
