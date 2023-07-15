@@ -5,7 +5,7 @@ export function FavoritesPage() {
 	useDocumentTitle('Favorites');
 	return (
 		<div className="page">
-			<Header />
+			<Header isAuthorized />
 			<main className="page__main page__main--favorites">
 				<div className="page__favorites-container container">
 					<section className="favorites">

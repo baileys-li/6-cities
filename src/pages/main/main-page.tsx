@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import classNames from 'classnames';
 
 import { Header } from '../../components/header/header';
@@ -18,7 +19,7 @@ export function MainPage({ offersAmount = Default.Amount }: MainPageProps) {
 
 	return (
 		<div className="page page--gray page--main">
-			<Header />
+			<Header isAuthorized={faker.datatype.boolean()} />
 			<main className="page__main page__main--index">
 				<h1 className="visually-hidden">Cities</h1>
 				<div className="tabs">

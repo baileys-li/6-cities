@@ -1,27 +1,11 @@
+import { Header } from '../../components/header/header';
 import { useDocumentTitle } from '../../hooks';
 
 export function LoginPage() {
 	useDocumentTitle('Login');
 	return (
 		<div className="page page--gray page--login">
-
-			<header className="header">
-				<div className="container">
-					<div className="header__wrapper">
-						<div className="header__left">
-							<a className="header__logo-link" href="main.html">
-								<img
-									alt="6 cities logo"
-									className="header__logo"
-									height={41}
-									src="img/logo.svg"
-									width={81}
-								/>
-							</a>
-						</div>
-					</div>
-				</div>
-			</header>
+			<Header hideNavigation />
 			<main className="page__main page__main--login">
 				<div className="page__login-container container">
 					<section className="login">
