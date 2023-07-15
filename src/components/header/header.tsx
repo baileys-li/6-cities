@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useLocation } from 'react-router-dom';
 
 import { AppRoute } from '../../constants/routes';
-import { Link } from '../link/Link';
+import { Link } from '../link/link';
 
 export function Header() {
 	const { pathname } = useLocation();

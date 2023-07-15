@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import type { ServerOffer } from '../../types/offer';
 
-import { Link } from '../link/Link';
+import { Link } from '../link/link';
 
 type OfferCardProps = Pick<ServerOffer, 'id' | 'isFavorite' | 'isPremium' | 'previewImage' | 'price' | 'rating' | 'title' | 'type'>
 
