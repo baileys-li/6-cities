@@ -7,6 +7,7 @@ extends:
 - plugin:@typescript-eslint/recommended
 - plugin:react-hooks/recommended
 - htmlacademy/react-typescript
+- plugin:perfectionist/recommended-natural
 parser: "@typescript-eslint/parser"
 parserOptions:
   ecmaVersion: latest
@@ -17,14 +18,20 @@ settings:
     version: detect
 plugins:
 - react-refresh
+- perfectionist
 rules:
   react-refresh/only-export-components: warn
   indent:
     - error
     - tab
     - SwitchCase: 1
+  "@typescript-eslint/consistent-type-exports":
+    - error
+    - fixMixedExportsWithInlineTypeSpecifier: true
+  "@typescript-eslint/consistent-type-imports": error
+
 overrides:
 - files:
   - "*test*"
   rules:
-    "@typescript-eslint/unbound-method": 'off'
+    "@typescript-eslint/unbound-method": off
