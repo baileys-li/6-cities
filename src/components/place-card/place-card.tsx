@@ -11,7 +11,7 @@ export function PlaceCard({
 	price,
 	rating,
 	title,
-	type
+	type,
 }: OfferCardProps) {
 	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
 	const favoriteClass = classNames(

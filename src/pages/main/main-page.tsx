@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import { Helmet } from 'react-helmet-async';
 
 import { Header } from '../../components/header/header';
 import { PlaceCard } from '../../components/place-card/place-card';
 import { CITIES } from '../../constants';
+import { useDocumentTitle } from '../../hooks';
 import { mockOfferItem } from '../../mocks/offer';
 
 const enum Default {
@@ -14,11 +14,10 @@ export type MainPageProps = {
 };
 export function MainPage({ offersAmount = Default.Amount }: MainPageProps) {
 	const offers = Array.from({ length: offersAmount }, mockOfferItem);
+	useDocumentTitle(`${offersAmount} places to stay in Amsterdam`);
+
 	return (
 		<div className="page page--gray page--main">
-			<Helmet>
-				<title>{`6 cities: ${offersAmount} places to stay in Amsterdam`}</title>
-			</Helmet>
 			<Header />
 			<main className="page__main page__main--index">
 				<h1 className="visually-hidden">Cities</h1>

@@ -1,3 +1,5 @@
+export const PROJECT_NAME = '6 cities';
+
 const enum TemporalData {
 	OfferAmount = 4
 }
