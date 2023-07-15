@@ -20,4 +20,10 @@ const CITIES = [
 	'Dusseldorf',
 ] as const;
 
-export { CITIES, OFFER_TYPES, TemporalData };
+const enum AuthorizationStatus {
+	Auth,
+	NoAuth,
+	Unknown,
+}
+
+export { AuthorizationStatus, CITIES, OFFER_TYPES, TemporalData };
