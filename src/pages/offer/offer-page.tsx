@@ -1,5 +1,10 @@
+import { Helmet } from 'react-helmet-async';
+
 export const OfferPage = () => (
 	<div className="page">
+		<Helmet>
+			<title>Favorites | 6 cities</title>
+		</Helmet>
 		<header className="header">
 			<div className="container">
 				<div className="header__wrapper">
