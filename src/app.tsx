@@ -1,7 +1,4 @@
-import {
-	RouterProvider,
-	createBrowserRouter,
-} from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { AppRoute } from './constants/routes';
 import { mockStore } from './mocks';
@@ -12,45 +9,41 @@ import { LoginPage } from './pages/login/login-page';
 import { loader as AllOfferLoader, MainPage } from './pages/main/main-page';
 import { loader as OfferLoader, OfferPage } from './pages/offer/offer-page';
 
-
 const router = createBrowserRouter([
 	{
-		element: <MainPage />,
-		loader: AllOfferLoader,
-		path: AppRoute.Main
-	},
-
-	{
 		children: [
 			{
-				element: <FavoritesPage />,
-				index: true,
+				element: <MainPage />,
+				loader: AllOfferLoader,
+				path: AppRoute.Main,
 			},
-		],
-		element: <PrivateRoute status={mockStore.auth} />,
-		path: AppRoute.Favorites,
-	},
-
-	{
-		children: [
 			{
-				element: <LoginPage />,
-				index: true,
+				children: [
+					{
+						element: <FavoritesPage />,
+						index: true,
+					},
+				],
+				element: <PrivateRoute status={mockStore.auth} />,
+				path: AppRoute.Favorites,
+			},
+			{
+				children: [
+					{
+						element: <LoginPage />,
+						index: true,
+					},
+				],
+				element: <PublicRoute status={mockStore.auth} />,
+				path: AppRoute.Login,
+			},
+			{
+				element: <OfferPage />,
+				loader: OfferLoader,
+				path: AppRoute.Offer,
 			},
 		],
-		element: <PublicRoute status={mockStore.auth} />,
-		path: AppRoute.Login,
-	},
-
-	{
-		element: <OfferPage />,
 		errorElement: <Page404 />,
-		loader: OfferLoader,
-		path: AppRoute.Offer,
-	},
-	{
-		element: <Page404 />,
-		path: '*',
 	},
 ]);
 
