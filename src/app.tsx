@@ -3,8 +3,9 @@ import {
 	createBrowserRouter,
 } from 'react-router-dom';
 
-import { AuthorizationStatus, TemporalData } from './constants';
 import { AppRoute } from './constants/routes';
+import { mockAuthStatus } from './mocks/auth';
+import { mockOffers } from './mocks/offer';
 import { Page404 } from './pages/404';
 import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
 import { FavoritesPage } from './pages/favorites/favorites-page';
@@ -12,11 +13,13 @@ import { LoginPage } from './pages/login/login-page';
 import { MainPage } from './pages/main/main-page';
 import { OfferPage } from './pages/offer/offer-page';
 
-const authorizationStatus = AuthorizationStatus.Auth;
+const authorizationStatus = mockAuthStatus();
+
+const mockedOffers = mockOffers();
 
 const router = createBrowserRouter([
 	{
-		element: <MainPage offersAmount={TemporalData.OfferAmount} />,
+		element: <MainPage offers={mockedOffers} />,
 		path: AppRoute.Main,
 	},
 

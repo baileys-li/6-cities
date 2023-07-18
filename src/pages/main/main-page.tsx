@@ -1,21 +1,33 @@
 import { faker } from '@faker-js/faker';
 import classNames from 'classnames';
+import { useState } from 'react';
+
+import type { ServerOffer } from '../../types/offer';
 
 import { Header } from '../../components/header/header';
 import { PlaceCard } from '../../components/place-card/place-card';
-import { CITIES } from '../../constants';
-import { useDocumentTitle } from '../../hooks';
-import { mockOfferItem } from '../../mocks/offer';
 
-const enum Default {
-	Amount = 0,
-}
+
 export type MainPageProps = {
-	offersAmount?: number;
+	offers: ServerOffer[];
 };
-export function MainPage({ offersAmount = Default.Amount }: MainPageProps) {
-	const offers = Array.from({ length: offersAmount }, mockOfferItem);
-	useDocumentTitle(`${offersAmount} places to stay in Amsterdam`);
+export function MainPage({ offers }: MainPageProps) {
+
+	const offersByCity: Record<string, ServerOffer[]> = {};
+	for (const offer of offers) {
+		const city = offer.city.name;
+		if (city in offersByCity) {
+			offersByCity[city].push(offer);
+			continue;
+		}
+
+		offersByCity[city] = [offer];
+		continue;
+	}
+
+	const cities = Object.keys(offersByCity);
+
+	const [selectedCity, setCity] = useState(cities[0]);
 
 	return (
 		<div className="page page--gray page--main">
@@ -25,17 +37,18 @@ export function MainPage({ offersAmount = Default.Amount }: MainPageProps) {
 				<div className="tabs">
 					<section className="locations container">
 						<ul className="locations__list tabs__list">
-							{CITIES.map((city) => (
+							{Object.keys(offersByCity).map((city) => (
 								<li className="locations__item" key={city}>
 									<a
 										className={classNames(
 											'locations__item-link',
 											{
-												'tabs__item--active': city === 'Amsterdam',
+												'tabs__item--active': city === selectedCity,
 											},
 											'tabs__item'
 										)}
-										href="#"
+										href={`#${city.toLowerCase()}`}
+										onClick={() => setCity(city)}
 									>
 										<span>{city}</span>
 									</a>
@@ -49,7 +62,7 @@ export function MainPage({ offersAmount = Default.Amount }: MainPageProps) {
 						<section className="cities__places places">
 							<h2 className="visually-hidden">Places</h2>
 							<b className="places__found">
-								{offersAmount} places to stay in Amsterdam
+								{offersByCity[selectedCity].length} places to stay in Amsterdam
 							</b>
 							<form action="#" className="places__sorting" method="get">
 								<span className="places__sorting-caption">Sort by</span>
@@ -78,7 +91,7 @@ export function MainPage({ offersAmount = Default.Amount }: MainPageProps) {
 								</ul>
 							</form>
 							<div className="cities__places-list places__list tabs__content">
-								{offers.map((offer) => (
+								{offersByCity[selectedCity].map((offer) => (
 									<PlaceCard {...offer} key={offer.id} />
 								))}
 							</div>
