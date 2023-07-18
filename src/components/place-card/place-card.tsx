@@ -17,10 +17,12 @@ type OfferCardProps = Pick<
 	| 'title'
 	| 'type'
 > & {
+	extraBemBlock?: string;
 	setActive?: Dispatch<SetStateAction<null | string>>;
 };
 
 export function PlaceCard({
+	extraBemBlock,
 	id,
 	isFavorite,
 	isPremium,
@@ -51,14 +53,24 @@ export function PlaceCard({
 	}
 
 	return (
-		<article className="cities__card place-card" onMouseEnter={setActive && handleMouseEnter} onMouseLeave={setActive && onMouseLeave}>
+		<article
+			className={classNames('place-card', {
+				[`${extraBemBlock}__card`]: extraBemBlock,
+			})}
+			onMouseEnter={setActive && handleMouseEnter}
+			onMouseLeave={setActive && onMouseLeave}
+		>
 			{isPremium && (
 				<div className="place-card__mark">
 					<span>Premium</span>
 				</div>
 			)}
 
-			<div className="cities__image-wrapper place-card__image-wrapper">
+			<div
+				className={classNames('place-card__image-wrapper', {
+					[`${extraBemBlock}__image-wrapper`]: extraBemBlock,
+				})}
+			>
 				<Link href={href}>
 					<img
 						alt="Place image"
@@ -69,7 +81,11 @@ export function PlaceCard({
 					/>
 				</Link>
 			</div>
-			<div className="place-card__info">
+			<div
+				className={classNames('place-card__info', {
+					[`${extraBemBlock}__card-info`]: extraBemBlock,
+				})}
+			>
 				<div className="place-card__price-wrapper">
 					<div className="place-card__price">
 						<b className="place-card__price-value">€{price}</b>

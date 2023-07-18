@@ -99,7 +99,7 @@ export function MainPage() {
 							</form>
 							<div className="cities__places-list places__list tabs__content">
 								{offersByCity[selectedCity].map((offer) => (
-									<PlaceCard {...offer} key={offer.id} setActive={setOffer}/>
+									<PlaceCard {...offer} extraBemBlock='cities' key={offer.id} setActive={setOffer}/>
 								))}
 							</div>
 						</section>
