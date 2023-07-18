@@ -10,7 +10,7 @@ import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
 import { FavoritesPage } from './pages/favorites/favorites-page';
 import { LoginPage } from './pages/login/login-page';
 import { loader as AllOfferLoader, MainPage } from './pages/main/main-page';
-import { OfferPage } from './pages/offer/offer-page';
+import { loader as OfferLoader, OfferPage } from './pages/offer/offer-page';
 
 
 const router = createBrowserRouter([
@@ -44,6 +44,8 @@ const router = createBrowserRouter([
 
 	{
 		element: <OfferPage />,
+		errorElement: <Page404 />,
+		loader: OfferLoader,
 		path: AppRoute.Offer,
 	},
 	{

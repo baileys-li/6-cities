@@ -12,13 +12,13 @@ import { mockStore } from '../../mocks';
 
 
 interface LoaderResponse {
-	auth: AuthorizationStatus;
 	cities: string[];
+	isAuthorized: boolean;
 	offersByCity: Record<string, ServerOffer[]>;
 }
 
 export function MainPage() {
-	const {auth, cities, offersByCity} = useLoaderData() as LoaderResponse;
+	const {cities, isAuthorized, offersByCity} = useLoaderData() as LoaderResponse;
 	const [selectedCity, setCity] = useState(cities[0]);
 
 	const {hash} = useLocation();
@@ -35,7 +35,7 @@ export function MainPage() {
 
 	return (
 		<div className="page page--gray page--main">
-			<Header isAuthorized={auth === AuthorizationStatus.Auth} />
+			<Header isAuthorized={isAuthorized} />
 			<main className="page__main page__main--index">
 				<h1 className="visually-hidden">Cities</h1>
 				<div className="tabs">
@@ -128,8 +128,8 @@ export function loader(): LoaderResponse {
 	}
 
 	return {
-		auth,
 		cities: cities.sort(),
+		isAuthorized: auth === AuthorizationStatus.Auth,
 		offersByCity
 	};
 

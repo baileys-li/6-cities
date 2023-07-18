@@ -22,10 +22,23 @@ const CITIES = [
 	'Dusseldorf',
 ] as const;
 
+const GOODS = [
+	'Wi-Fi',
+	'Washing machine',
+	'Towels',
+	'Heating',
+	'Coffee machine',
+	'Baby seat',
+	'Kitchen',
+	'Dishwasher',
+	'Cabel TV',
+	'Fridge',
+];
+
 const enum AuthorizationStatus {
 	Auth,
 	NoAuth,
 	Unknown,
 }
 
-export { AuthorizationStatus, CITIES, OFFER_TYPES, TemporalData };
+export { AuthorizationStatus, CITIES, OFFER_TYPES, GOODS, TemporalData };
