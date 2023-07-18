@@ -6,3 +6,4 @@ export const mockStore = {
 	auth: mockAuthStatus(),
 	offers: Array.from({ length: 50 }, mockAllOfferInfo)
 };
+

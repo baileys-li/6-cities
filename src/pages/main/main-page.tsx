@@ -21,6 +21,10 @@ export function MainPage() {
 	const {cities, isAuthorized, offersByCity} = useLoaderData() as LoaderResponse;
 	const [selectedCity, setCity] = useState(cities[0]);
 
+	const [activeOffer, setOffer] = useState<null | string>(null);
+	// eslint-disable-next-line no-console
+	console.info(activeOffer);
+
 	const {hash} = useLocation();
 	const navigate = useNavigate();
 
@@ -95,7 +99,7 @@ export function MainPage() {
 							</form>
 							<div className="cities__places-list places__list tabs__content">
 								{offersByCity[selectedCity].map((offer) => (
-									<PlaceCard {...offer} key={offer.id} />
+									<PlaceCard {...offer} key={offer.id} setActive={setOffer}/>
 								))}
 							</div>
 						</section>

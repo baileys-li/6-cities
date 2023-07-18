@@ -1,10 +1,25 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 import classNames from 'classnames';
+import { HTMLAttributes } from 'react';
 
 import type { ServerOffer } from '../../types/offer';
 
 import { Link } from '../link/link';
 
-type OfferCardProps = Pick<ServerOffer, 'id' | 'isFavorite' | 'isPremium' | 'previewImage' | 'price' | 'rating' | 'title' | 'type'>
+type OfferCardProps = Pick<
+	ServerOffer,
+	| 'id'
+	| 'isFavorite'
+	| 'isPremium'
+	| 'previewImage'
+	| 'price'
+	| 'rating'
+	| 'title'
+	| 'type'
+> & {
+	setActive?: Dispatch<SetStateAction<null | string>>;
+};
 
 export function PlaceCard({
 	id,
@@ -13,8 +28,9 @@ export function PlaceCard({
 	previewImage,
 	price,
 	rating,
+	setActive,
 	title,
-	type
+	type,
 }: OfferCardProps) {
 	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
 	const favoriteClass = classNames(
@@ -27,8 +43,16 @@ export function PlaceCard({
 
 	const href = `/offer/${id}`;
 
+	function handleMouseEnter() {
+		setActive!(id);
+	}
+
+	function onMouseLeave() {
+		setActive!(null);
+	}
+
 	return (
-		<article className="cities__card place-card">
+		<article className="cities__card place-card" onMouseEnter={setActive && handleMouseEnter} onMouseLeave={setActive && onMouseLeave}>
 			{isPremium && (
 				<div className="place-card__mark">
 					<span>Premium</span>

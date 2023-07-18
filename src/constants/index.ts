@@ -41,4 +41,4 @@ const enum AuthorizationStatus {
 	Unknown,
 }
 
-export { AuthorizationStatus, CITIES, OFFER_TYPES, GOODS, TemporalData };
+export { AuthorizationStatus, CITIES, GOODS, OFFER_TYPES, TemporalData };
