@@ -1,7 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 
 import classNames from 'classnames';
-import { HTMLAttributes } from 'react';
 
 import type { ServerOffer } from '../../types/offer';
 
