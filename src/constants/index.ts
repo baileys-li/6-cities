@@ -1,3 +1,5 @@
+export const PROJECT_NAME = '6 cities';
+
 const enum TemporalData {
 	OfferAmount = 4
 }
@@ -20,4 +22,10 @@ const CITIES = [
 	'Dusseldorf',
 ] as const;
 
-export { CITIES, OFFER_TYPES, TemporalData };
+const enum AuthorizationStatus {
+	Auth,
+	NoAuth,
+	Unknown,
+}
+
+export { AuthorizationStatus, CITIES, OFFER_TYPES, TemporalData };

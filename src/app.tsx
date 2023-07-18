@@ -1,9 +1,46 @@
-import type { MainPageProps } from './pages/main/main-page';
+import {
+	Route,
+	RouterProvider,
+	createBrowserRouter,
+	createRoutesFromElements,
+} from 'react-router-dom';
 
+import { AuthorizationStatus, TemporalData } from './constants';
+import { AppRoute } from './constants/routes';
+import { Page404 } from './pages/404';
+import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
+import { FavoritesPage } from './pages/favorites/favorites-page';
+import { LoginPage } from './pages/login/login-page';
 import { MainPage } from './pages/main/main-page';
+import { OfferPage } from './pages/offer/offer-page';
 
-type AppProps = MainPageProps;
+const authorizationStatus = AuthorizationStatus.Auth;
 
-export function App({offersAmount}: AppProps) {
-	return <MainPage offersAmount={offersAmount}/>;
+const router = createBrowserRouter(
+	createRoutesFromElements(
+		<Route>
+			<Route
+				element={<MainPage offersAmount={TemporalData.OfferAmount} />}
+				path={AppRoute.Main}
+			/>
+			<Route
+				element={<PrivateRoute status={authorizationStatus} />}
+				path={AppRoute.Favorites}
+			>
+				<Route element={<FavoritesPage />} index />
+			</Route>
+			<Route
+				element={<PublicRoute status={authorizationStatus} />}
+				path={AppRoute.Login}
+			>
+				<Route element={<LoginPage />} index />
+			</Route>
+			<Route element={<OfferPage />} path={AppRoute.Offer} />
+			<Route element={<Page404 />} path="*" />
+		</Route>
+	)
+);
+
+export function App() {
+	return <RouterProvider router={router} />;
 }
