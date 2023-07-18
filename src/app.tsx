@@ -4,23 +4,20 @@ import {
 } from 'react-router-dom';
 
 import { AppRoute } from './constants/routes';
-import { mockAuthStatus } from './mocks/auth';
-import { mockOffers } from './mocks/offer';
+import { mockStore } from './mocks';
 import { Page404 } from './pages/404';
 import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
 import { FavoritesPage } from './pages/favorites/favorites-page';
 import { LoginPage } from './pages/login/login-page';
-import { MainPage } from './pages/main/main-page';
+import { loader as AllOfferLoader, MainPage } from './pages/main/main-page';
 import { OfferPage } from './pages/offer/offer-page';
 
-const authorizationStatus = mockAuthStatus();
-
-const mockedOffers = mockOffers();
 
 const router = createBrowserRouter([
 	{
-		element: <MainPage offers={mockedOffers} />,
-		path: AppRoute.Main,
+		element: <MainPage />,
+		loader: AllOfferLoader,
+		path: AppRoute.Main
 	},
 
 	{
@@ -30,7 +27,7 @@ const router = createBrowserRouter([
 				index: true,
 			},
 		],
-		element: <PrivateRoute status={authorizationStatus} />,
+		element: <PrivateRoute status={mockStore.auth} />,
 		path: AppRoute.Favorites,
 	},
 
@@ -41,7 +38,7 @@ const router = createBrowserRouter([
 				index: true,
 			},
 		],
-		element: <PublicRoute status={authorizationStatus} />,
+		element: <PublicRoute status={mockStore.auth} />,
 		path: AppRoute.Login,
 	},
 
