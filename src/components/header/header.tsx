@@ -1,5 +1,4 @@
-import classNames from 'classnames';
-import { useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { AppRoute } from '../../constants/routes';
 import { Link } from '../link/link';
@@ -13,17 +12,17 @@ export function Header({
 	hideNavigation = false,
 	isAuthorized = false,
 }: HeaderProps) {
-	const { pathname } = useLocation();
 	return (
 		<header className="header">
 			<div className="container">
 				<div className="header__wrapper">
 					<div className="header__left">
-						<Link
-							className={classNames('header__logo-link', {
-								'header__logo-link--active': pathname === AppRoute.Main,
-							})}
-							href={AppRoute.Main}
+						<NavLink
+							className={({ isActive }) =>
+								isActive
+									? 'header__logo-link header__logo-link--active'
+									: 'header__logo-link'}
+							to={AppRoute.Main}
 						>
 							<img
 								alt="6 cities logo"
@@ -32,7 +31,7 @@ export function Header({
 								src="img/logo.svg"
 								width={81}
 							/>
-						</Link>
+						</NavLink>
 					</div>
 					{!hideNavigation && (
 						<nav className="header__nav">
