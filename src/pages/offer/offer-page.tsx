@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useLoaderData } from 'react-router-dom';
 
 import type { OfferPageLoaderResponse } from './loader';
@@ -6,6 +7,12 @@ import { Header } from '../../components/header/header';
 import { PlaceCard } from '../../components/place-card/place-card';
 import { useDocumentTitle } from '../../hooks';
 import { ReviewForm } from './review-form';
+
+const dateFormatter = new Intl.DateTimeFormat(
+	'en-US',
+	{month:'long', year:'numeric'}
+);
+
 
 export function OfferPage() {
 	useDocumentTitle('Offer Example');
@@ -129,7 +136,13 @@ export function OfferPage() {
 												green and from 18th century.
 											</p>
 											<time className="reviews__time" dateTime="2019-04-24">
-												April 2019
+												{/* April 2019 */}
+
+												{dayjs(new Date()).format('MMMM YYYY')}
+												{' '}
+												{dateFormatter.format(new Date())}
+												{' '}
+												{new Date().toLocaleDateString('en-US', {month:'long', year:'numeric'})}
 											</time>
 										</div>
 									</li>
