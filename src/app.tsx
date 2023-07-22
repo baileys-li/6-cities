@@ -6,7 +6,7 @@ import { Page404 } from './pages/404';
 import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
 import { loader as FavoritesLoader, FavoritesPage } from './pages/favorites/favorites-page';
 import { LoginPage } from './pages/login/login-page';
-import { loader as AllOfferLoader, MainPage } from './pages/main/main-page';
+import { MainPage, loadMainPageData } from './pages/main';
 import { loader as OfferLoader, OfferPage } from './pages/offer/offer-page';
 
 const router = createBrowserRouter([
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				element: <MainPage />,
-				loader: AllOfferLoader,
+				loader: loadMainPageData,
 				path: AppRoute.Main,
 			},
 			{
