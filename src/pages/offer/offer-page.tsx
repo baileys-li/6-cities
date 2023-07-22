@@ -1,22 +1,16 @@
-import { type LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 
-import type { FullOffer } from '../../types/offer';
+import type { OfferPageLoaderResponse } from './loader';
 
 import { Header } from '../../components/header/header';
-import { AuthorizationStatus } from '../../constants';
 import { useDocumentTitle } from '../../hooks';
-import { mockStore } from '../../mocks';
 import { ReviewForm } from './review-form';
 
-interface LoaderResponse {
-	isAuthorized: boolean;
-	offer: FullOffer;
-}
 
 export function OfferPage() {
 	useDocumentTitle('Offer Example');
 
-	const { isAuthorized, offer } = useLoaderData() as LoaderResponse;
+	const { isAuthorized, offer } = useLoaderData() as OfferPageLoaderResponse;
 
 	return (
 		<div className="page">
@@ -142,7 +136,7 @@ export function OfferPage() {
 										</div>
 									</li>
 								</ul>
-								<ReviewForm />
+								{isAuthorized && <ReviewForm />}
 							</section>
 						</div>
 					</div>
@@ -303,24 +297,3 @@ export function OfferPage() {
 	);
 }
 
-export function loader({
-	params,
-}: LoaderFunctionArgs): LoaderResponse | Response {
-	const id = params.id;
-
-	if (id === undefined) {
-		return new Response('Not found', { status: 404 });
-	}
-	const { auth, offers } = mockStore;
-
-	const offer = offers.find((storeOffer) => storeOffer.id === id);
-
-	if (offer === undefined) {
-		return new Response('Not found', { status: 404 });
-	}
-
-	return {
-		isAuthorized: auth === AuthorizationStatus.Auth,
-		offer,
-	};
-}

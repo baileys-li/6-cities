@@ -4,10 +4,13 @@ import { AppRoute } from './constants/routes';
 import { mockStore } from './mocks';
 import { Page404 } from './pages/404';
 import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
-import { loader as FavoritesLoader, FavoritesPage } from './pages/favorites/favorites-page';
+import {
+	loader as FavoritesLoader,
+	FavoritesPage,
+} from './pages/favorites/favorites-page';
 import { LoginPage } from './pages/login/login-page';
 import { MainPage, loadMainPageData } from './pages/main';
-import { loader as OfferLoader, OfferPage } from './pages/offer/offer-page';
+import { OfferPage, loadOfferPageData } from './pages/offer/';
 
 const router = createBrowserRouter([
 	{
@@ -22,7 +25,7 @@ const router = createBrowserRouter([
 					{
 						element: <FavoritesPage />,
 						index: true,
-						loader: FavoritesLoader
+						loader: FavoritesLoader,
 					},
 				],
 				element: <PrivateRoute status={mockStore.auth} />,
@@ -40,7 +43,7 @@ const router = createBrowserRouter([
 			},
 			{
 				element: <OfferPage />,
-				loader: OfferLoader,
+				loader: loadOfferPageData,
 				path: AppRoute.Offer,
 			},
 		],

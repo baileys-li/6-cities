@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 
-import type { LoaderResponse } from './loader';
+import type { MainLoaderResponse } from './loader';
 
 import { Header } from '../../components/header/header';
 import { Link } from '../../components/link/link';
@@ -11,7 +11,7 @@ import { ListWithMap } from './list-with-map';
 
 export function MainPage() {
 	const { cities, isAuthorized, offersByCity } =
-		useLoaderData() as LoaderResponse;
+		useLoaderData() as MainLoaderResponse;
 	const [selectedCity, setCity] = useState(cities[0]);
 
 	const { hash } = useLocation();

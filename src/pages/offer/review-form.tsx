@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { FormRating } from '../../components/form-rating/form-rating';
 
 export function ReviewForm() {
-	const [rating, setRating] = useState(0);
+	const [, setRating] = useState(0);
 	const [review, setReview] = useState('');
 
 	return (

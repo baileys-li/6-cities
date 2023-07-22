@@ -3,13 +3,13 @@ import type { ServerOffer } from '../../types/offer';
 import { AuthorizationStatus } from '../../constants';
 import { mockStore } from '../../mocks';
 
-export interface LoaderResponse {
+export interface MainLoaderResponse {
 	cities: string[];
 	isAuthorized: boolean;
 	offersByCity: Record<string, ServerOffer[]>;
 }
 
-export function loadMainPageData(): LoaderResponse {
+export function loadMainPageData(): MainLoaderResponse {
 	const { auth, offers } = mockStore;
 	const cities: string[] = [];
 
