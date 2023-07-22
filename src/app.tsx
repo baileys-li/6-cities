@@ -1,45 +1,52 @@
-import {
-	Route,
-	RouterProvider,
-	createBrowserRouter,
-	createRoutesFromElements,
-} from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { AuthorizationStatus, TemporalData } from './constants';
 import { AppRoute } from './constants/routes';
+import { mockStore } from './mocks';
 import { Page404 } from './pages/404';
 import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
-import { FavoritesPage } from './pages/favorites/favorites-page';
+import { FavoritesPage, loadFavoriteData } from './pages/favorites';
 import { LoginPage } from './pages/login/login-page';
-import { MainPage } from './pages/main/main-page';
-import { OfferPage } from './pages/offer/offer-page';
+import { MainPage, loadMainPageData } from './pages/main';
+import { OfferPage, loadOfferPageData } from './pages/offer/';
 
-const authorizationStatus = AuthorizationStatus.Auth;
-
-const router = createBrowserRouter(
-	createRoutesFromElements(
-		<Route>
-			<Route
-				element={<MainPage offersAmount={TemporalData.OfferAmount} />}
-				path={AppRoute.Main}
-			/>
-			<Route
-				element={<PrivateRoute status={authorizationStatus} />}
-				path={AppRoute.Favorites}
-			>
-				<Route element={<FavoritesPage />} index />
-			</Route>
-			<Route
-				element={<PublicRoute status={authorizationStatus} />}
-				path={AppRoute.Login}
-			>
-				<Route element={<LoginPage />} index />
-			</Route>
-			<Route element={<OfferPage />} path={AppRoute.Offer} />
-			<Route element={<Page404 />} path="*" />
-		</Route>
-	)
-);
+const router = createBrowserRouter([
+	{
+		children: [
+			{
+				element: <MainPage />,
+				loader: loadMainPageData,
+				path: AppRoute.Main,
+			},
+			{
+				children: [
+					{
+						element: <FavoritesPage />,
+						index: true,
+						loader: loadFavoriteData,
+					},
+				],
+				element: <PrivateRoute status={mockStore.auth} />,
+				path: AppRoute.Favorites,
+			},
+			{
+				children: [
+					{
+						element: <LoginPage />,
+						index: true,
+					},
+				],
+				element: <PublicRoute status={mockStore.auth} />,
+				path: AppRoute.Login,
+			},
+			{
+				element: <OfferPage />,
+				loader: loadOfferPageData,
+				path: AppRoute.Offer,
+			},
+		],
+		errorElement: <Page404 />,
+	},
+]);
 
 export function App() {
 	return <RouterProvider router={router} />;
