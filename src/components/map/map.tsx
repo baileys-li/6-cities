@@ -9,9 +9,9 @@ import useMap from '../../hooks/map';
 import { activeIcon, defaultIcon } from './icons';
 
 interface MapProps {
-  activeId: null | string;
+	activeId: null | string;
 	className?: string;
-  location: ServerLocation;
+	location: ServerLocation;
 	offers: ServerOffer[];
 }
 

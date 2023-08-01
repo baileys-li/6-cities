@@ -53,7 +53,6 @@ export function ListWithMap({offers}: ListWithMapProps) {
 					))}
 				</div>
 			</section>
-			{/*  */}
 			<div className="cities__right-section">
 				<Map activeId={activeOffer} className='cities__map' location={offers[0].location} offers={offers} />
 			</div>
