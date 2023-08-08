@@ -5,23 +5,23 @@ import { Navigate, useParams } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { Link } from '../../components/link/link';
 import { AuthorizationStatus, CITIES } from '../../constants';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useActionCreators, useAppSelector } from '../../hooks';
 import { mockStore } from '../../mocks';
-import { getAllOffers } from '../../store/slices/offers';
+import { offersActions } from '../../store/slices/offers';
 import { EmptySection } from './empty-section';
 import { ListWithMap } from './list-with-map';
 
 export function MainPage() {
 	const { city } = useParams();
-	const dispatch = useAppDispatch();
+	const actions = useActionCreators(offersActions);
 	const offers = useAppSelector((state) => state.offers.items);
 	const status = useAppSelector((state) => state.offers.status);
 
 	useEffect(() => {
 		if (status === 'idle') {
-			dispatch(getAllOffers());
+			actions.getAllOffers();
 		}
-	}, [status, dispatch]);
+	}, [status, actions]);
 
 	if (city === undefined) {
 		return <Navigate to={`/${CITIES[0].id}`} />;
