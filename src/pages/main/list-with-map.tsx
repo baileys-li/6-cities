@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import type { ServerOffer } from '../../types/offer';
 
+import {Map} from '../../components/map/map';
 import { PlaceCard } from '../../components/place-card/place-card';
 
 interface ListWithMapProps {
@@ -10,8 +11,6 @@ interface ListWithMapProps {
 
 export function ListWithMap({offers}: ListWithMapProps) {
 	const [activeOffer, setOffer] = useState<null | string>(null);
-	// eslint-disable-next-line no-console
-	console.info(activeOffer);
 
 	return (
 		<div className="cities__places-container container">
@@ -55,7 +54,7 @@ export function ListWithMap({offers}: ListWithMapProps) {
 				</div>
 			</section>
 			<div className="cities__right-section">
-				<section className="cities__map map" />
+				<Map activeId={activeOffer} className='cities__map' location={offers[0].location} offers={offers} />
 			</div>
 		</div>
 	);

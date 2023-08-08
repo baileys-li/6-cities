@@ -18,9 +18,14 @@ export function MainPage() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		const hashedCity = selectedCity.toLowerCase();
 		if (hash.length === 0) {
-			return navigate(`#${selectedCity.toLowerCase()}`);
+			return navigate(`#${hashedCity}`);
 		}
+		if (hashedCity === hash) {
+			return;
+		}
+
 		const cityLowerCase = hash.slice(1);
 		setCity(cityLowerCase[0].toUpperCase() + cityLowerCase.slice(1));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
