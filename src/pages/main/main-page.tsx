@@ -1,17 +1,27 @@
 import classNames from 'classnames';
+import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
 import { Header } from '../../components/header/header';
 import { Link } from '../../components/link/link';
 import { AuthorizationStatus, CITIES } from '../../constants';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { mockStore } from '../../mocks';
+import { getAllOffers } from '../../store/slices/offers';
 import { EmptySection } from './empty-section';
 import { ListWithMap } from './list-with-map';
 
 export function MainPage() {
 	const { city } = useParams();
+	const dispatch = useAppDispatch();
 	const offers = useAppSelector((state) => state.offers.items);
+	const status = useAppSelector((state) => state.offers.status);
+
+	useEffect(() => {
+		if (status === 'idle') {
+			dispatch(getAllOffers());
+		}
+	}, [status, dispatch]);
 
 	if (city === undefined) {
 		return <Navigate to={`/${CITIES[0].id}`} />;

@@ -41,4 +41,9 @@ const enum AuthorizationStatus {
 	Unknown,
 }
 
-export { AuthorizationStatus, CITIES, GOODS, OFFER_TYPES, TemporalData };
+const enum Endpoint {
+	Login = '/login',
+	Offers = '/offers'
+}
+
+export { AuthorizationStatus, CITIES, Endpoint, GOODS, OFFER_TYPES, TemporalData };
