@@ -13,7 +13,7 @@ const mockLocation = (): ServerLocation => ({
 export const mockOfferItem = (): ServerOffer => ({
 	city: {
 		location: mockLocation(),
-		name: faker.helpers.arrayElement(CITIES),
+		name: faker.helpers.arrayElement(CITIES).name,
 	},
 	id: crypto.randomUUID(),
 	isFavorite: faker.datatype.boolean(),

@@ -6,15 +6,20 @@ import { Page404 } from './pages/404';
 import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
 import { FavoritesPage, loadFavoriteData } from './pages/favorites';
 import { LoginPage } from './pages/login/login-page';
-import { MainPage, loadMainPageData } from './pages/main';
+import { MainPage } from './pages/main';
 import { OfferPage, loadOfferPageData } from './pages/offer/';
 
 const router = createBrowserRouter([
 	{
 		children: [
 			{
+				children: [
+					{
+						element: <MainPage />,
+						path: AppRoute.City,
+					},
+				],
 				element: <MainPage />,
-				loader: loadMainPageData,
 				path: AppRoute.Main,
 			},
 			{
