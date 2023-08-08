@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import {Marker, layerGroup} from 'leaflet';
+import { Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {useEffect, useRef} from 'react';
+import { useEffect, useRef } from 'react';
 
 import type { ServerLocation, ServerOffer } from '../../types/offer';
 
@@ -9,15 +9,18 @@ import useMap from '../../hooks/map';
 import { activeIcon, defaultIcon } from './icons';
 
 interface MapProps {
-	activeId: null | string;
+	activeId?: null | string;
 	className?: string;
 	location: ServerLocation;
 	offers: ServerOffer[];
 }
 
-
-export function Map({activeId, className, location, offers}: MapProps): JSX.Element {
-
+export function Map({
+	activeId = null,
+	className,
+	location,
+	offers,
+}: MapProps): JSX.Element {
 	const mapRef = useRef(null);
 	const map = useMap(mapRef, location);
 
@@ -27,15 +30,11 @@ export function Map({activeId, className, location, offers}: MapProps): JSX.Elem
 			offers.forEach((offer) => {
 				const marker = new Marker({
 					lat: offer.location.latitude,
-					lng: offer.location.longitude
+					lng: offer.location.longitude,
 				});
 
 				marker
-					.setIcon(
-						activeId === offer.id
-							? activeIcon
-							: defaultIcon
-					)
+					.setIcon(activeId === offer.id ? activeIcon : defaultIcon)
 					.addTo(markerLayer);
 			});
 
@@ -47,4 +46,3 @@ export function Map({activeId, className, location, offers}: MapProps): JSX.Elem
 
 	return <div className={classNames(className, 'map')} ref={mapRef}></div>;
 }
-
