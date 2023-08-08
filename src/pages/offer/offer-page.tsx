@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom';
+import { Navigate, useLoaderData } from 'react-router-dom';
 
 import type { OfferPageLoaderResponse } from './loader';
 
@@ -9,8 +9,7 @@ import { PlaceCard } from '../../components/place-card/place-card';
 import { PremiumMark } from '../../components/premium-mark/premium-mark';
 import { Price } from '../../components/price/price';
 import { Rating } from '../../components/rating/rating';
-import { useDocumentTitle } from '../../hooks';
-import { mockOfferItem } from '../../mocks/offer';
+import { useAppSelector, useDocumentTitle } from '../../hooks';
 import { Features } from './features';
 import { Gallery } from './gallery';
 import { Goods } from './goods';
@@ -25,7 +24,19 @@ const enum Default {
 export function OfferPage() {
 	useDocumentTitle('Offer Example');
 
-	const { isAuthorized, offer } = useLoaderData() as OfferPageLoaderResponse;
+	const { isAuthorized } = useLoaderData() as OfferPageLoaderResponse;
+
+	const offer = useAppSelector((state) => state.offer.info);
+	const status = useAppSelector((state) => state.offer.status);
+	const nearbyOffers = useAppSelector((state) => state.offer.nearby);
+
+	if (status === 'loading') {
+		return <div>Loading...</div>;
+	}
+
+	if (status === 'failed') {
+		return <Navigate to='/404' />;
+	}
 
 	const {
 		bedrooms,
@@ -35,13 +46,13 @@ export function OfferPage() {
 		images,
 		isFavorite,
 		isPremium,
+		location,
 		maxAdults,
+		price,
 		rating,
 		title,
 		type,
-	} = offer;
-
-	const nearbyOffers = Array.from({ length: 3 }, mockOfferItem);
+	} = offer!;
 
 	return (
 		<div className="page">
@@ -62,7 +73,7 @@ export function OfferPage() {
 							</div>
 							<Rating bemBlock="offer" rating={rating} showValue />
 							<Features bedrooms={bedrooms} maxAdults={maxAdults} type={type} />
-							<Price bemBlock="offer" price={offer.price} />
+							<Price bemBlock="offer" price={price} />
 							<Goods goods={goods} />
 							<Host description={description} host={host} />
 							<section className="offer__reviews reviews">
@@ -89,7 +100,7 @@ export function OfferPage() {
 					</div>
 					<Map
 						className="offer__map"
-						location={nearbyOffers[0].location}
+						location={location}
 						offers={nearbyOffers}
 					/>
 				</section>

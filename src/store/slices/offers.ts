@@ -1,10 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import type { ServerOffer } from '../../types/offer';
-import type { ThunkApi } from '../../types/store';
 
-import { Endpoint } from '../../constants';
-import { mockAllOfferInfo } from '../../mocks/offer';
+import { getAllOffers } from '../thunks/offers';
 
 interface OffersSlice {
 	items: ServerOffer[];
@@ -12,17 +10,9 @@ interface OffersSlice {
 }
 
 const initialState: OffersSlice = {
-	items: Array.from({ length: 50 }, mockAllOfferInfo),
+	items: [],
 	status: 'idle',
 };
-
-export const getAllOffers = createAsyncThunk<ServerOffer[], undefined, ThunkApi>(
-	'offers/getAll',
-	async (_arg, { extra: api }) => {
-		const response = await api.get<ServerOffer[]>(Endpoint.Offers);
-		return response.data;
-	}
-);
 
 export const offersSlice = createSlice({
 	extraReducers: (builder) => {
