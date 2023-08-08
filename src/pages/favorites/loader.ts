@@ -1,15 +1,14 @@
 import type { ServerOffer } from '../../types/offer';
 
-import { mockStore } from '../../mocks';
+import { store } from '../../store';
 
 export interface FavoritePageLoaderResponse {
 	cities: string[];
 	offersByCity: Record<string, ServerOffer[]>;
 }
 
-
 export function loadFavoriteData(): FavoritePageLoaderResponse {
-	const { offers } = mockStore;
+	const offers = store.getState().offers.items;
 
 	const cities: string[] = [];
 

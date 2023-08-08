@@ -1,38 +1,31 @@
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
-import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
-
-import type { MainLoaderResponse } from './loader';
+import { Navigate, useParams } from 'react-router-dom';
 
 import { Header } from '../../components/header/header';
 import { Link } from '../../components/link/link';
+import { AuthorizationStatus, CITIES } from '../../constants';
+import { useAppSelector } from '../../hooks';
+import { mockStore } from '../../mocks';
 import { EmptySection } from './empty-section';
 import { ListWithMap } from './list-with-map';
 
 export function MainPage() {
-	const { cities, isAuthorized, offersByCity } =
-		useLoaderData() as MainLoaderResponse;
-	const [selectedCity, setCity] = useState(cities[0]);
+	const { city } = useParams();
+	const offers = useAppSelector((state) => state.offers.items);
 
-	const { hash } = useLocation();
-	const navigate = useNavigate();
+	if (city === undefined) {
+		return <Navigate to={`/${CITIES[0].id}`} />;
+	}
 
-	useEffect(() => {
-		const hashedCity = selectedCity.toLowerCase();
-		if (hash.length === 0) {
-			return navigate(`#${hashedCity}`);
-		}
-		if (hashedCity === hash) {
-			return;
-		}
+	const cityInfo = CITIES.find(({ id }) => id === city);
 
-		const cityLowerCase = hash.slice(1);
-		setCity(cityLowerCase[0].toUpperCase() + cityLowerCase.slice(1));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [hash]);
+	if (cityInfo === undefined) {
+		return <Navigate to="/404" />;
+	}
 
-	const currentOffers = offersByCity[selectedCity];
-	const hasOffers = currentOffers.length > 0;
+	const { auth } = mockStore;
+	const filteredOffers = offers.filter(({ city: { name } }) => name === cityInfo.name);
+	const hasOffers = filteredOffers.length > 0;
 
 	return (
 		<div
@@ -40,25 +33,25 @@ export function MainPage() {
 				'page__main--index-empty': !hasOffers,
 			})}
 		>
-			<Header isAuthorized={isAuthorized} />
+			<Header isAuthorized={auth === AuthorizationStatus.Auth} />
 			<main className="page__main page__main--index">
 				<h1 className="visually-hidden">Cities</h1>
 				<div className="tabs">
 					<section className="locations container">
 						<ul className="locations__list tabs__list">
-							{cities.map((city) => (
-								<li className="locations__item" key={city}>
+							{CITIES.map(({ id, name }) => (
+								<li className="locations__item" key={id}>
 									<Link
 										className={classNames(
 											'locations__item-link',
 											{
-												'tabs__item--active': city === selectedCity,
+												'tabs__item--active': id === city,
 											},
 											'tabs__item'
 										)}
-										href={`#${city.toLowerCase()}`}
+										href={`/${id}`}
 									>
-										<span>{city}</span>
+										<span>{name}</span>
 									</Link>
 								</li>
 							))}
@@ -67,7 +60,7 @@ export function MainPage() {
 				</div>
 				<div className="cities">
 					{hasOffers ? (
-						<ListWithMap offers={currentOffers} />
+						<ListWithMap offers={filteredOffers} />
 					) : (
 						<EmptySection />
 					)}

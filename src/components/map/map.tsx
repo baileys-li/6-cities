@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 
 import type { ServerLocation, ServerOffer } from '../../types/offer';
 
-import useMap from '../../hooks/map';
+import { useMap } from '../../hooks';
 import { activeIcon, defaultIcon } from './icons';
 
 interface MapProps {
