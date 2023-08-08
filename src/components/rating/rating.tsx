@@ -1,5 +1,5 @@
 interface RatingProps {
-	bemBlock: 'offer' | 'place-card';
+	bemBlock: 'offer' | 'place-card' | 'reviews';
 	rating: number;
 	showValue?: boolean;
 }

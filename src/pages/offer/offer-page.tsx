@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { useLoaderData } from 'react-router-dom';
 
 import type { OfferPageLoaderResponse } from './loader';
@@ -14,12 +13,8 @@ import { Features } from './features';
 import { Gallery } from './gallery';
 import { Goods } from './goods';
 import { Host } from './host';
+import { ReviewItem } from './review';
 import { ReviewForm } from './review-form';
-
-const dateFormatter = new Intl.DateTimeFormat('en-US', {
-	month: 'long',
-	year: 'numeric',
-});
 
 const enum Default {
 	MaxGallery = 6,
@@ -62,42 +57,18 @@ export function OfferPage() {
 									Reviews · <span className="reviews__amount">1</span>
 								</h2>
 								<ul className="reviews__list">
-									<li className="reviews__item">
-										<div className="reviews__user user">
-											<div className="reviews__avatar-wrapper user__avatar-wrapper">
-												<img
-													alt="Reviews avatar"
-													className="reviews__avatar user__avatar"
-													height={54}
-													src="img/avatar-max.jpg"
-													width={54}
-												/>
-											</div>
-											<span className="reviews__user-name">Max</span>
-										</div>
-										<div className="reviews__info">
-											<div className="reviews__rating rating">
-												<div className="reviews__stars rating__stars">
-													<span style={{ width: '80%' }} />
-													<span className="visually-hidden">Rating</span>
-												</div>
-											</div>
-											<p className="reviews__text">
-												A quiet cozy and picturesque that hides behind a a river
-												by the unique lightness of Amsterdam. The building is
-												green and from 18th century.
-											</p>
-											<time className="reviews__time" dateTime="2019-04-24">
-												{/* April 2019 */}
-												{dayjs(new Date()).format('MMMM YYYY')}{' '}
-												{dateFormatter.format(new Date())}{' '}
-												{new Date().toLocaleDateString('en-US', {
-													month: 'long',
-													year: 'numeric',
-												})}
-											</time>
-										</div>
-									</li>
+									<ReviewItem
+										comment='A quiet cozy and picturesque that hides behind a a river
+										by the unique lightness of Amsterdam. The building is
+										green and from 18th century.'
+										user={{
+											avatarUrl: 'img/avatar-max.jpg',
+											isPro: false,
+											name: 'Max'
+										}}
+										date='2019-04-24'
+										rating={4}
+									/>
 								</ul>
 								{isAuthorized && <ReviewForm />}
 							</section>
