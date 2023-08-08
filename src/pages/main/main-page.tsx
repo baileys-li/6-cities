@@ -18,7 +18,7 @@ export function MainPage() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const hashedCity = selectedCity.toLowerCase()
+		const hashedCity = selectedCity.toLowerCase();
 		if (hash.length === 0) {
 			return navigate(`#${hashedCity}`);
 		}

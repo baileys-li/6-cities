@@ -6,14 +6,14 @@ const enum Source {
 }
 
 const defaultIcon = new Icon({
-	iconAnchor: [20, 40],
-	iconSize: [40, 40],
+	iconAnchor: [13.5, 39],
+	iconSize: [27, 39],
 	iconUrl: Source.Default,
 });
 
 const activeIcon = new Icon({
-	iconAnchor: [20, 40],
-	iconSize: [40, 40],
+	iconAnchor: [13.5, 39],
+	iconSize: [27, 39],
 	iconUrl: Source.Active,
 });
 
