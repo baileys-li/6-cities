@@ -4,12 +4,14 @@ import { Navigate, useParams } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { Link } from '../../components/link/link';
 import { AuthorizationStatus, CITIES } from '../../constants';
+import { useAppSelector } from '../../hooks';
 import { mockStore } from '../../mocks';
 import { EmptySection } from './empty-section';
 import { ListWithMap } from './list-with-map';
 
 export function MainPage() {
 	const { city } = useParams();
+	const offers = useAppSelector((state) => state.offers.items);
 
 	if (city === undefined) {
 		return <Navigate to={`/${CITIES[0].id}`} />;
@@ -21,7 +23,7 @@ export function MainPage() {
 		return <Navigate to="/404" />;
 	}
 
-	const { auth, offers } = mockStore;
+	const { auth } = mockStore;
 	const filteredOffers = offers.filter(({ city: { name } }) => name === cityInfo.name);
 	const hasOffers = filteredOffers.length > 0;
 

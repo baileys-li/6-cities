@@ -4,6 +4,8 @@ import type { FullOffer } from '../../types/offer';
 
 import { AuthorizationStatus } from '../../constants';
 import { mockStore } from '../../mocks';
+import { mockAllOfferInfo } from '../../mocks/offer';
+import { store } from '../../store';
 
 export interface OfferPageLoaderResponse {
 	isAuthorized: boolean;
@@ -18,7 +20,8 @@ export function loadOfferPageData({
 	if (id === undefined) {
 		return new Response('Not found', { status: 404 });
 	}
-	const { auth, offers } = mockStore;
+	const { auth } = mockStore;
+	const offers = store.getState().offers.items;
 
 	const offer = offers.find((storeOffer) => storeOffer.id === id);
 
@@ -28,6 +31,6 @@ export function loadOfferPageData({
 
 	return {
 		isAuthorized: auth === AuthorizationStatus.Auth,
-		offer,
+		offer: { ...mockAllOfferInfo(), ...offer },
 	};
 }
