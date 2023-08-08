@@ -4,7 +4,11 @@ import classNames from 'classnames';
 
 import type { ServerOffer } from '../../types/offer';
 
+import { FavoriteButton } from '../favorite-button/favorite-button';
 import { Link } from '../link/link';
+import { PremiumMark } from '../premium-mark/premium-mark';
+import { Price } from '../price/price';
+import { Rating } from '../rating/rating';
 
 type OfferCardProps = Pick<
 	ServerOffer,
@@ -33,15 +37,6 @@ export function PlaceCard({
 	title,
 	type,
 }: OfferCardProps) {
-	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
-	const favoriteClass = classNames(
-		'place-card__bookmark-button',
-		{
-			'place-card__bookmark-button--active': isFavorite,
-		},
-		'button'
-	);
-
 	const href = `/offer/${id}`;
 
 	function handleMouseEnter() {
@@ -60,12 +55,7 @@ export function PlaceCard({
 			onMouseEnter={setActive && handleMouseEnter}
 			onMouseLeave={setActive && onMouseLeave}
 		>
-			{isPremium && (
-				<div className="place-card__mark">
-					<span>Premium</span>
-				</div>
-			)}
-
+			{isPremium && <PremiumMark bemBlock='place-card' />}
 			<div
 				className={classNames('place-card__image-wrapper', {
 					[`${extraBemBlock}__image-wrapper`]: extraBemBlock,
@@ -87,23 +77,10 @@ export function PlaceCard({
 				})}
 			>
 				<div className="place-card__price-wrapper">
-					<div className="place-card__price">
-						<b className="place-card__price-value">€{price}</b>
-						<span className="place-card__price-text">/&nbsp;night</span>
-					</div>
-					<button className={favoriteClass} type="button">
-						<svg className="place-card__bookmark-icon" height={19} width={18}>
-							<use xlinkHref="#icon-bookmark" />
-						</svg>
-						<span className="visually-hidden">{favoriteLabel}</span>
-					</button>
+					<Price bemBlock="place-card" price={price} showSlash />
+					<FavoriteButton isFavorite={isFavorite} />
 				</div>
-				<div className="place-card__rating rating">
-					<div className="place-card__stars rating__stars">
-						<span style={{ width: `${rating * 20}%` }} />
-						<span className="visually-hidden">Rating</span>
-					</div>
-				</div>
+				<Rating bemBlock="place-card" rating={rating} />
 				<h2 className="place-card__name">
 					<Link href={href}>{title}</Link>
 				</h2>
