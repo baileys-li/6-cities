@@ -32,6 +32,7 @@ export function MainPage() {
 			className={clsx('page page--gray page--main', {
 				'page__main--index-empty': !hasOffers,
 			})}
+			title={cityInfo.name}
 		>
 			<main className="page__main page__main--index">
 				<h1 className="visually-hidden">Cities</h1>

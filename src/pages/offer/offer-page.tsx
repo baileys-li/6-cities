@@ -39,6 +39,7 @@ export function OfferPage() {
 		description,
 		goods,
 		host,
+		id,
 		images,
 		isFavorite,
 		isPremium,
@@ -63,6 +64,7 @@ export function OfferPage() {
 								<FavoriteButton
 									bemBlock="offer"
 									isFavorite={isFavorite}
+									offerId={id}
 									width={31}
 								/>
 							</div>

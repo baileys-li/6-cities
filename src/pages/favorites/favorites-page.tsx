@@ -1,15 +1,30 @@
 import { clsx } from 'clsx';
-import { useLoaderData } from 'react-router-dom';
 
-import type { FavoritePageLoaderResponse } from './loader';
+import type { ServerOffer } from '../../types/offer';
 
 import { Layout } from '../../components/layout';
+import { useAppSelector } from '../../hooks';
 import { FavoritesEmpty } from './empty';
 import { FavoritesList } from './list';
 
 export function FavoritesPage() {
-	const { cities, offersByCity } =
-		useLoaderData() as FavoritePageLoaderResponse;
+	const favorites = useAppSelector((state) => state.favorites.items);
+
+	const cities: string[] = [];
+
+	const offersByCity: Record<string, ServerOffer[]> = {};
+
+	for (const offer of favorites) {
+		const city = offer.city.name;
+		if (city in offersByCity) {
+			offersByCity[city].push(offer);
+			continue;
+		}
+
+		cities.push(city);
+		offersByCity[city] = [offer];
+		continue;
+	}
 
 	const hasFavorites = cities.length > 0;
 

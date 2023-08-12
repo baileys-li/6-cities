@@ -78,7 +78,7 @@ export function PlaceCard({
 			>
 				<div className="place-card__price-wrapper">
 					<Price bemBlock="place-card" price={price} showSlash />
-					<FavoriteButton isFavorite={isFavorite} />
+					<FavoriteButton isFavorite={isFavorite} offerId={id} />
 				</div>
 				<Rating bemBlock="place-card" rating={rating} />
 				<h2 className="place-card__name">
