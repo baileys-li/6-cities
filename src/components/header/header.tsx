@@ -1,17 +1,25 @@
+import type { MouseEvent } from 'react';
+
 import { NavLink } from 'react-router-dom';
 
 import { AppRoute } from '../../constants/routes';
+import { useActionCreators, useAppSelector, useAuth } from '../../hooks';
+import { userActions } from '../../store/slices/user';
 import { Link } from '../link/link';
 
 interface HeaderProps {
 	hideNavigation?: boolean;
-	isAuthorized?: boolean;
 }
 
-export function Header({
-	hideNavigation = false,
-	isAuthorized = false,
-}: HeaderProps) {
+export function Header({ hideNavigation = false }: HeaderProps) {
+	const user = useAppSelector((state) => state.user.info);
+	const isAuthorized = useAuth();
+	const { logout } = useActionCreators(userActions);
+
+	const handleLogout = (event: MouseEvent<HTMLAnchorElement>) => {
+		event.preventDefault();
+		logout();
+	};
 	return (
 		<header className="header">
 			<div className="container">
@@ -42,17 +50,28 @@ export function Header({
 											className="header__nav-link header__nav-link--profile"
 											href={AppRoute.Favorites}
 										>
-											<div className="header__avatar-wrapper user__avatar-wrapper"></div>
+											<div
+												style={{
+													backgroundImage: `url(${user!.avatarUrl})`,
+													borderRadius: '50%',
+												}}
+												className="header__avatar-wrapper user__avatar-wrapper"
+											>
+											</div>
 											<span className="header__user-name user__name">
-												Oliver.conner@gmail.com
+												{user!.email}
 											</span>
 											<span className="header__favorite-count">3</span>
 										</Link>
 									</li>
 									<li className="header__nav-item">
-										<Link className="header__nav-link" href={AppRoute.Login}>
+										<a
+											className="header__nav-link"
+											href="#"
+											onClick={handleLogout}
+										>
 											<span className="header__signout">Sign out</span>
-										</Link>
+										</a>
 									</li>
 								</ul>
 							) : (

@@ -1,7 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { AppRoute } from './constants/routes';
-import { mockStore } from './mocks';
 import { Page404 } from './pages/404';
 import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
 import { FavoritesPage, loadFavoriteData } from './pages/favorites';
@@ -31,7 +30,7 @@ const router = createBrowserRouter([
 						loader: loadFavoriteData,
 					},
 				],
-				element: <PrivateRoute status={mockStore.auth} />,
+				element: <PrivateRoute />,
 				path: AppRoute.Favorites,
 			},
 			{
@@ -41,7 +40,7 @@ const router = createBrowserRouter([
 						index: true,
 					},
 				],
-				element: <PublicRoute status={mockStore.auth} />,
+				element: <PublicRoute />,
 				path: AppRoute.Login,
 			},
 			{

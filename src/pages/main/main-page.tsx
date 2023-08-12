@@ -3,9 +3,8 @@ import { Navigate, useParams } from 'react-router-dom';
 
 import { Header } from '../../components/header/header';
 import { Link } from '../../components/link/link';
-import { AuthorizationStatus, CITIES } from '../../constants';
+import { CITIES } from '../../constants';
 import { useAppSelector } from '../../hooks';
-import { mockStore } from '../../mocks';
 import { EmptySection } from './empty-section';
 import { ListWithMap } from './list-with-map';
 
@@ -23,7 +22,6 @@ export function MainPage() {
 		return <Navigate to="/404" />;
 	}
 
-	const { auth } = mockStore;
 	const filteredOffers = offers.filter(({ city: { name } }) => name === cityInfo.name);
 	const hasOffers = filteredOffers.length > 0;
 
@@ -33,7 +31,7 @@ export function MainPage() {
 				'page__main--index-empty': !hasOffers,
 			})}
 		>
-			<Header isAuthorized={auth === AuthorizationStatus.Auth} />
+			<Header />
 			<main className="page__main page__main--index">
 				<h1 className="visually-hidden">Cities</h1>
 				<div className="tabs">

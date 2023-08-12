@@ -43,6 +43,7 @@ const enum AuthorizationStatus {
 
 const enum Endpoint {
 	Login = '/login',
+	Logout = '/logout',
 	Offers = '/offers'
 }
 

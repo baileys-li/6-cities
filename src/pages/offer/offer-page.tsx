@@ -1,6 +1,4 @@
-import { Navigate, useLoaderData } from 'react-router-dom';
-
-import type { OfferPageLoaderResponse } from './loader';
+import { Navigate} from 'react-router-dom';
 
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
 import { Header } from '../../components/header/header';
@@ -10,7 +8,7 @@ import { PremiumMark } from '../../components/premium-mark/premium-mark';
 import { Price } from '../../components/price/price';
 import { Rating } from '../../components/rating/rating';
 import { RequestStatus } from '../../constants';
-import { useAppSelector, useDocumentTitle } from '../../hooks';
+import { useAppSelector, useAuth, useDocumentTitle } from '../../hooks';
 import { Features } from './features';
 import { Gallery } from './gallery';
 import { Goods } from './goods';
@@ -25,11 +23,10 @@ const enum Default {
 export function OfferPage() {
 	useDocumentTitle('Offer Example');
 
-	const { isAuthorized } = useLoaderData() as OfferPageLoaderResponse;
-
 	const offer = useAppSelector((state) => state.offer.info);
 	const status = useAppSelector((state) => state.offer.status);
 	const nearbyOffers = useAppSelector((state) => state.offer.nearby);
+	const isAuthorized = useAuth();
 
 	if (status === RequestStatus.Loading) {
 		return <div>Loading...</div>;
@@ -57,7 +54,7 @@ export function OfferPage() {
 
 	return (
 		<div className="page">
-			<Header isAuthorized={isAuthorized} />
+			<Header />
 			<main className="page__main page__main--offer">
 				<section className="offer">
 					<Gallery images={images.slice(0, Default.MaxGallery)} title={title} />

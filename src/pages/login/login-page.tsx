@@ -1,8 +1,10 @@
 import { Header } from '../../components/header/header';
 import { useDocumentTitle } from '../../hooks';
+import { LoginForm } from './form';
 
 export function LoginPage() {
 	useDocumentTitle('Login');
+
 	return (
 		<div className="page page--gray page--login">
 			<Header hideNavigation />
@@ -10,31 +12,7 @@ export function LoginPage() {
 				<div className="page__login-container container">
 					<section className="login">
 						<h1 className="login__title">Sign in</h1>
-						<form action="#" className="login__form form" method="post">
-							<div className="login__input-wrapper form__input-wrapper">
-								<label className="visually-hidden">E-mail</label>
-								<input
-									className="login__input form__input"
-									name="email"
-									placeholder="Email"
-									required
-									type="email"
-								/>
-							</div>
-							<div className="login__input-wrapper form__input-wrapper">
-								<label className="visually-hidden">Password</label>
-								<input
-									className="login__input form__input"
-									name="password"
-									placeholder="Password"
-									required
-									type="password"
-								/>
-							</div>
-							<button className="login__submit form__submit button" type="submit">
-							Sign in
-							</button>
-						</form>
+						<LoginForm />
 					</section>
 					<section className="locations locations--login locations--current">
 						<div className="locations__item">
