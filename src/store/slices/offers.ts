@@ -2,29 +2,30 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { ServerOffer } from '../../types/offer';
 
+import { RequestStatus } from '../../constants';
 import { getAllOffers } from '../thunks/offers';
 
 interface OffersSlice {
 	items: ServerOffer[];
-	status: 'failed' | 'idle' | 'loading' | 'succeeded';
+	status: RequestStatus;
 }
 
 const initialState: OffersSlice = {
 	items: [],
-	status: 'idle',
+	status: RequestStatus.Idle,
 };
 
 export const offersSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(getAllOffers.fulfilled, (state, action) => {
 			state.items = action.payload;
-			state.status = 'succeeded';
+			state.status = RequestStatus.Success;
 		});
 		builder.addCase(getAllOffers.rejected, (state) => {
-			state.status = 'failed';
+			state.status = RequestStatus.Failed;
 		});
 		builder.addCase(getAllOffers.pending, (state) => {
-			state.status = 'loading';
+			state.status = RequestStatus.Loading;
 		});
 	},
 	initialState,

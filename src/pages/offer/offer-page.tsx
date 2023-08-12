@@ -9,6 +9,7 @@ import { PlaceCard } from '../../components/place-card/place-card';
 import { PremiumMark } from '../../components/premium-mark/premium-mark';
 import { Price } from '../../components/price/price';
 import { Rating } from '../../components/rating/rating';
+import { RequestStatus } from '../../constants';
 import { useAppSelector, useDocumentTitle } from '../../hooks';
 import { Features } from './features';
 import { Gallery } from './gallery';
@@ -30,11 +31,11 @@ export function OfferPage() {
 	const status = useAppSelector((state) => state.offer.status);
 	const nearbyOffers = useAppSelector((state) => state.offer.nearby);
 
-	if (status === 'loading') {
+	if (status === RequestStatus.Loading) {
 		return <div>Loading...</div>;
 	}
 
-	if (status === 'failed') {
+	if (status === RequestStatus.Failed) {
 		return <Navigate to='/404' />;
 	}
 

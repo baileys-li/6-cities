@@ -46,4 +46,6 @@ const enum Endpoint {
 	Offers = '/offers'
 }
 
-export { AuthorizationStatus, CITIES, Endpoint, GOODS, OFFER_TYPES, TemporalData };
+const enum RequestStatus { Idle, Loading, Success, Failed}
+
+export { AuthorizationStatus, CITIES, Endpoint, GOODS, OFFER_TYPES, RequestStatus, TemporalData };
