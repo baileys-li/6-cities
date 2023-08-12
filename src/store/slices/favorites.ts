@@ -5,12 +5,12 @@ import type { ServerOffer } from '../../types/offer';
 import { FavoriteStatus, RequestStatus } from '../../constants';
 import { changeFavorite, fetchFavorites } from '../thunks/favorites';
 
-interface Favorites {
+interface FavoritesState {
 	items: ServerOffer[];
 	status: RequestStatus;
 }
 
-const initialState: Favorites = {
+const initialState: FavoritesState = {
 	items: [],
 	status: RequestStatus.Idle,
 };

@@ -42,6 +42,7 @@ const enum AuthorizationStatus {
 }
 
 const enum Endpoint {
+	Comments = '/comments',
 	Favorite = '/favorite',
 	Login = '/login',
 	Logout = '/logout',

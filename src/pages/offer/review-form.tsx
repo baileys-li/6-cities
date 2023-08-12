@@ -1,13 +1,33 @@
+import type { FormEvent} from 'react';
+
 import { useState } from 'react';
 
 import { FormRating } from '../../components/form-rating/form-rating';
+import { useActionCreators } from '../../hooks';
+import { commentsThunks } from '../../store/thunks/comments';
 
-export function ReviewForm() {
-	const [, setRating] = useState(0);
+interface Props {
+	offerId: string;
+}
+
+export function ReviewForm({offerId}: Props) {
+	const [rating, setRating] = useState(0);
 	const [review, setReview] = useState('');
+	const { postComment } = useActionCreators(commentsThunks);
+
+	function handleSubmit(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		postComment({
+			body: {
+				comment: review,
+				rating,
+			},
+			offerId,
+		});
+	}
 
 	return (
-		<form action="#" className="reviews__form form" method="post">
+		<form action="#" className="reviews__form form" method="post" onSubmit={handleSubmit}>
 			<label className="reviews__label form__label" htmlFor="review">
 				Your review
 			</label>
@@ -28,7 +48,7 @@ export function ReviewForm() {
 				</p>
 				<button
 					className="reviews__submit form__submit button"
-					disabled
+					// disabled
 					type="submit"
 				>
 					Submit
