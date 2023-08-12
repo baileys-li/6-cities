@@ -1,8 +1,7 @@
-
 import { clsx } from 'clsx';
 import { Navigate, useParams } from 'react-router-dom';
 
-import { Header } from '../../components/header/header';
+import { Layout } from '../../components/layout';
 import { Link } from '../../components/link/link';
 import { CITIES } from '../../constants';
 import { useAppSelector } from '../../hooks';
@@ -23,16 +22,17 @@ export function MainPage() {
 		return <Navigate to="/404" />;
 	}
 
-	const filteredOffers = offers.filter(({ city: { name } }) => name === cityInfo.name);
+	const filteredOffers = offers.filter(
+		({ city: { name } }) => name === cityInfo.name
+	);
 	const hasOffers = filteredOffers.length > 0;
 
 	return (
-		<div
+		<Layout
 			className={clsx('page page--gray page--main', {
 				'page__main--index-empty': !hasOffers,
 			})}
 		>
-			<Header />
 			<main className="page__main page__main--index">
 				<h1 className="visually-hidden">Cities</h1>
 				<div className="tabs">
@@ -65,6 +65,6 @@ export function MainPage() {
 					)}
 				</div>
 			</main>
-		</div>
+		</Layout>
 	);
 }

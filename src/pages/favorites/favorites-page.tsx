@@ -3,25 +3,23 @@ import { useLoaderData } from 'react-router-dom';
 
 import type { FavoritePageLoaderResponse } from './loader';
 
-import { Header } from '../../components/header/header';
-import { useDocumentTitle } from '../../hooks';
+import { Layout } from '../../components/layout';
 import { FavoritesEmpty } from './empty';
 import { FavoritesList } from './list';
 
 export function FavoritesPage() {
 	const { cities, offersByCity } =
 		useLoaderData() as FavoritePageLoaderResponse;
-	useDocumentTitle('Favorites');
 
 	const hasFavorites = cities.length > 0;
 
 	return (
-		<div
+		<Layout
 			className={clsx('page', {
 				'page--favorites-empty': !hasFavorites,
 			})}
+			title='Favorites'
 		>
-			<Header />
 			{hasFavorites ? (
 				<FavoritesList cities={cities} offersByCity={offersByCity} />
 			) : (
@@ -39,6 +37,6 @@ export function FavoritesPage() {
 					/>
 				</a>
 			</footer>
-		</div>
+		</Layout>
 	);
 }

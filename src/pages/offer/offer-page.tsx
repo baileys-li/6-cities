@@ -1,14 +1,14 @@
-import { Navigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
-import { Header } from '../../components/header/header';
+import { Layout } from '../../components/layout';
 import { Map } from '../../components/map/map';
 import { PlaceCard } from '../../components/place-card/place-card';
 import { PremiumMark } from '../../components/premium-mark/premium-mark';
 import { Price } from '../../components/price/price';
 import { Rating } from '../../components/rating/rating';
 import { RequestStatus } from '../../constants';
-import { useAppSelector, useAuth, useDocumentTitle } from '../../hooks';
+import { useAppSelector, useAuth } from '../../hooks';
 import { Features } from './features';
 import { Gallery } from './gallery';
 import { Goods } from './goods';
@@ -21,8 +21,6 @@ const enum Default {
 }
 
 export function OfferPage() {
-	useDocumentTitle('Offer Example');
-
 	const offer = useAppSelector((state) => state.offer.info);
 	const status = useAppSelector((state) => state.offer.status);
 	const nearbyOffers = useAppSelector((state) => state.offer.nearby);
@@ -33,7 +31,7 @@ export function OfferPage() {
 	}
 
 	if (status === RequestStatus.Failed) {
-		return <Navigate to='/404' />;
+		return <Navigate to="/404" />;
 	}
 
 	const {
@@ -53,8 +51,7 @@ export function OfferPage() {
 	} = offer!;
 
 	return (
-		<div className="page">
-			<Header />
+		<Layout className="page" title={'Offer Example'}>
 			<main className="page__main page__main--offer">
 				<section className="offer">
 					<Gallery images={images.slice(0, Default.MaxGallery)} title={title} />
@@ -119,6 +116,6 @@ export function OfferPage() {
 					</section>
 				</div>
 			</main>
-		</div>
+		</Layout>
 	);
 }

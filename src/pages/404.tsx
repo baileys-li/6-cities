@@ -1,14 +1,15 @@
-import { Header } from '../components/header/header';
+import { Layout } from '../components/layout';
 import { Link } from '../components/link/link';
 import { AppRoute } from '../constants/routes';
 
 export const Page404 = () => (
-	<div className="page page--favorites-empty">
-		<Header isAuthorized />
-		<main style={{
-			display: 'grid',
-			placeItems: 'center',
-		}} className="page__main page__main--favorites page__main--favorites-empty"
+	<Layout className="page page--favorites-empty" title='Not Found'>
+		<main
+			style={{
+				display: 'grid',
+				placeItems: 'center',
+			}}
+			className="page__main page__main--favorites page__main--favorites-empty"
 		>
 			<h1>Page Not found</h1>
 		</main>
@@ -23,5 +24,5 @@ export const Page404 = () => (
 				/>
 			</Link>
 		</footer>
-	</div>
+	</Layout>
 );

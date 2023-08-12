@@ -7,7 +7,7 @@ import { useActionCreators, useAppSelector, useAuth } from '../../hooks';
 import { userActions } from '../../store/slices/user';
 import { Link } from '../link/link';
 
-interface HeaderProps {
+export interface HeaderProps {
 	hideNavigation?: boolean;
 }
 
