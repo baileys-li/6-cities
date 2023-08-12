@@ -22,12 +22,14 @@ type OfferCardProps = Pick<
 	| 'type'
 > & {
 	extraBemBlock?: string;
+	imageWidth?: number;
 	setActive?: Dispatch<SetStateAction<null | string>>;
 };
 
 export function PlaceCard({
 	extraBemBlock,
 	id,
+	imageWidth = 260,
 	isFavorite,
 	isPremium,
 	previewImage,
@@ -65,9 +67,9 @@ export function PlaceCard({
 					<img
 						alt="Place image"
 						className="place-card__image"
-						height={200}
+						height={imageWidth / 1.3}
 						src={previewImage}
-						width={260}
+						width={imageWidth}
 					/>
 				</Link>
 			</div>
