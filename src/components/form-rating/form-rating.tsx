@@ -1,6 +1,6 @@
 import type { ChangeEvent, HTMLAttributes} from 'react';
 
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import { useId } from 'react';
 
 type FormRatingProps = Pick<HTMLAttributes<HTMLDivElement>, 'className'> & {
@@ -51,7 +51,7 @@ export function FormRating({ className, setRating }: FormRatingProps) {
 		}
 	}
 	return (
-		<div className={classNames('form__rating', className)} onChange={handleChange}>
+		<div className={clsx('form__rating', className)} onChange={handleChange}>
 			<Option label="perfect" value={5} />
 			<Option label="good" value={4} />
 			<Option label="not bad" value={3} />

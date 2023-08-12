@@ -1,4 +1,5 @@
-import classNames from 'classnames';
+
+import { clsx } from 'clsx';
 
 import { useBoolean } from '../../hooks';
 
@@ -33,13 +34,13 @@ export function SortForm({ current, setter }: SortFormProps) {
 				</svg>
 			</span>
 			<ul
-				className={classNames('places__options', 'places__options--custom', {
+				className={clsx('places__options', 'places__options--custom', {
 					'places__options--opened': isOn,
 				})}
 			>
 				{SORT_OPTIONS.map((option, index) => (
 					<li
-						className={classNames('places__option', {
+						className={clsx('places__option', {
 							'places__option--active': (index as SortOption) === current,
 						})}
 						key={option}

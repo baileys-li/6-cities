@@ -1,4 +1,5 @@
-import classNames from 'classnames';
+
+import { clsx } from 'clsx';
 import { Navigate, useParams } from 'react-router-dom';
 
 import { Header } from '../../components/header/header';
@@ -27,7 +28,7 @@ export function MainPage() {
 
 	return (
 		<div
-			className={classNames('page page--gray page--main', {
+			className={clsx('page page--gray page--main', {
 				'page__main--index-empty': !hasOffers,
 			})}
 		>
@@ -40,7 +41,7 @@ export function MainPage() {
 							{CITIES.map(({ id, name }) => (
 								<li className="locations__item" key={id}>
 									<Link
-										className={classNames(
+										className={clsx(
 											'locations__item-link',
 											{
 												'tabs__item--active': id === city,

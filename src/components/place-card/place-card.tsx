@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 import type { ServerOffer } from '../../types/offer';
 
@@ -49,15 +49,15 @@ export function PlaceCard({
 
 	return (
 		<article
-			className={classNames('place-card', {
+			className={clsx('place-card', {
 				[`${extraBemBlock}__card`]: extraBemBlock,
 			})}
 			onMouseEnter={setActive && handleMouseEnter}
 			onMouseLeave={setActive && onMouseLeave}
 		>
-			{isPremium && <PremiumMark bemBlock='place-card' />}
+			{isPremium && <PremiumMark bemBlock="place-card" />}
 			<div
-				className={classNames('place-card__image-wrapper', {
+				className={clsx('place-card__image-wrapper', {
 					[`${extraBemBlock}__image-wrapper`]: extraBemBlock,
 				})}
 			>
@@ -72,7 +72,7 @@ export function PlaceCard({
 				</Link>
 			</div>
 			<div
-				className={classNames('place-card__info', {
+				className={clsx('place-card__info', {
 					[`${extraBemBlock}__card-info`]: extraBemBlock,
 				})}
 			>

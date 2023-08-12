@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 interface FavoriteButtonProps {
 	bemBlock?: 'offer' | 'place-card';
@@ -17,7 +17,7 @@ export function FavoriteButton({
 }: FavoriteButtonProps) {
 	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
 	const buttonClass = `${bemBlock}__bookmark-button`;
-	const favoriteClass = classNames(
+	const favoriteClass = clsx(
 		buttonClass,
 		{
 			[`${buttonClass}--active`]: isFavorite,

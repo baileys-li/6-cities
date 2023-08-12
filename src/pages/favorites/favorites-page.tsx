@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import { useLoaderData } from 'react-router-dom';
 
 import type { FavoritePageLoaderResponse } from './loader';
@@ -17,11 +17,11 @@ export function FavoritesPage() {
 
 	return (
 		<div
-			className={classNames('page', {
+			className={clsx('page', {
 				'page--favorites-empty': !hasFavorites,
 			})}
 		>
-			<Header isAuthorized />
+			<Header />
 			{hasFavorites ? (
 				<FavoritesList cities={cities} offersByCity={offersByCity} />
 			) : (
