@@ -4,6 +4,7 @@ import type { ThunkApi } from '../../types/store';
 import type { User } from '../../types/user';
 
 import { Endpoint } from '../../constants';
+import { dropToken, saveToken } from '../../services/token';
 
 const checkAuth = createAsyncThunk<User, undefined, ThunkApi>(
 	'auth/checkAuth',
@@ -22,6 +23,7 @@ const login = createAsyncThunk<User, LoginData, ThunkApi>(
 	'auth/login',
 	async (body, { extra: api }) => {
 		const response = await api.post<User>(Endpoint.Login, body);
+		saveToken(response.data.token);
 		return response.data;
 	}
 );
@@ -29,6 +31,7 @@ const login = createAsyncThunk<User, LoginData, ThunkApi>(
 const logout = createAsyncThunk<unknown, undefined, ThunkApi>(
 	'auth/logout',
 	async (_, { extra: api }) => {
+		dropToken();
 		await api.delete(Endpoint.Logout);
 	}
 );
