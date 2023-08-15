@@ -28,6 +28,7 @@ export const favoritesSlice = createSlice({
 			state.status = RequestStatus.Loading;
 		});
 		builder.addCase(changeFavorite.fulfilled, (state, action) => {
+			state.status = RequestStatus.Success;
 			switch (action.payload.status) {
 				case FavoriteStatus.Added:
 					state.items.push(action.payload.offer);
