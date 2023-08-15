@@ -10,7 +10,7 @@ export const Rating = ({
 }: RatingProps) => (
 	<div className={`${bemBlock}__rating rating`}>
 		<div className={`${bemBlock}__stars rating__stars`}>
-			<span style={{ width: `${rating * 20}%` }} />
+			<span style={{ width: `${Math.round(rating) * 20}%` }} />
 			<span className="visually-hidden">Rating</span>
 		</div>
 		{showValue && (
