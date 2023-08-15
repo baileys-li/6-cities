@@ -12,6 +12,7 @@ import { useAppSelector, useAuth } from '../../hooks';
 import { Features } from './features';
 import { Gallery } from './gallery';
 import { Goods } from './goods';
+import { useReviews } from './hooks/reviews';
 import { Host } from './host';
 import { ReviewItem } from './review';
 import { ReviewForm } from './review-form';
@@ -24,7 +25,7 @@ export function OfferPage() {
 	const offer = useAppSelector((state) => state.offer.info);
 	const status = useAppSelector((state) => state.offer.status);
 	const nearbyOffers = useAppSelector((state) => state.offer.nearby.slice(0, 3));
-	const reviews = useAppSelector((state) => state.reviews.items);
+	const {reviews, reviewsCount} = useReviews();
 	const isAuthorized = useAuth();
 
 	if (status === RequestStatus.Loading) {
@@ -76,7 +77,7 @@ export function OfferPage() {
 							<Host description={description} host={host} />
 							<section className="offer__reviews reviews">
 								<h2 className="reviews__title">
-									Reviews · <span className="reviews__amount">{reviews.length}</span>
+									Reviews · <span className="reviews__amount">{reviewsCount}</span>
 								</h2>
 								<ul className="reviews__list">
 									{reviews.map((review) => (
