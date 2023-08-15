@@ -4,7 +4,7 @@ import { Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 
-import type { ServerLocation, ServerOffer } from '../../types/offer';
+import type { FullOffer, ServerLocation, ServerOffer } from '../../types/offer';
 
 import { useMap } from '../../hooks';
 import { activeIcon, defaultIcon } from './icons';
@@ -13,7 +13,7 @@ interface MapProps {
 	activeId?: null | string;
 	className?: string;
 	location: ServerLocation;
-	offers: ServerOffer[];
+	offers: (FullOffer | ServerOffer)[];
 }
 
 export function Map({

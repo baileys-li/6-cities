@@ -31,8 +31,7 @@ const login = createAsyncThunk<User, LoginData, ThunkApi>(
 const logout = createAsyncThunk<unknown, undefined, ThunkApi>(
 	'auth/logout',
 	async (_, { extra: api }) => {
-		dropToken();
-		await api.delete(Endpoint.Logout);
+		await api.delete(Endpoint.Logout).then(dropToken);
 	}
 );
 

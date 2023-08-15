@@ -23,7 +23,7 @@ const enum Default {
 export function OfferPage() {
 	const offer = useAppSelector((state) => state.offer.info);
 	const status = useAppSelector((state) => state.offer.status);
-	const nearbyOffers = useAppSelector((state) => state.offer.nearby);
+	const nearbyOffers = useAppSelector((state) => state.offer.nearby.slice(0, 3));
 	const reviews = useAppSelector((state) => state.reviews.items);
 	const isAuthorized = useAuth();
 
@@ -88,9 +88,10 @@ export function OfferPage() {
 						</div>
 					</div>
 					<Map
+						activeId={id}
 						className="offer__map"
 						location={location}
-						offers={nearbyOffers}
+						offers={[...nearbyOffers, offer!]}
 					/>
 				</section>
 				<div className="container">

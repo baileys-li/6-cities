@@ -1,12 +1,12 @@
+import { pluralIntl } from '../../utils/intl';
+
 interface HeadlineProps {
 	city: string;
 	count: number;
 }
 
-const formatter = new Intl.PluralRules('en-US');
-
 const getPlaceWord = (count: number) => {
-	const pluralKey = formatter.select(count);
+	const pluralKey = pluralIntl.select(count);
 	if (pluralKey === 'one') {
 		return 'place';
 	}

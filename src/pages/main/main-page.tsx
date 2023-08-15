@@ -65,7 +65,7 @@ export function MainPage() {
 							<Headline city={cityInfo.name} count={filteredOffers.length} />
 						</ListWithMap>
 					) : (
-						<EmptySection />
+						<EmptySection city={cityInfo.name} />
 					)}
 				</div>
 			</main>
