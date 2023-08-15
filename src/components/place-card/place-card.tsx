@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 
 import type { ServerOffer } from '../../types/offer';
 
+import { capitalize } from '../../utils/case';
 import { FavoriteButton } from '../favorite-button/favorite-button';
 import { Link } from '../link/link';
 import { PremiumMark } from '../premium-mark/premium-mark';
@@ -86,7 +87,7 @@ export function PlaceCard({
 				<h2 className="place-card__name">
 					<Link href={href}>{title}</Link>
 				</h2>
-				<p className="place-card__type">{type}</p>
+				<p className="place-card__type">{capitalize(type)}</p>
 			</div>
 		</article>
 	);
