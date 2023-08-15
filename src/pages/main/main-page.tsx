@@ -6,6 +6,7 @@ import { Link } from '../../components/link/link';
 import { CITIES } from '../../constants';
 import { useAppSelector } from '../../hooks';
 import { EmptySection } from './empty-section';
+import { Headline } from './headline';
 import { ListWithMap } from './list-with-map';
 
 export function MainPage() {
@@ -60,7 +61,9 @@ export function MainPage() {
 				</div>
 				<div className="cities">
 					{hasOffers ? (
-						<ListWithMap offers={filteredOffers} />
+						<ListWithMap offers={filteredOffers}>
+							<Headline city={cityInfo.name} count={filteredOffers.length} />
+						</ListWithMap>
 					) : (
 						<EmptySection />
 					)}
