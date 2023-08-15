@@ -1,6 +1,8 @@
 import { clsx } from 'clsx';
+import { useNavigate } from 'react-router-dom';
 
-import { useActionCreators } from '../../hooks';
+import { AppRoute } from '../../constants/routes';
+import { useActionCreators, useAuth, useBoolean } from '../../hooks';
 import { favoritesActions } from '../../store/slices/favorites';
 
 interface FavoriteButtonProps {
@@ -20,24 +22,36 @@ export function FavoriteButton({
 	offerId,
 	width = 18,
 }: FavoriteButtonProps) {
-	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
+	const { isOn, toggle } = useBoolean(isFavorite);
+	const { changeFavorite } = useActionCreators(favoritesActions);
+
+
+	const favoriteLabel = `${isOn ? 'In' : 'To'} bookmarks`;
 	const buttonClass = `${bemBlock}__bookmark-button`;
+
 	const favoriteClass = clsx(
 		buttonClass,
 		{
-			[`${buttonClass}--active`]: isFavorite,
+			[`${buttonClass}--active`]: isOn,
 		},
 		'button'
 	);
 
 	const height = width * Default.HeightCoefficient;
 
-	const { changeFavorite } = useActionCreators(favoritesActions);
+	const isAuthorized = useAuth();
+	const navigate = useNavigate();
+
 	function handleClick() {
+		if (!isAuthorized) {
+			return navigate(AppRoute.Login);
+		}
+
 		changeFavorite({
 			offerId,
-			status: Number(!isFavorite),
+			status: Number(!isOn),
 		});
+		toggle();
 	}
 
 	return (
