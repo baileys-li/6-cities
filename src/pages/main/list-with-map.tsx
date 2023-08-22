@@ -52,7 +52,6 @@ export function ListWithMap({ children, offers }: ListWithMapProps) {
 				<Map
 					activeId={activeOffer}
 					className="cities__map"
-					location={offers[0].location}
 					offers={offers}
 				/>
 			</div>

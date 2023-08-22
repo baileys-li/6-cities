@@ -4,27 +4,29 @@ import { Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 
-import type { FullOffer, ServerLocation, ServerOffer } from '../../types/offer';
+import type { CityName } from '../../constants';
+import type { ServerOffer } from '../../types/offer';
 
 import { useMap } from '../../hooks';
 import { activeIcon, defaultIcon } from './icons';
 
+type GenericOffer = Pick<ServerOffer, 'city' | 'id' | 'location'>
 interface MapProps {
 	activeId?: null | string;
 	className?: string;
-	location: ServerLocation;
-	offers: (FullOffer | ServerOffer)[];
+	offers: GenericOffer[];
 }
 
 export function Map({
 	activeId = null,
 	className,
-	location,
 	offers,
 }: MapProps): JSX.Element {
 	const mapRef = useRef(null);
-	const map = useMap(mapRef, location);
-
+	const city = offers[0].city;
+	const cityName = city.name as CityName;
+	const cityNameRef = useRef<CityName>(city.name as CityName);
+	const map = useMap(mapRef, city);
 	useEffect(() => {
 		if (map) {
 			const markerLayer = layerGroup().addTo(map);
@@ -44,6 +46,14 @@ export function Map({
 			};
 		}
 	}, [map, offers, activeId]);
+
+	useEffect(() => {
+		if (map && cityNameRef.current !== cityName) {
+			map.panTo([city.location.latitude, city.location.longitude]);
+			cityNameRef.current = cityName;
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [cityName, cityNameRef, map]);
 
 	return <div className={clsx(className, 'map')} ref={mapRef}></div>;
 }

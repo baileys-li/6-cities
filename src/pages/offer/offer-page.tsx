@@ -91,7 +91,6 @@ export function OfferPage() {
 					<Map
 						activeId={id}
 						className="offer__map"
-						location={location}
 						offers={[...nearbyOffers, offer!]}
 					/>
 				</section>

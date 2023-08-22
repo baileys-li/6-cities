@@ -35,4 +35,4 @@ type FullOffer = Omit<ServerOffer, 'previewImage'> & {
 	maxAdults: number;
 };
 
-export type { FullOffer, ServerLocation, ServerOffer };
+export type { City, FullOffer, ServerLocation, ServerOffer };

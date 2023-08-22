@@ -1,9 +1,5 @@
 export const PROJECT_NAME = '6 cities';
 
-const enum TemporalData {
-	OfferAmount = 4
-}
-
 const OFFER_TYPES = [
 	'Private room',
 	'Apartment',
@@ -14,13 +10,34 @@ const OFFER_TYPES = [
 ] as const;
 
 const CITIES = [
-	{id: 'paris', name: 'Paris'},
-	{id: 'cologne', name: 'Cologne'},
-	{id: 'brussels', name: 'Brussels'},
-	{id: 'amsterdam', name: 'Amsterdam'},
-	{id: 'hamburg', name: 'Hamburg'},
-	{id: 'dusseldorf', name: 'Dusseldorf'},
+	{
+		id: 'paris',
+		name: 'Paris',
+	},
+	{
+		id: 'cologne',
+		name: 'Cologne',
+	},
+	{
+		id: 'brussels',
+		name: 'Brussels',
+	},
+	{
+		id: 'amsterdam',
+		name: 'Amsterdam',
+	},
+	{
+		id: 'hamburg',
+		name: 'Hamburg',
+	},
+	{
+		id: 'dusseldorf',
+		name: 'Dusseldorf',
+	},
 ] as const;
+
+type CityName = typeof CITIES[number]['name'];
+type CityId = typeof CITIES[number]['id'];
 
 const GOODS = [
 	'Wi-Fi',
@@ -46,7 +63,7 @@ const enum Endpoint {
 	Favorite = '/favorite',
 	Login = '/login',
 	Logout = '/logout',
-	Offers = '/offers'
+	Offers = '/offers',
 }
 
 const enum FavoriteStatus {
@@ -54,6 +71,21 @@ const enum FavoriteStatus {
 	Removed = 0,
 }
 
-const enum RequestStatus { Idle, Loading, Success, Failed}
+const enum RequestStatus {
+	Idle,
+	Loading,
+	Success,
+	Failed,
+}
 
-export { AuthorizationStatus, CITIES, Endpoint, FavoriteStatus, GOODS, OFFER_TYPES, RequestStatus, TemporalData };
+export {
+	AuthorizationStatus,
+	CITIES,
+	Endpoint,
+	FavoriteStatus,
+	GOODS,
+	OFFER_TYPES,
+	RequestStatus
+};
+
+export type { CityId, CityName };
