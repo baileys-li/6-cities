@@ -42,7 +42,6 @@ export function ReviewForm({ offerId }: Props) {
 
 	useEffect(() => () => formRef.current?.reset(), [offerId]);
 
-
 	function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		const form = event.currentTarget as HTMLReviewForm;
 		event.preventDefault();

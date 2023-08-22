@@ -12,6 +12,7 @@ import { useAppSelector, useAuth } from '../../hooks';
 import { Features } from './features';
 import { Gallery } from './gallery';
 import { Goods } from './goods';
+import { selectRandomNearbySlice } from './hooks/nearby';
 import { useReviews } from './hooks/reviews';
 import { Host } from './host';
 import { ReviewItem } from './review';
@@ -24,7 +25,7 @@ const enum Default {
 export function OfferPage() {
 	const offer = useAppSelector((state) => state.offer.info);
 	const status = useAppSelector((state) => state.offer.status);
-	const nearbyOffers = useAppSelector((state) => state.offer.nearby.slice(0, 3));
+	const nearbyOffers = useAppSelector(selectRandomNearbySlice);
 	const {reviews, reviewsCount} = useReviews();
 	const isAuthorized = useAuth();
 
@@ -45,7 +46,6 @@ export function OfferPage() {
 		images,
 		isFavorite,
 		isPremium,
-		location,
 		maxAdults,
 		price,
 		rating,
