@@ -7,11 +7,13 @@ export const Page404 = () => (
 		<main
 			style={{
 				display: 'grid',
+				placeContent: 'center',
 				placeItems: 'center',
 			}}
 			className="page__main page__main--favorites page__main--favorites-empty"
 		>
 			<h1>Page Not found</h1>
+			<Link className='button form__submit' href={AppRoute.Main}>Go to Main page</Link>
 		</main>
 		<footer className="footer">
 			<Link className="footer__logo-link" href={AppRoute.Main}>

@@ -47,6 +47,10 @@ const router = createBrowserRouter([
 				loader: loadOfferPageData,
 				path: AppRoute.Offer,
 			},
+			{
+				element: <Page404 />,
+				path: AppRoute.NotFound,
+			},
 		],
 		errorElement: <Page404 />,
 	},
