@@ -2,8 +2,8 @@ import type { FormEvent } from 'react';
 
 import { toast } from 'react-hot-toast';
 
-import { useActionCreators } from '../../hooks';
-import { userActions } from '../../store/slices/user';
+import { useActionCreators } from '../../../hooks';
+import { userActions } from '../../../store/slices/user';
 
 type HTMLLoginForm = HTMLFormElement & {
 	email: HTMLInputElement;
