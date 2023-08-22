@@ -1,24 +1,33 @@
 import type { FormEvent } from 'react';
 
+import { toast } from 'react-hot-toast';
+
 import { useActionCreators } from '../../hooks';
 import { userActions } from '../../store/slices/user';
 
 type HTMLLoginForm = HTMLFormElement & {
 	email: HTMLInputElement;
 	password: HTMLInputElement;
-}
+};
 
 export function LoginForm() {
-	const {login} = useActionCreators(userActions);
+	const { login } = useActionCreators(userActions);
 
 	function handleSubmit(event: FormEvent<HTMLLoginForm>) {
 		event.preventDefault();
 		const form = event.currentTarget;
 
-		login({
-			email: form.email.value,
-			password: form.password.value,
-		});
+		toast.promise(
+			login({
+				email: form.email.value,
+				password: form.password.value,
+			}).unwrap(),
+			{
+				error: <b>Failed.</b>,
+				loading: 'Loging...',
+				success: <b>Successed login!</b>,
+			}
+		);
 	}
 	return (
 		<form className="login__form form" method="post" onSubmit={handleSubmit}>
