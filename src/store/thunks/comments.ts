@@ -9,9 +9,7 @@ import { Endpoint } from '../../constants';
 const fetchComments = createAsyncThunk<Review[], FullOffer['id'], ThunkApi>(
 	'comments/fetch',
 	async (offerId, { extra: api }) => {
-		const response = await api.get<Review[]>(
-			`${Endpoint.Comments}/${offerId}`
-		);
+		const response = await api.get<Review[]>(`${Endpoint.Comments}/${offerId}`);
 		return response.data;
 	}
 );
@@ -26,9 +24,10 @@ interface PostCommentProps {
 
 const postComment = createAsyncThunk<Review, PostCommentProps, ThunkApi>(
 	'comments/post',
-	async ({body, offerId}, { extra: api }) => {
+	async ({ body, offerId }, { extra: api }) => {
 		const response = await api.post<Review>(
-			`${Endpoint.Comments}/${offerId}`,body
+			`${Endpoint.Comments}/${offerId}`,
+			body
 		);
 		return response.data;
 	}

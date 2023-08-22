@@ -30,12 +30,6 @@ export const reviewSlice = createSlice({
 		builder.addCase(commentsThunks.postComment.fulfilled, (state, action) => {
 			state.items.push(action.payload);
 		});
-		builder.addCase(commentsThunks.postComment.rejected, (state) => {
-			state.status = RequestStatus.Failed;
-		});
-		builder.addCase(commentsThunks.postComment.pending, (state) => {
-			state.status = RequestStatus.Loading;
-		});
 	},
 	initialState,
 	name: 'reviews',
