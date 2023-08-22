@@ -13,10 +13,6 @@ export function MainPage() {
 	const { city } = useParams();
 	const offers = useAppSelector((state) => state.offers.items);
 
-	if (city === undefined) {
-		return <Navigate to={`/${CITIES[0].id}`} />;
-	}
-
 	const cityInfo = CITIES.find(({ id }) => id === city);
 
 	if (cityInfo === undefined) {
