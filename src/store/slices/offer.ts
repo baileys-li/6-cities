@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { FullOffer, ServerOffer } from '../../types/offer';
 
 import { RequestStatus } from '../../constants';
-import { getAllOffers, getNearBy, getOffer } from '../thunks/offers';
+import { getNearBy, getOffer } from '../thunks/offers';
 
 interface OffersSlice {
 	info: FullOffer | null;
@@ -43,4 +43,4 @@ export const offerSlice = createSlice({
 	},
 });
 
-export const offerActions = {...offerSlice.actions, getAllOffers};
+export const offerActions = {...offerSlice.actions};

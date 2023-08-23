@@ -1,18 +1,17 @@
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react';
 
 import { useMemo, useState } from 'react';
 
-import type { ServerOffer } from '../../types/offer';
+import type { ServerOffer } from '../../../types/offer';
 
-import { Map } from '../../components/map/map';
-import { PlaceCard } from '../../components/place-card/place-card';
+import { Map } from '../../../components/map/map';
+import { PlaceCard } from '../../../components/place-card/place-card';
 import { SortForm, SortOption } from './sort';
 
 interface ListWithMapProps {
 	children: ReactNode;
 	offers: ServerOffer[];
 }
-
 
 export function ListWithMap({ children, offers }: ListWithMapProps) {
 	const [activeOffer, setOffer] = useState<null | string>(null);
@@ -38,6 +37,7 @@ export function ListWithMap({ children, offers }: ListWithMapProps) {
 				{children}
 				<SortForm current={activeSort} setter={setSort} />
 				<div className="cities__places-list places__list tabs__content">
+
 					{sortedOffers.map((offer) => (
 						<PlaceCard
 							{...offer}
@@ -49,11 +49,7 @@ export function ListWithMap({ children, offers }: ListWithMapProps) {
 				</div>
 			</section>
 			<div className="cities__right-section">
-				<Map
-					activeId={activeOffer}
-					className="cities__map"
-					offers={offers}
-				/>
+				<Map activeId={activeOffer} className="cities__map" offers={offers} />
 			</div>
 		</div>
 	);

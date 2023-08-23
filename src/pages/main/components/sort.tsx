@@ -1,7 +1,7 @@
 
 import { clsx } from 'clsx';
 
-import { useBoolean } from '../../hooks';
+import { useBoolean } from '../../../hooks';
 
 const SORT_OPTIONS = [
 	'Popular',
@@ -26,7 +26,7 @@ export function SortForm({ current, setter }: SortFormProps) {
 	const { isOn, toggle } = useBoolean(false);
 	return (
 		<form action="#" className="places__sorting" method="get" onClick={toggle}>
-			<span className="places__sorting-caption">Sort by</span>
+			<span className="places__sorting-caption">Sort by{' '}</span>
 			<span className="places__sorting-type" tabIndex={0}>
 				{SORT_OPTIONS[current]}
 				<svg className="places__sorting-arrow" height={4} width={7}>

@@ -1,7 +1,7 @@
 interface EmptySectionProps {
 	city: string;
 }
-export const EmptySection = ({city}: EmptySectionProps) => (
+export const EmptySection = ({ city }: EmptySectionProps) => (
 	<div className="cities__places-container cities__places-container--empty container">
 		<section className="cities__no-places">
 			<div className="cities__status-wrapper tabs__content">

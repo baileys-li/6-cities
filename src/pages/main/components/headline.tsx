@@ -1,4 +1,4 @@
-import { pluralIntl } from '../../utils/intl';
+import { pluralIntl } from '../../../utils/intl';
 
 interface HeadlineProps {
 	city: string;

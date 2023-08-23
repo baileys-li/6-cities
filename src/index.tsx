@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
+import { RouterProvider } from 'react-router-dom';
 
-import { App } from './app';
+import { router } from './router';
 import { store } from './store';
 import { checkAuth } from './store/thunks/auth';
 
@@ -16,7 +17,7 @@ store.dispatch(checkAuth());
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<App />
+			<RouterProvider router={router} />
 		</Provider>
 		<Toaster position='top-right' />
 	</React.StrictMode>
