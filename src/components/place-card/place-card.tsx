@@ -1,5 +1,3 @@
-import type { Dispatch, SetStateAction } from 'react';
-
 import { clsx } from 'clsx';
 
 import type { ServerOffer } from '../../types/offer';
@@ -24,7 +22,7 @@ type OfferCardProps = Pick<
 > & {
 	extraBemBlock?: string;
 	imageWidth?: number;
-	setActive?: Dispatch<SetStateAction<null | string>>;
+	setActive?: (id: ServerOffer['id'] | null) => void;
 };
 
 export function PlaceCard({

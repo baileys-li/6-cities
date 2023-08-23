@@ -7,18 +7,18 @@ import { useEffect, useRef } from 'react';
 import type { CityName } from '../../constants';
 import type { ServerOffer } from '../../types/offer';
 
-import { useMap } from '../../hooks';
+import { useAppSelector, useMap } from '../../hooks';
+import { selectActiveId } from '../../store/selectors/offers';
 import { activeIcon, defaultIcon } from './icons';
 
 type GenericOffer = Pick<ServerOffer, 'city' | 'id' | 'location'>
 interface MapProps {
-	activeId?: null | string;
 	className?: string;
 	offers: GenericOffer[];
 }
 
 export function Map({
-	activeId = null,
+
 	className,
 	offers,
 }: MapProps): JSX.Element {
@@ -27,6 +27,7 @@ export function Map({
 	const cityName = city.name as CityName;
 	const cityNameRef = useRef<CityName>(city.name as CityName);
 	const map = useMap(mapRef, city);
+	const activeId = useAppSelector(selectActiveId);
 	useEffect(() => {
 		if (map) {
 			const markerLayer = layerGroup().addTo(map);

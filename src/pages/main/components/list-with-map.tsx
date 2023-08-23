@@ -6,6 +6,8 @@ import type { ServerOffer } from '../../../types/offer';
 
 import { Map } from '../../../components/map/map';
 import { PlaceCard } from '../../../components/place-card/place-card';
+import { useActionCreators } from '../../../hooks';
+import { offersActions } from '../../../store/slices/offers';
 import { SortForm, SortOption } from './sort';
 
 interface ListWithMapProps {
@@ -14,7 +16,7 @@ interface ListWithMapProps {
 }
 
 export function ListWithMap({ children, offers }: ListWithMapProps) {
-	const [activeOffer, setOffer] = useState<null | string>(null);
+	const { setActiveOffer } = useActionCreators(offersActions);
 	const [activeSort, setSort] = useState(SortOption.Popular);
 
 	const sortedOffers = useMemo(() => {
@@ -43,13 +45,13 @@ export function ListWithMap({ children, offers }: ListWithMapProps) {
 							{...offer}
 							extraBemBlock="cities"
 							key={offer.id}
-							setActive={setOffer}
+							setActive={setActiveOffer}
 						/>
 					))}
 				</div>
 			</section>
 			<div className="cities__right-section">
-				<Map activeId={activeOffer} className="cities__map" offers={offers} />
+				<Map className="cities__map" offers={offers} />
 			</div>
 		</div>
 	);

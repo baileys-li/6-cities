@@ -1,19 +1,22 @@
 import { useEffect } from 'react';
 
 import { RequestStatus } from '../../../constants';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import {
+	useActionCreators,
+	useAppSelector,
+} from '../../../hooks';
 import { selectOffersStatus } from '../../../store/selectors/offers';
-import { fetchAllOffers } from '../../../store/thunks/offers';
+import { offersActions } from '../../../store/slices/offers';
 
 export function useLoadOffers() {
 	const status = useAppSelector(selectOffersStatus);
-	const dispatch = useAppDispatch();
+	const { fetchAllOffers } = useActionCreators(offersActions);
 
 	useEffect(() => {
 		if (status === RequestStatus.Idle) {
-			dispatch(fetchAllOffers());
+			fetchAllOffers();
 		}
-	}, [dispatch, status]);
+	}, [fetchAllOffers, status]);
 
 	return {
 		isLoading:
