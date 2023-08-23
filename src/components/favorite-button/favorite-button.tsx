@@ -1,11 +1,10 @@
 import { clsx } from 'clsx';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { RequestStatus } from '../../constants';
 import { AppRoute } from '../../constants/routes';
 import {
 	useActionCreators,
-	useAppSelector,
 	useAuth,
 	useBoolean,
 } from '../../hooks';
@@ -29,8 +28,8 @@ export function FavoriteButton({
 	width = 18,
 }: FavoriteButtonProps) {
 	const { isOn, toggle } = useBoolean(isFavorite);
+	const [disable, setDisable] = useState(false);
 	const { changeFavorite } = useActionCreators(favoritesActions);
-	const status = useAppSelector((state) => state.favorites.status);
 
 	const favoriteLabel = `${isOn ? 'In' : 'To'} bookmarks`;
 	const buttonClass = `${bemBlock}__bookmark-button`;
@@ -52,18 +51,18 @@ export function FavoriteButton({
 		if (!isAuthorized) {
 			return navigate(AppRoute.Login);
 		}
-
+		setDisable(true);
 		changeFavorite({
 			offerId,
 			status: Number(!isOn),
-		});
+		}).then(() => setDisable(false));
 		toggle();
 	}
 
 	return (
 		<button
 			className={favoriteClass}
-			disabled={status === RequestStatus.Loading}
+			disabled={disable}
 			onClick={handleClick}
 			type="button"
 		>
