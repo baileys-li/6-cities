@@ -1,9 +1,7 @@
-
-import { NavLink } from 'react-router-dom';
-
 import { AppRoute } from '../../constants/routes';
 import { useAuth } from '../../hooks';
 import { Link } from '../link/link';
+import { Logo } from './Logo';
 import { LoggedNavigation } from './logged-nav';
 
 export interface HeaderProps {
@@ -18,21 +16,7 @@ export function Header({ hideNavigation = false }: HeaderProps) {
 			<div className="container">
 				<div className="header__wrapper">
 					<div className="header__left">
-						<NavLink
-							className={({ isActive }) =>
-								isActive
-									? 'header__logo-link header__logo-link--active'
-									: 'header__logo-link'}
-							to={AppRoute.Main}
-						>
-							<img
-								alt="6 cities logo"
-								className="header__logo"
-								height={41}
-								src="img/logo.svg"
-								width={81}
-							/>
-						</NavLink>
+						<Logo />
 					</div>
 					{!hideNavigation && (
 						<nav className="header__nav">
