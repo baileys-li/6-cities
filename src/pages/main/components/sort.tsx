@@ -1,5 +1,5 @@
-
 import { clsx } from 'clsx';
+import { memo } from 'react';
 
 import { useBoolean } from '../../../hooks';
 
@@ -22,11 +22,11 @@ interface SortFormProps {
 	setter: (option: SortOption) => void;
 }
 
-export function SortForm({ current, setter }: SortFormProps) {
+function SortForm_({ current, setter }: SortFormProps) {
 	const { isOn, toggle } = useBoolean(false);
 	return (
 		<form action="#" className="places__sorting" method="get" onClick={toggle}>
-			<span className="places__sorting-caption">Sort by{' '}</span>
+			<span className="places__sorting-caption">Sort by </span>
 			<span className="places__sorting-type" tabIndex={0}>
 				{SORT_OPTIONS[current]}
 				<svg className="places__sorting-arrow" height={4} width={7}>
@@ -54,3 +54,5 @@ export function SortForm({ current, setter }: SortFormProps) {
 		</form>
 	);
 }
+
+export const SortForm = memo(SortForm_);

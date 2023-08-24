@@ -1,5 +1,4 @@
-import { memo, type HTMLAttributes } from 'react';
-
+import { type HTMLAttributes, memo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 type LinkProps = Pick<

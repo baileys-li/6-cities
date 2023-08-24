@@ -1,4 +1,5 @@
 import { clsx } from 'clsx';
+import { memo } from 'react';
 
 import type { ServerOffer } from '../../types/offer';
 
@@ -25,7 +26,7 @@ type OfferCardProps = Pick<
 	setActive?: (id: ServerOffer['id'] | null) => void;
 };
 
-export function PlaceCard({
+function PlaceCard_({
 	extraBemBlock,
 	id,
 	imageWidth = 260,
@@ -90,3 +91,5 @@ export function PlaceCard({
 		</article>
 	);
 }
+
+export const PlaceCard = memo(PlaceCard_);
