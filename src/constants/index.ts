@@ -76,6 +76,8 @@ const enum RequestStatus {
 	Loading,
 	Success,
 	Failed,
+	Refetch,
+	Refetching,
 }
 
 export {

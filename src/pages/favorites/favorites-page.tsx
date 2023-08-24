@@ -2,11 +2,12 @@ import { clsx } from 'clsx';
 
 import { Layout } from '../../components/layout';
 import { useAppSelector } from '../../hooks';
+import { selectFavorites } from '../../store/selectors/favorites';
 import { FavoritesEmpty } from './empty';
 import { FavoritesList } from './list';
 
 export function FavoritesPage() {
-	const favorites = useAppSelector((state) => state.favorites.items);
+	const favorites = useAppSelector(selectFavorites);
 	const hasFavorites = favorites.length > 0;
 
 	return (

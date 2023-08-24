@@ -12,14 +12,14 @@ import { Wrapper } from './wrapper';
 export function MainPage() {
 	const city = useLoaderData() as CityName;
 	useDocumentTitle(city);
-	const { isLoading, isSuccess } = useLoadOffers();
+	const { isLoading } = useLoadOffers();
 	const { hasOffers, offers } = useCityOffers(city);
 
 	return (
 		<Wrapper isEmpty={!hasOffers}>
 			{isLoading && <div>Loading...</div>}
-			{isSuccess && !hasOffers && <EmptySection city={city} />}
-			{isSuccess && hasOffers && (
+			{!isLoading && !hasOffers && <EmptySection city={city} />}
+			{!isLoading && hasOffers && (
 				<ListWithMap offers={offers}>
 					<Headline city={city} count={offers.length} />
 				</ListWithMap>

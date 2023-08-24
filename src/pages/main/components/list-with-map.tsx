@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 
 import type { ServerOffer } from '../../../types/offer';
 
@@ -9,6 +9,10 @@ import { PlaceCard } from '../../../components/place-card/place-card';
 import { useActionCreators } from '../../../hooks';
 import { offersActions } from '../../../store/slices/offers';
 import { SortForm, SortOption } from './sort';
+
+const MemoMap = memo(Map);
+const MemoSortForm = memo(SortForm);
+const MemoPlaceCard = memo(PlaceCard);
 
 interface ListWithMapProps {
 	children: ReactNode;
@@ -37,21 +41,28 @@ export function ListWithMap({ children, offers }: ListWithMapProps) {
 			<section className="cities__places places">
 				<h2 className="visually-hidden">Places</h2>
 				{children}
-				<SortForm current={activeSort} setter={setSort} />
+				<MemoSortForm current={activeSort} setter={setSort} />
 				<div className="cities__places-list places__list tabs__content">
 
-					{sortedOffers.map((offer) => (
-						<PlaceCard
-							{...offer}
+					{sortedOffers.map(({id, isFavorite, isPremium, previewImage, price, rating, title, type}) => (
+						<MemoPlaceCard
 							extraBemBlock="cities"
-							key={offer.id}
+							id={id}
+							isFavorite={isFavorite}
+							isPremium={isPremium}
+							key={id}
+							previewImage={previewImage}
+							price={price}
+							rating={rating}
 							setActive={setActiveOffer}
+							title={title}
+							type={type}
 						/>
 					))}
 				</div>
 			</section>
 			<div className="cities__right-section">
-				<Map className="cities__map" offers={offers} />
+				<MemoMap className="cities__map" offers={offers} />
 			</div>
 		</div>
 	);

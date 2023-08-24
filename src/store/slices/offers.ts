@@ -5,6 +5,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { ServerOffer } from '../../types/offer';
 
 import { RequestStatus } from '../../constants';
+import { changeFavorite } from '../thunks/favorites';
 import { fetchAllOffers } from '../thunks/offers';
 
 interface OffersSlice {
@@ -29,7 +30,11 @@ export const offersSlice = createSlice({
 			state.status = RequestStatus.Failed;
 		});
 		builder.addCase(fetchAllOffers.pending, (state) => {
-			state.status = RequestStatus.Loading;
+			const isRefetch = state.status === RequestStatus.Refetch;
+			state.status = isRefetch ? RequestStatus.Refetching : RequestStatus.Loading;
+		});
+		builder.addCase(changeFavorite.fulfilled, (state) => {
+			state.status = RequestStatus.Refetch;
 		});
 	},
 	initialState,

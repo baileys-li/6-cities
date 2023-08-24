@@ -27,16 +27,8 @@ export const favoritesSlice = createSlice({
 		builder.addCase(fetchFavorites.pending, (state) => {
 			state.status = RequestStatus.Loading;
 		});
-		builder.addCase(changeFavorite.fulfilled, (state, action) => {
-			switch (action.payload.status) {
-				case FavoriteStatus.Added:
-					state.items.push(action.payload.offer);
-					break;
-				case FavoriteStatus.Removed:
-					state.items = state.items.filter(
-						({ id }) => id !== action.payload.offer.id
-					);
-			}
+		builder.addCase(changeFavorite.fulfilled, (state) => {
+			state.status = RequestStatus.Idle;
 		});
 	},
 	initialState,

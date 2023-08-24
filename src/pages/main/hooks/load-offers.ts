@@ -13,7 +13,7 @@ export function useLoadOffers() {
 	const { fetchAllOffers } = useActionCreators(offersActions);
 
 	useEffect(() => {
-		if (status === RequestStatus.Idle) {
+		if (status === RequestStatus.Idle || status === RequestStatus.Refetch) {
 			fetchAllOffers();
 		}
 	}, [fetchAllOffers, status]);
@@ -21,6 +21,5 @@ export function useLoadOffers() {
 	return {
 		isLoading:
 			status === RequestStatus.Idle || status === RequestStatus.Loading,
-		isSuccess: status === RequestStatus.Success,
 	};
 }
