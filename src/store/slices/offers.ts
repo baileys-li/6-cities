@@ -37,8 +37,7 @@ export const offersSlice = createSlice({
 			state.status = RequestStatus.Failed;
 		});
 		builder.addCase(fetchAllOffers.pending, (state) => {
-			const isRefetch = state.status === RequestStatus.Refetch;
-			state.status = isRefetch ? RequestStatus.Refetching : RequestStatus.Loading;
+			state.status = RequestStatus.Loading;
 		});
 		builder.addCase(changeFavorite.fulfilled, (state, action) => {
 			const id = action.payload.offer.id;

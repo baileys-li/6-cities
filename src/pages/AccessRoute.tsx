@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
+import { Spinner } from '../components/spinner/spinner';
 import { AuthorizationStatus } from '../constants';
 import { AppRoute } from '../constants/routes';
 import { useAppSelector } from '../hooks';
@@ -8,7 +9,7 @@ import { useAppSelector } from '../hooks';
 const createAccessRoute = (accessStatus: AuthorizationStatus, navigateRoute: string) => () => {
 	const status = useAppSelector((state) => state.user.status);
 	if (status === AuthorizationStatus.Unknown) {
-		return <div>Loading...</div>;
+		return <Spinner />;
 	}
 	if (status === accessStatus) {
 		return <Outlet />;

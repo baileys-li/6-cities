@@ -83,7 +83,6 @@ const enum RequestStatus {
 	Success,
 	Failed,
 	Refetch,
-	Refetching,
 }
 
 export {

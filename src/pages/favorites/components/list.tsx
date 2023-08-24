@@ -1,6 +1,6 @@
-import type { ServerOffer } from '../../types/offer';
+import type { ServerOffer } from '../../../types/offer';
 
-import { PlaceCard } from '../../components/place-card/place-card';
+import { PlaceCard } from '../../../components/place-card/place-card';
 
 export function FavoritesList({ offers }: { offers: ServerOffer[] }) {
 	const cities: string[] = [];

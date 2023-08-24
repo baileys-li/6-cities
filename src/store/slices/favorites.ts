@@ -4,7 +4,6 @@ import type { ServerOffer } from '../../types/offer';
 
 import { FavoriteStatus, RequestStatus } from '../../constants';
 import { changeFavorite, fetchFavorites } from '../thunks/favorites';
-
 interface FavoritesState {
 	items: ServerOffer[];
 	status: RequestStatus;
@@ -27,8 +26,16 @@ export const favoritesSlice = createSlice({
 		builder.addCase(fetchFavorites.pending, (state) => {
 			state.status = RequestStatus.Loading;
 		});
-		builder.addCase(changeFavorite.fulfilled, (state) => {
-			state.status = RequestStatus.Idle;
+		builder.addCase(changeFavorite.fulfilled, (state, action) => {
+			switch (action.payload.status) {
+				case FavoriteStatus.Added:
+					state.items.push(action.payload.offer);
+					break;
+				case FavoriteStatus.Removed:
+					state.items = state.items.filter(
+						({ id }) => id !== action.payload.offer.id
+					);
+			}
 		});
 	},
 	initialState,
