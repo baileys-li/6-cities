@@ -1,11 +1,11 @@
-import { AppRoute } from '../../constants/routes';
-import { useAppSelector } from '../../hooks';
-import { Link } from '../link/link';
-import { useFavoriteCount, useHandleLogout } from './hooks';
+import { AppRoute } from '../../../../constants/routes';
+import { useAppSelector } from '../../../../hooks';
+import { Link } from '../../../link/link';
+import { FavoriteCount } from '../favorite-count/favorite-count';
+import { useHandleLogout } from './hook';
 
 export function LoggedNavigation() {
 	const user = useAppSelector((state) => state.user.info!);
-	const favoriteCount = useFavoriteCount();
 	const handleLogout = useHandleLogout();
 
 	return (
@@ -25,7 +25,7 @@ export function LoggedNavigation() {
 					<span className="header__user-name user__name">
 						{user.email}
 					</span>
-					<span className="header__favorite-count">{favoriteCount}</span>
+					<FavoriteCount />
 				</Link>
 			</li>
 			<li className="header__nav-item">

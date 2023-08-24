@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 
-import { CITIES } from '../../constants';
-import { AppRoute } from '../../constants/routes';
-import { Link } from '../link/link';
+import { CITIES } from '../../../constants';
+import { AppRoute } from '../../../constants/routes';
+import { Link } from '../../link/link';
 
 const IMAGE = (
 	<img
