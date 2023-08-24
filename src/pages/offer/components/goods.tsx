@@ -1,8 +1,10 @@
+import { memo } from 'react';
+
 import type { FullOffer } from '../../../types/offer';
 
 type GoodsProps = Pick<FullOffer, 'goods'>;
 
-export const Goods = ({ goods }: GoodsProps) => (
+const Goods_ = ({ goods }: GoodsProps) => (
 	<div className="offer__inside">
 		<h2 className="offer__inside-title">What&apos;s inside</h2>
 		<ul className="offer__inside-list">
@@ -14,3 +16,5 @@ export const Goods = ({ goods }: GoodsProps) => (
 		</ul>
 	</div>
 );
+
+export const Goods = memo(Goods_);

@@ -1,10 +1,11 @@
+import { memo } from 'react';
+
 import { useAuth } from '../../../hooks';
 import { useReviews } from '../hooks/reviews';
 import { ReviewItem } from './review';
 import { ReviewForm } from './review-form';
 
-
-export function Reviews() {
+function Reviews_() {
 	const { reviews, reviewsCount } = useReviews();
 	const isAuthorized = useAuth();
 	return (
@@ -21,3 +22,5 @@ export function Reviews() {
 		</section>
 	);
 }
+
+export const Reviews = memo(Reviews_);

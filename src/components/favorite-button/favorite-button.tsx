@@ -25,22 +25,23 @@ function FavoriteButton_({
 }: FavoriteButtonProps) {
 	const [isOn, setOn] = useState(isFavorite);
 	const { changeFavorite } = useActionCreators(favoritesActions);
+	const isAuthorized = useAuth();
+	const navigate = useNavigate();
 
-	const favoriteLabel = `${isOn ? 'In' : 'To'} bookmarks`;
+	const isActive = isAuthorized && isOn;
+
+	const favoriteLabel = `${isActive ? 'In' : 'To'} bookmarks`;
 	const buttonClass = `${bemBlock}__bookmark-button`;
 
 	const favoriteClass = clsx(
 		buttonClass,
 		{
-			[`${buttonClass}--active`]: isOn,
+			[`${buttonClass}--active`]: isActive,
 		},
 		'button'
 	);
 
 	const height = width * Default.HeightCoefficient;
-
-	const isAuthorized = useAuth();
-	const navigate = useNavigate();
 
 	function handleClick() {
 		if (!isAuthorized) {

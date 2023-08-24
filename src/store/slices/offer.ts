@@ -2,19 +2,18 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { FullOffer, ServerOffer } from '../../types/offer';
 
-import { RequestStatus } from '../../constants';
+import { login } from '../thunks/auth';
+import { changeFavorite } from '../thunks/favorites';
 import { getNearBy, getOffer } from '../thunks/offers';
 
 interface OffersSlice {
 	info: Record<FullOffer['id'], FullOffer>;
 	nearby: ServerOffer[];
-	status: RequestStatus;
 }
 
 const initialState: OffersSlice = {
 	info: {},
-	nearby: [],
-	status: RequestStatus.Idle,
+	nearby: []
 };
 
 export const offerSlice = createSlice({
@@ -22,16 +21,20 @@ export const offerSlice = createSlice({
 		builder.addCase(getOffer.fulfilled, (state, action) => {
 			const offer = action.payload;
 			state.info[offer.id] = offer;
-			state.status = RequestStatus.Success;
 		});
-		builder.addCase(getOffer.rejected, (state) => {
-			state.status = RequestStatus.Failed;
-		});
-		builder.addCase(getOffer.pending, (state) => {
-			state.status = RequestStatus.Loading;
-		});
+
 		builder.addCase(getNearBy.fulfilled, (state, action) => {
 			state.nearby = action.payload;
+		});
+		builder.addCase(changeFavorite.fulfilled, (state, action) => {
+			const offer = action.payload.offer.id;
+			const isFavorite = Boolean(action.payload.status);
+			if (offer in state.info) {
+				state.info[offer].isFavorite = isFavorite;
+			}
+		});
+		builder.addCase(login.fulfilled, (state) => {
+			state.info = {};
 		});
 	},
 	initialState,

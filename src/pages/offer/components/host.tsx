@@ -1,10 +1,11 @@
 import { clsx } from 'clsx';
+import { memo } from 'react';
 
 import type { FullOffer } from '../../../types/offer';
 
 type HostProps = Pick<FullOffer, 'description' | 'host'>;
 
-export const Host = ({ description, host }: HostProps) => (
+const Host_ = ({ description, host }: HostProps) => (
 	<div className="offer__host">
 		<h2 className="offer__host-title">Meet the host</h2>
 		<div className="offer__host-user user">
@@ -33,3 +34,5 @@ export const Host = ({ description, host }: HostProps) => (
 		</div>
 	</div>
 );
+
+export const Host = memo(Host_);

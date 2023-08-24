@@ -4,7 +4,7 @@ import { memo } from 'react';
 import type { ServerOffer } from '../../types/offer';
 
 import { capitalize } from '../../utils/case';
-import { prefetchOffer } from '../../utils/load-offfer';
+import { fetchOffer } from '../../utils/load-offfer';
 import { FavoriteButton } from '../favorite-button/favorite-button';
 import { Link } from '../link/link';
 import { PremiumMark } from '../premium-mark/premium-mark';
@@ -27,6 +27,8 @@ type OfferCardProps = Pick<
 	setActive?: (id: ServerOffer['id'] | null) => void;
 };
 
+const scrollTop = () => scrollTo({ behavior: 'smooth', top: 0 });
+
 function PlaceCard_({
 	extraBemBlock,
 	id,
@@ -44,7 +46,7 @@ function PlaceCard_({
 
 	function handleMouseEnter() {
 		setActive?.(id);
-		prefetchOffer(id);
+		fetchOffer(id);
 	}
 
 	function onMouseLeave() {
@@ -65,7 +67,7 @@ function PlaceCard_({
 					[`${extraBemBlock}__image-wrapper`]: extraBemBlock,
 				})}
 			>
-				<Link href={href}>
+				<Link href={href} onClick={scrollTop}>
 					<img
 						alt="Place image"
 						className="place-card__image"
@@ -86,7 +88,9 @@ function PlaceCard_({
 				</div>
 				<Rating bemBlock="place-card" rating={rating} />
 				<h2 className="place-card__name">
-					<Link href={href}>{title}</Link>
+					<Link href={href} onClick={scrollTop}>
+						{title}
+					</Link>
 				</h2>
 				<p className="place-card__type">{capitalize(type)}</p>
 			</div>

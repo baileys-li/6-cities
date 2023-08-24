@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import type { FullOffer } from '../../../types/offer';
 
 import { capitalize } from '../../../utils/case';
@@ -25,7 +27,7 @@ const formatAdults = (count: number) => {
 	}
 };
 
-export const Features = ({ bedrooms, maxAdults, type }: FeaturesProps) => (
+const Features_ = ({ bedrooms, maxAdults, type }: FeaturesProps) => (
 	<ul className="offer__features">
 		<li className="offer__feature offer__feature--entire">
 			{capitalize(type)}
@@ -38,3 +40,5 @@ export const Features = ({ bedrooms, maxAdults, type }: FeaturesProps) => (
 		</li>
 	</ul>
 );
+
+export const Features = memo(Features_);

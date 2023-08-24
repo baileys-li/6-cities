@@ -1,5 +1,3 @@
-import { memo } from 'react';
-
 import type { CityName } from '../../../constants';
 
 import { Map } from '../../../components/map/map';
@@ -8,8 +6,6 @@ import { EmptySection } from './empty-section';
 import { Headline } from './headline';
 import { ListWithMap } from './list-with-map';
 import { Wrapper } from './wrapper';
-
-const MemoMap = memo(Map);
 
 interface MainPageProps {
 	city: CityName;
@@ -32,7 +28,7 @@ export function MainPage({ city }: MainPageProps) {
 			)}
 			<div className="cities__right-section">
 				{!showEmpty && (
-					<MemoMap city={city} className="cities__map" offers={offers} />
+					<Map city={city} className="cities__map" offers={offers} />
 				)}
 			</div>
 		</Wrapper>

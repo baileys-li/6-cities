@@ -2,7 +2,7 @@
 import { clsx } from 'clsx';
 import { Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useMemo, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 
 import type { ServerOffer } from '../../types/offer';
 
@@ -18,7 +18,7 @@ interface MapProps {
 	offers: GenericOffer[];
 }
 
-export function Map({
+function Map_({
 	city = 'Paris',
 	className,
 	offers
@@ -56,3 +56,5 @@ export function Map({
 
 	return <div className={clsx(className, 'map')} ref={mapRef}></div>;
 }
+
+export const Map = memo(Map_);

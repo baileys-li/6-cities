@@ -2,7 +2,7 @@ import type { LoaderFunctionArgs } from 'react-router-dom';
 
 import { store } from '../../store';
 import { offersActions } from '../../store/slices/offers';
-import { fetchOfferPageData } from '../../utils/load-offfer';
+import { fetchOffer, fetchOfferExtra } from '../../utils/load-offfer';
 
 export interface OfferPageLoaderResponse {
 	isLoading: boolean;
@@ -21,8 +21,10 @@ export function loadOfferPageData({ params }: LoaderFunctionArgs) {
 	const isSuccess = id in offerState.info;
 	const isLoading = !isSuccess;
 	if (isLoading) {
-		fetchOfferPageData(id);
+		fetchOffer(id);
 	}
+
+	fetchOfferExtra(id);
 
 	return {
 		isLoading,
