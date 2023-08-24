@@ -9,24 +9,14 @@ export interface OfferPageLoaderResponse {
 }
 
 export function loadOfferPageData({ params }: LoaderFunctionArgs) {
-	const id = params.id;
-
-	if (id === undefined) {
-		return new Response('Not found', { status: 404 });
-	}
-
+	const id = params.id!;
 	store.dispatch(offersActions.setActiveOffer(id));
 
 	const offerState = store.getState().offer;
 	const isSuccess = id in offerState.info;
-	const isLoading = !isSuccess;
-	if (isLoading) {
+	if (!isSuccess) {
 		fetchOffer(id);
 	}
 
-	fetchOfferExtra(id);
-
-	return {
-		isLoading,
-	};
+	return fetchOfferExtra(id);
 }

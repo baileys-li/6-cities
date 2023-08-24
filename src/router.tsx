@@ -7,7 +7,7 @@ import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
 import { FavoritesPage } from './pages/favorites';
 import { LoginPage } from './pages/login/login-page';
 import { MainPage } from './pages/main';
-import { OfferPage, loadOfferPageData } from './pages/offer';
+import { OfferLayout, OfferPage, loadOfferPageData } from './pages/offer';
 
 export const router = createBrowserRouter([
 	{
@@ -21,9 +21,19 @@ export const router = createBrowserRouter([
 				path: `/${id}`,
 			})),
 			{
-				element: <OfferPage />,
-				loader: loadOfferPageData,
-				path: AppRoute.Offer,
+				children: [
+					{
+						element: <Navigate to='/404 '/>,
+						index: true,
+					},
+					{
+						element: <OfferPage />,
+						loader: loadOfferPageData,
+						path: AppRoute.Offer,
+					},
+				],
+				element: <OfferLayout />,
+				path: '/offer',
 			},
 			{
 				children: [
