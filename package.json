@@ -21,13 +21,14 @@
 		"react-dom": "18.2.0",
 		"react-helmet-async": "1.3.0",
 		"react-hot-toast": "^2.4.1",
+		"react-loading-skeleton": "^3.3.1",
 		"react-redux": "8.1.2",
 		"react-router-dom": "6.15.0"
 	},
 	"devDependencies": {
 		"@faker-js/faker": "8.0.2",
 		"@jedmao/redux-mock-store": "3.0.5",
-		"@testing-library/jest-dom": "6.1.1",
+		"@testing-library/jest-dom": "6.1.2",
 		"@testing-library/react": "14.0.0",
 		"@testing-library/user-event": "14.4.3",
 		"@types/leaflet": "1.9.3",
@@ -53,7 +54,7 @@
 		"vite": "4.4.9",
 		"vitest": "0.34.2"
 	},
-	"packageManager": "pnpm@8.6.7",
+	"packageManager": "pnpm@8.6.12",
 	"volta": {
 		"node": "18.16.1"
 	}

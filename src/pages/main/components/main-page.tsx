@@ -12,11 +12,15 @@ export function MainPage() {
 	const { isLoading } = useLoadOffers();
 	const { hasOffers, offers } = useCityOffers(city);
 
+	const showEmpty = !isLoading && !hasOffers;
+
 	return (
 		<Wrapper isEmpty={!hasOffers}>
-			{isLoading && <div>Loading...</div>}
-			{!isLoading && !hasOffers && <EmptySection city={city} />}
-			{!isLoading && hasOffers && <ListWithMap offers={offers} />}
+			{showEmpty ? (
+				<EmptySection city={city} />
+			) : (
+				<ListWithMap isLoading={isLoading} offers={offers} />
+			)}
 		</Wrapper>
 	);
 }

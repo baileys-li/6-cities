@@ -5,6 +5,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { ServerOffer } from '../../types/offer';
 
 import { RequestStatus } from '../../constants';
+import { login, logout } from '../thunks/auth';
 import { changeFavorite } from '../thunks/favorites';
 import { fetchAllOffers } from '../thunks/offers';
 
@@ -20,6 +21,12 @@ const initialState: OffersSlice = {
 	status: RequestStatus.Idle,
 };
 
+const refetch = (state: OffersSlice) => {
+	if (state.status !== RequestStatus.Idle) {
+		state.status = RequestStatus.Refetch;
+	}
+};
+
 export const offersSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(fetchAllOffers.fulfilled, (state, action) => {
@@ -33,9 +40,9 @@ export const offersSlice = createSlice({
 			const isRefetch = state.status === RequestStatus.Refetch;
 			state.status = isRefetch ? RequestStatus.Refetching : RequestStatus.Loading;
 		});
-		builder.addCase(changeFavorite.fulfilled, (state) => {
-			state.status = RequestStatus.Refetch;
-		});
+		builder.addCase(changeFavorite.fulfilled, refetch);
+		builder.addCase(login.fulfilled, refetch);
+		builder.addCase(logout.fulfilled, refetch);
 	},
 	initialState,
 	name: 'offers',
