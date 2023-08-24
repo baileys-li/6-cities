@@ -41,4 +41,19 @@ const enum AuthorizationStatus {
 	Unknown,
 }
 
-export { AuthorizationStatus, CITIES, GOODS, OFFER_TYPES, TemporalData };
+const enum Endpoint {
+	Comments = '/comments',
+	Favorite = '/favorite',
+	Login = '/login',
+	Logout = '/logout',
+	Offers = '/offers'
+}
+
+const enum FavoriteStatus {
+	Added = 1,
+	Removed = 0,
+}
+
+const enum RequestStatus { Idle, Loading, Success, Failed}
+
+export { AuthorizationStatus, CITIES, Endpoint, FavoriteStatus, GOODS, OFFER_TYPES, RequestStatus, TemporalData };

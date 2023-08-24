@@ -1,4 +1,5 @@
-import classNames from 'classnames';
+
+import { clsx } from 'clsx';
 import { Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
@@ -44,5 +45,5 @@ export function Map({
 		}
 	}, [map, offers, activeId]);
 
-	return <div className={classNames(className, 'map')} ref={mapRef}></div>;
+	return <div className={clsx(className, 'map')} ref={mapRef}></div>;
 }

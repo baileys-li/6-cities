@@ -2,14 +2,11 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import { AuthorizationStatus } from '../constants';
 import { AppRoute } from '../constants/routes';
-
-interface AccessRouteProps {
-	status: AuthorizationStatus;
-}
-
+import { useAppSelector } from '../hooks';
 
 // eslint-disable-next-line react/display-name
-const createAccessRoute = (accessStatus: AuthorizationStatus, navigateRoute: string) => ({ status}: AccessRouteProps) => {
+const createAccessRoute = (accessStatus: AuthorizationStatus, navigateRoute: string) => () => {
+	const status = useAppSelector((state) => state.user.status);
 	if (status === accessStatus) {
 		return <Outlet />;
 	}

@@ -1,32 +1,22 @@
-import classNames from 'classnames';
-import { useLoaderData } from 'react-router-dom';
+import { clsx } from 'clsx';
 
-import type { FavoritePageLoaderResponse } from './loader';
-
-import { Header } from '../../components/header/header';
-import { useDocumentTitle } from '../../hooks';
+import { Layout } from '../../components/layout';
+import { useAppSelector } from '../../hooks';
 import { FavoritesEmpty } from './empty';
 import { FavoritesList } from './list';
 
 export function FavoritesPage() {
-	const { cities, offersByCity } =
-		useLoaderData() as FavoritePageLoaderResponse;
-	useDocumentTitle('Favorites');
-
-	const hasFavorites = cities.length > 0;
+	const favorites = useAppSelector((state) => state.favorites.items);
+	const hasFavorites = favorites.length > 0;
 
 	return (
-		<div
-			className={classNames('page', {
+		<Layout
+			className={clsx('page', {
 				'page--favorites-empty': !hasFavorites,
 			})}
+			title="Favorites"
 		>
-			<Header isAuthorized />
-			{hasFavorites ? (
-				<FavoritesList cities={cities} offersByCity={offersByCity} />
-			) : (
-				<FavoritesEmpty />
-			)}
+			{hasFavorites ? <FavoritesList offers={favorites} /> : <FavoritesEmpty />}
 
 			<footer className="footer container">
 				<a className="footer__logo-link" href="main.html">
@@ -39,6 +29,6 @@ export function FavoritesPage() {
 					/>
 				</a>
 			</footer>
-		</div>
+		</Layout>
 	);
 }

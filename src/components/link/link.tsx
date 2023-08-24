@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 type LinkProps = Pick<
 	HTMLAttributes<HTMLAnchorElement>,
-	'children' | 'className'
+	'children' | 'className' | 'onClick'
 > & {
 	href: string;
 };

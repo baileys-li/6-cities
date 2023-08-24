@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 
 import type { ServerOffer } from '../../types/offer';
 
@@ -22,12 +22,14 @@ type OfferCardProps = Pick<
 	| 'type'
 > & {
 	extraBemBlock?: string;
+	imageWidth?: number;
 	setActive?: Dispatch<SetStateAction<null | string>>;
 };
 
 export function PlaceCard({
 	extraBemBlock,
 	id,
+	imageWidth = 260,
 	isFavorite,
 	isPremium,
 	previewImage,
@@ -49,15 +51,15 @@ export function PlaceCard({
 
 	return (
 		<article
-			className={classNames('place-card', {
+			className={clsx('place-card', {
 				[`${extraBemBlock}__card`]: extraBemBlock,
 			})}
 			onMouseEnter={setActive && handleMouseEnter}
 			onMouseLeave={setActive && onMouseLeave}
 		>
-			{isPremium && <PremiumMark bemBlock='place-card' />}
+			{isPremium && <PremiumMark bemBlock="place-card" />}
 			<div
-				className={classNames('place-card__image-wrapper', {
+				className={clsx('place-card__image-wrapper', {
 					[`${extraBemBlock}__image-wrapper`]: extraBemBlock,
 				})}
 			>
@@ -65,20 +67,20 @@ export function PlaceCard({
 					<img
 						alt="Place image"
 						className="place-card__image"
-						height={200}
+						height={imageWidth / 1.3}
 						src={previewImage}
-						width={260}
+						width={imageWidth}
 					/>
 				</Link>
 			</div>
 			<div
-				className={classNames('place-card__info', {
+				className={clsx('place-card__info', {
 					[`${extraBemBlock}__card-info`]: extraBemBlock,
 				})}
 			>
 				<div className="place-card__price-wrapper">
 					<Price bemBlock="place-card" price={price} showSlash />
-					<FavoriteButton isFavorite={isFavorite} />
+					<FavoriteButton isFavorite={isFavorite} offerId={id} />
 				</div>
 				<Rating bemBlock="place-card" rating={rating} />
 				<h2 className="place-card__name">

@@ -1,28 +1,40 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
-
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { ServerOffer } from '../../types/offer';
 
-import { mockAllOfferInfo } from '../../mocks/offer';
+import { RequestStatus } from '../../constants';
+import { getAllOffers } from '../thunks/offers';
 
 interface OffersSlice {
 	items: ServerOffer[];
+	status: RequestStatus;
 }
 
-const initialState: OffersSlice = { items: Array.from({ length: 50 }, mockAllOfferInfo) };
+const initialState: OffersSlice = {
+	items: [],
+	status: RequestStatus.Idle,
+};
 
 export const offersSlice = createSlice({
+	extraReducers: (builder) => {
+		builder.addCase(getAllOffers.fulfilled, (state, action) => {
+			state.items = action.payload;
+			state.status = RequestStatus.Success;
+		});
+		builder.addCase(getAllOffers.rejected, (state) => {
+			state.status = RequestStatus.Failed;
+		});
+		builder.addCase(getAllOffers.pending, (state) => {
+			state.status = RequestStatus.Loading;
+		});
+	},
 	initialState,
 	name: 'offers',
 	reducers: {
 		clear(state) {
 			state.items = [];
 		},
-		setUp(state, action: PayloadAction<ServerOffer[]>) {
-			state.items = action.payload;
-		},
 	},
 });
 
-export const offersActions = offersSlice.actions;
+export const offersActions = {...offersSlice.actions, getAllOffers};

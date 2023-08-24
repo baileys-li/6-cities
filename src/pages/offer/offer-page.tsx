@@ -1,16 +1,14 @@
-import { useLoaderData } from 'react-router-dom';
-
-import type { OfferPageLoaderResponse } from './loader';
+import { Navigate } from 'react-router-dom';
 
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
-import { Header } from '../../components/header/header';
+import { Layout } from '../../components/layout';
 import { Map } from '../../components/map/map';
 import { PlaceCard } from '../../components/place-card/place-card';
 import { PremiumMark } from '../../components/premium-mark/premium-mark';
 import { Price } from '../../components/price/price';
 import { Rating } from '../../components/rating/rating';
-import { useDocumentTitle } from '../../hooks';
-import { mockOfferItem } from '../../mocks/offer';
+import { RequestStatus } from '../../constants';
+import { useAppSelector, useAuth } from '../../hooks';
 import { Features } from './features';
 import { Gallery } from './gallery';
 import { Goods } from './goods';
@@ -23,29 +21,39 @@ const enum Default {
 }
 
 export function OfferPage() {
-	useDocumentTitle('Offer Example');
+	const offer = useAppSelector((state) => state.offer.info);
+	const status = useAppSelector((state) => state.offer.status);
+	const nearbyOffers = useAppSelector((state) => state.offer.nearby);
+	const reviews = useAppSelector((state) => state.reviews.items);
+	const isAuthorized = useAuth();
 
-	const { isAuthorized, offer } = useLoaderData() as OfferPageLoaderResponse;
+	if (status === RequestStatus.Loading) {
+		return <div>Loading...</div>;
+	}
+
+	if (status === RequestStatus.Failed) {
+		return <Navigate to="/404" />;
+	}
 
 	const {
 		bedrooms,
 		description,
 		goods,
 		host,
+		id,
 		images,
 		isFavorite,
 		isPremium,
+		location,
 		maxAdults,
+		price,
 		rating,
 		title,
 		type,
-	} = offer;
-
-	const nearbyOffers = Array.from({ length: 3 }, mockOfferItem);
+	} = offer!;
 
 	return (
-		<div className="page">
-			<Header isAuthorized={isAuthorized} />
+		<Layout className="page" title={'Offer Example'}>
 			<main className="page__main page__main--offer">
 				<section className="offer">
 					<Gallery images={images.slice(0, Default.MaxGallery)} title={title} />
@@ -57,39 +65,31 @@ export function OfferPage() {
 								<FavoriteButton
 									bemBlock="offer"
 									isFavorite={isFavorite}
+									offerId={id}
 									width={31}
 								/>
 							</div>
 							<Rating bemBlock="offer" rating={rating} showValue />
 							<Features bedrooms={bedrooms} maxAdults={maxAdults} type={type} />
-							<Price bemBlock="offer" price={offer.price} />
+							<Price bemBlock="offer" price={price} />
 							<Goods goods={goods} />
 							<Host description={description} host={host} />
 							<section className="offer__reviews reviews">
 								<h2 className="reviews__title">
-									Reviews · <span className="reviews__amount">1</span>
+									Reviews · <span className="reviews__amount">{reviews.length}</span>
 								</h2>
 								<ul className="reviews__list">
-									<ReviewItem
-										comment="A quiet cozy and picturesque that hides behind a a river
-										by the unique lightness of Amsterdam. The building is
-										green and from 18th century."
-										user={{
-											avatarUrl: 'img/avatar-max.jpg',
-											isPro: false,
-											name: 'Max',
-										}}
-										date="2019-04-24"
-										rating={4}
-									/>
+									{reviews.map((review) => (
+										<ReviewItem key={review.id} {...review} />
+									))}
 								</ul>
-								{isAuthorized && <ReviewForm />}
+								{isAuthorized && <ReviewForm offerId={id}/>}
 							</section>
 						</div>
 					</div>
 					<Map
 						className="offer__map"
-						location={nearbyOffers[0].location}
+						location={location}
 						offers={nearbyOffers}
 					/>
 				</section>
@@ -110,6 +110,6 @@ export function OfferPage() {
 					</section>
 				</div>
 			</main>
-		</div>
+		</Layout>
 	);
 }
