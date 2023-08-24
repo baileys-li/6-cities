@@ -6,15 +6,12 @@ import { Link } from '../../components/link/link';
 import { CITIES } from '../../constants';
 import { useAppSelector } from '../../hooks';
 import { EmptySection } from './empty-section';
+import { Headline } from './headline';
 import { ListWithMap } from './list-with-map';
 
 export function MainPage() {
 	const { city } = useParams();
 	const offers = useAppSelector((state) => state.offers.items);
-
-	if (city === undefined) {
-		return <Navigate to={`/${CITIES[0].id}`} />;
-	}
 
 	const cityInfo = CITIES.find(({ id }) => id === city);
 
@@ -60,9 +57,11 @@ export function MainPage() {
 				</div>
 				<div className="cities">
 					{hasOffers ? (
-						<ListWithMap offers={filteredOffers} />
+						<ListWithMap offers={filteredOffers}>
+							<Headline city={cityInfo.name} count={filteredOffers.length} />
+						</ListWithMap>
 					) : (
-						<EmptySection />
+						<EmptySection city={cityInfo.name} />
 					)}
 				</div>
 			</main>

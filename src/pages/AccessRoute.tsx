@@ -7,6 +7,9 @@ import { useAppSelector } from '../hooks';
 // eslint-disable-next-line react/display-name
 const createAccessRoute = (accessStatus: AuthorizationStatus, navigateRoute: string) => () => {
 	const status = useAppSelector((state) => state.user.status);
+	if (status === AuthorizationStatus.Unknown) {
+		return <div>Loading...</div>;
+	}
 	if (status === accessStatus) {
 		return <Outlet />;
 	}

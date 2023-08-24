@@ -1,6 +1,5 @@
 import { Layout } from '../../components/layout';
-import { Link } from '../../components/link/link';
-import { LoginForm } from './form';
+import { LoginForm, RandomCity } from './components';
 
 export const LoginPage = () => (
 	<Layout className="page page--gray page--login" hideNavigation title="Login">
@@ -10,13 +9,7 @@ export const LoginPage = () => (
 					<h1 className="login__title">Sign in</h1>
 					<LoginForm />
 				</section>
-				<section className="locations locations--login locations--current">
-					<div className="locations__item">
-						<Link className="locations__item-link" href="/amsterdam">
-							<span>Amsterdam</span>
-						</Link>
-					</div>
-				</section>
+				<RandomCity />
 			</div>
 		</main>
 	</Layout>

@@ -1,6 +1,6 @@
-import type { FormEvent} from 'react';
+import type { FormEvent } from 'react';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { FormRating } from '../../components/form-rating/form-rating';
 import { useActionCreators } from '../../hooks';
@@ -10,35 +10,74 @@ interface Props {
 	offerId: string;
 }
 
-export function ReviewForm({offerId}: Props) {
-	const [rating, setRating] = useState(0);
-	const [review, setReview] = useState('');
+type HTMLReviewForm = HTMLFormElement & {
+	rating: RadioNodeList;
+	review: HTMLTextAreaElement;
+};
+
+export function ReviewForm({ offerId }: Props) {
+	const [isSubmitDisabled, setSubmitDisabled] = useState(true);
+	const [isFormDisabled, setFormDisabled] = useState(false);
 	const { postComment } = useActionCreators(commentsThunks);
+	const formRef = useRef<HTMLReviewForm>(null);
+
+	function handleInput(event: FormEvent<HTMLFormElement>) {
+		const form = event.currentTarget as HTMLReviewForm;
+		const review = form.review.value;
+		const rating = form.rating.value;
+		setSubmitDisabled(
+			review.length <= 50 || review.length > 300 || rating === '0'
+		);
+	}
+
+	function handleError() {
+		setFormDisabled(false);
+		setSubmitDisabled(false);
+	}
+
+	function handleSuccess() {
+		setFormDisabled(false);
+		formRef.current?.reset();
+	}
+
+	useEffect(() => () => formRef.current?.reset(), [offerId]);
 
 	function handleSubmit(event: FormEvent<HTMLFormElement>) {
+		const form = event.currentTarget as HTMLReviewForm;
 		event.preventDefault();
+		setSubmitDisabled(true);
+		setFormDisabled(true);
+
 		postComment({
 			body: {
-				comment: review,
-				rating,
+				comment: form.review.value,
+				rating: Number(form.rating.value),
 			},
 			offerId,
-		});
+		})
+			.unwrap()
+			.then(handleSuccess, handleError);
 	}
 
 	return (
-		<form action="#" className="reviews__form form" method="post" onSubmit={handleSubmit}>
+		<form
+			action="#"
+			className="reviews__form form"
+			method="post"
+			onInput={handleInput}
+			onSubmit={handleSubmit}
+			ref={formRef}
+		>
 			<label className="reviews__label form__label" htmlFor="review">
 				Your review
 			</label>
-			<FormRating className="reviews__rating-form" setRating={setRating} />
+			<FormRating className="reviews__rating-form" disabled={isFormDisabled} />
 			<textarea
 				className="reviews__textarea form__textarea"
+				disabled={isFormDisabled}
 				id="review"
 				name="review"
-				onChange={(event) => setReview(event.target.value)}
 				placeholder="Tell how was your stay, what you like and what can be improved"
-				value={review}
 			/>
 			<div className="reviews__button-wrapper">
 				<p className="reviews__help">
@@ -48,7 +87,7 @@ export function ReviewForm({offerId}: Props) {
 				</p>
 				<button
 					className="reviews__submit form__submit button"
-					// disabled
+					disabled={isSubmitDisabled}
 					type="submit"
 				>
 					Submit

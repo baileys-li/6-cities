@@ -1,6 +1,14 @@
 import { clsx } from 'clsx';
+import { useNavigate } from 'react-router-dom';
 
-import { useActionCreators } from '../../hooks';
+import { RequestStatus } from '../../constants';
+import { AppRoute } from '../../constants/routes';
+import {
+	useActionCreators,
+	useAppSelector,
+	useAuth,
+	useBoolean,
+} from '../../hooks';
 import { favoritesActions } from '../../store/slices/favorites';
 
 interface FavoriteButtonProps {
@@ -20,28 +28,45 @@ export function FavoriteButton({
 	offerId,
 	width = 18,
 }: FavoriteButtonProps) {
-	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
+	const { isOn, toggle } = useBoolean(isFavorite);
+	const { changeFavorite } = useActionCreators(favoritesActions);
+	const status = useAppSelector((state) => state.favorites.status);
+
+	const favoriteLabel = `${isOn ? 'In' : 'To'} bookmarks`;
 	const buttonClass = `${bemBlock}__bookmark-button`;
+
 	const favoriteClass = clsx(
 		buttonClass,
 		{
-			[`${buttonClass}--active`]: isFavorite,
+			[`${buttonClass}--active`]: isOn,
 		},
 		'button'
 	);
 
 	const height = width * Default.HeightCoefficient;
 
-	const { changeFavorite } = useActionCreators(favoritesActions);
+	const isAuthorized = useAuth();
+	const navigate = useNavigate();
+
 	function handleClick() {
+		if (!isAuthorized) {
+			return navigate(AppRoute.Login);
+		}
+
 		changeFavorite({
 			offerId,
-			status: Number(!isFavorite),
+			status: Number(!isOn),
 		});
+		toggle();
 	}
 
 	return (
-		<button className={favoriteClass} onClick={handleClick} type="button">
+		<button
+			className={favoriteClass}
+			disabled={status === RequestStatus.Loading}
+			onClick={handleClick}
+			type="button"
+		>
 			<svg
 				className={`${bemBlock}__bookmark-icon`}
 				height={height}

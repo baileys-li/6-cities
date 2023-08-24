@@ -1,3 +1,5 @@
+import type { ReactNode} from 'react';
+
 import { useMemo, useState } from 'react';
 
 import type { ServerOffer } from '../../types/offer';
@@ -7,10 +9,12 @@ import { PlaceCard } from '../../components/place-card/place-card';
 import { SortForm, SortOption } from './sort';
 
 interface ListWithMapProps {
+	children: ReactNode;
 	offers: ServerOffer[];
 }
 
-export function ListWithMap({ offers }: ListWithMapProps) {
+
+export function ListWithMap({ children, offers }: ListWithMapProps) {
 	const [activeOffer, setOffer] = useState<null | string>(null);
 	const [activeSort, setSort] = useState(SortOption.Popular);
 
@@ -31,9 +35,7 @@ export function ListWithMap({ offers }: ListWithMapProps) {
 		<div className="cities__places-container container">
 			<section className="cities__places places">
 				<h2 className="visually-hidden">Places</h2>
-				<b className="places__found">
-					{offers.length} places to stay in Amsterdam
-				</b>
+				{children}
 				<SortForm current={activeSort} setter={setSort} />
 				<div className="cities__places-list places__list tabs__content">
 					{sortedOffers.map((offer) => (
@@ -50,7 +52,6 @@ export function ListWithMap({ offers }: ListWithMapProps) {
 				<Map
 					activeId={activeOffer}
 					className="cities__map"
-					location={offers[0].location}
 					offers={offers}
 				/>
 			</div>

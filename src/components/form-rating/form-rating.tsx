@@ -1,42 +1,51 @@
 import type { ChangeEvent, HTMLAttributes} from 'react';
 
 import { clsx } from 'clsx';
-import { useId } from 'react';
+
+const OPTIONS = [
+	{ label: 'perfect', value: 5 },
+	{ label: 'good', value: 4 },
+	{ label: 'not bad', value: 3 },
+	{ label: 'badly', value: 2 },
+	{ label: 'terribly', value: 1 },
+] as const;
 
 type FormRatingProps = Pick<HTMLAttributes<HTMLDivElement>, 'className'> & {
+	disabled?: boolean;
 	setRating?: (value: number) => void;
 };
 
 interface OptionProps {
+	disabled: boolean;
 	label: string;
 	value: number;
 }
 
-function Option({ label, value }: OptionProps) {
-	const id = useId();
+function Option({ disabled, label, value }: OptionProps) {
+	const id = `${value}-stars`;
 
 	return (
 		<>
 			<input
 				className="form__rating-input visually-hidden"
 				defaultValue={value}
+				disabled={disabled}
 				id={id}
 				name="rating"
 				type="radio"
 			/>
 			<label
+				aria-label={label}
 				className="reviews__rating-label form__rating-label"
 				htmlFor={id}
-				title="perfect"
+				title={label}
 			>
 				<svg
-					aria-labelledby={`${id}-title`}
+					aria-hidden
 					className="form__star-image"
 					height={33}
-					role="img"
 					width={37}
 				>
-					<title id={`${id}-title`}>{label}</title>
 					<use xlinkHref="#icon-star" />
 				</svg>
 			</label>
@@ -44,7 +53,7 @@ function Option({ label, value }: OptionProps) {
 	);
 }
 
-export function FormRating({ className, setRating }: FormRatingProps) {
+export function FormRating({ className, disabled = false, setRating }: FormRatingProps) {
 	function handleChange(event: ChangeEvent<HTMLInputElement>) {
 		if (setRating) {
 			setRating(Number(event.target.value));
@@ -52,11 +61,7 @@ export function FormRating({ className, setRating }: FormRatingProps) {
 	}
 	return (
 		<div className={clsx('form__rating', className)} onChange={handleChange}>
-			<Option label="perfect" value={5} />
-			<Option label="good" value={4} />
-			<Option label="not bad" value={3} />
-			<Option label="badly" value={2} />
-			<Option label="terribly" value={1} />
+			{OPTIONS.map((option) => (<Option key={option.label} {...option} disabled={disabled} />))}
 		</div>
 	);
 }

@@ -1,5 +1,6 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import { CITIES } from './constants';
 import { AppRoute } from './constants/routes';
 import { Page404 } from './pages/404';
 import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
@@ -12,15 +13,13 @@ const router = createBrowserRouter([
 	{
 		children: [
 			{
-				children: [
-					{
-						element: <MainPage />,
-						path: AppRoute.City,
-					},
-				],
+				element: <Navigate to={`/${CITIES[0].id}`} />,
+				path: AppRoute.Main,
+			},
+			{
 				element: <MainPage />,
 				loader: loadMainPageData,
-				path: AppRoute.Main,
+				path: AppRoute.City,
 			},
 			{
 				children: [
@@ -46,6 +45,10 @@ const router = createBrowserRouter([
 				element: <OfferPage />,
 				loader: loadOfferPageData,
 				path: AppRoute.Offer,
+			},
+			{
+				element: <Page404 />,
+				path: AppRoute.NotFound,
 			},
 		],
 		errorElement: <Page404 />,

@@ -12,6 +12,8 @@ import { useAppSelector, useAuth } from '../../hooks';
 import { Features } from './features';
 import { Gallery } from './gallery';
 import { Goods } from './goods';
+import { selectRandomNearbySlice } from './hooks/nearby';
+import { useReviews } from './hooks/reviews';
 import { Host } from './host';
 import { ReviewItem } from './review';
 import { ReviewForm } from './review-form';
@@ -23,8 +25,8 @@ const enum Default {
 export function OfferPage() {
 	const offer = useAppSelector((state) => state.offer.info);
 	const status = useAppSelector((state) => state.offer.status);
-	const nearbyOffers = useAppSelector((state) => state.offer.nearby);
-	const reviews = useAppSelector((state) => state.reviews.items);
+	const nearbyOffers = useAppSelector(selectRandomNearbySlice);
+	const {reviews, reviewsCount} = useReviews();
 	const isAuthorized = useAuth();
 
 	if (status === RequestStatus.Loading) {
@@ -44,7 +46,6 @@ export function OfferPage() {
 		images,
 		isFavorite,
 		isPremium,
-		location,
 		maxAdults,
 		price,
 		rating,
@@ -76,7 +77,7 @@ export function OfferPage() {
 							<Host description={description} host={host} />
 							<section className="offer__reviews reviews">
 								<h2 className="reviews__title">
-									Reviews · <span className="reviews__amount">{reviews.length}</span>
+									Reviews · <span className="reviews__amount">{reviewsCount}</span>
 								</h2>
 								<ul className="reviews__list">
 									{reviews.map((review) => (
@@ -88,9 +89,9 @@ export function OfferPage() {
 						</div>
 					</div>
 					<Map
+						activeId={id}
 						className="offer__map"
-						location={location}
-						offers={nearbyOffers}
+						offers={[...nearbyOffers, offer!]}
 					/>
 				</section>
 				<div className="container">
