@@ -6,27 +6,20 @@ import { Page404 } from './pages/404';
 import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
 import { FavoritesPage } from './pages/favorites';
 import { LoginPage } from './pages/login/login-page';
-import { MainPage, loadMainPageData } from './pages/main';
+import { MainPage } from './pages/main';
 import { OfferPage, loadOfferPageData } from './pages/offer';
 
 export const router = createBrowserRouter([
 	{
 		children: [
 			{
-				children: [
-					{
-						element: <Navigate to={`/${CITIES[0].id}`} />,
-						index: true,
-					},
-					{
-						element: <MainPage />,
-						loader: loadMainPageData,
-						path: AppRoute.City,
-					},
-				],
-				path: AppRoute.Main,
+				element: <Navigate to={`/${CITIES[0].id}`} />,
+				index: true,
 			},
-
+			...CITIES.map(({ id, name }) => ({
+				element: <MainPage city={name} />,
+				path: `/${id}`,
+			})),
 			{
 				children: [
 					{
@@ -51,10 +44,6 @@ export const router = createBrowserRouter([
 				element: <OfferPage />,
 				loader: loadOfferPageData,
 				path: AppRoute.Offer,
-			},
-			{
-				element: <Page404 />,
-				path: AppRoute.NotFound,
 			},
 		],
 		errorElement: <Page404 />,

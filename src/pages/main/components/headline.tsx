@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { useLoaderData } from 'react-router-dom';
 
 import type { CityName } from '../../../constants';
 
@@ -7,6 +6,7 @@ import { useDocumentTitle } from '../../../hooks';
 import { pluralIntl } from '../../../utils/intl';
 
 interface HeadlineProps {
+	city: CityName;
 	count?: number;
 }
 
@@ -18,8 +18,7 @@ const getPlaceWord = (count: number) => {
 	return `${count} places to stay`;
 };
 
-const Headline_ = ({ count }: HeadlineProps) => {
-	const city = useLoaderData() as CityName;
+const Headline_ = ({ city, count }: HeadlineProps) => {
 	const headline = `${count ? getPlaceWord(count) : 'Loading offers'} in ${city}`;
 
 	useDocumentTitle(headline);

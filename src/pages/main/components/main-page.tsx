@@ -1,18 +1,21 @@
 import { memo } from 'react';
-import { useLoaderData } from 'react-router-dom';
 
 import type { CityName } from '../../../constants';
 
 import { Map } from '../../../components/map/map';
 import { useCityOffers, useLoadOffers } from '../hooks';
 import { EmptySection } from './empty-section';
+import { Headline } from './headline';
 import { ListWithMap } from './list-with-map';
 import { Wrapper } from './wrapper';
 
 const MemoMap = memo(Map);
 
-export function MainPage() {
-	const city = useLoaderData() as CityName;
+interface MainPageProps {
+	city: CityName;
+}
+
+export function MainPage({ city }: MainPageProps) {
 	const { isLoading } = useLoadOffers();
 	const { hasOffers, offers } = useCityOffers(city);
 
@@ -23,10 +26,14 @@ export function MainPage() {
 			{showEmpty ? (
 				<EmptySection city={city} />
 			) : (
-				<ListWithMap isLoading={isLoading} offers={offers} />
+				<ListWithMap isLoading={isLoading} offers={offers}>
+					<Headline city={city} count={offers.length} />
+				</ListWithMap>
 			)}
 			<div className="cities__right-section">
-				{!showEmpty && <MemoMap city={city} className="cities__map" offers={offers} />}
+				{!showEmpty && (
+					<MemoMap city={city} className="cities__map" offers={offers} />
+				)}
 			</div>
 		</Wrapper>
 	);

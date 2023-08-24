@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { CITIES } from '../../../constants';
 import { AppRoute } from '../../../constants/routes';
@@ -14,9 +14,11 @@ const IMAGE = (
 	/>
 );
 
+const mainPaths = CITIES.map(({ id }) => `/${id}`);
+
 export function Logo() {
-	const { city } = useParams();
-	const isActive = Boolean(city && CITIES.find(({ id }) => id === city));
+	const { pathname } = useLocation();
+	const isActive = mainPaths.includes(pathname);
 
 	if (isActive) {
 		return (

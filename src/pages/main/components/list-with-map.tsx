@@ -1,3 +1,5 @@
+import type { ReactNode} from 'react';
+
 import { useMemo, useState } from 'react';
 
 import type { ServerOffer } from '../../../types/offer';
@@ -6,10 +8,10 @@ import { PlaceCard } from '../../../components/place-card/place-card';
 import { PlaceCardSkeleton } from '../../../components/place-card/place-card.skeleton';
 import { useActionCreators } from '../../../hooks';
 import { offersActions } from '../../../store/slices/offers';
-import { Headline } from './headline';
 import { SortForm, SortOption } from './sort';
 
 interface ListWithMapProps {
+	children: ReactNode;
 	isLoading?: boolean;
 	offers: ServerOffer[];
 }
@@ -22,7 +24,7 @@ const SKELETONS = Array.from({ length: Default.SkeletonsCount }, (_, index) => (
 	<PlaceCardSkeleton extraBemBlock="cities" key={index} />
 ));
 
-export function ListWithMap({ isLoading = false, offers }: ListWithMapProps) {
+export function ListWithMap({ children, isLoading = false, offers }: ListWithMapProps) {
 	const { setActiveOffer } = useActionCreators(offersActions);
 	const [activeSort, setSort] = useState(SortOption.Popular);
 
@@ -42,7 +44,7 @@ export function ListWithMap({ isLoading = false, offers }: ListWithMapProps) {
 	return (
 		<section className="cities__places places">
 			<h2 className="visually-hidden">Places</h2>
-			<Headline count={offers.length} />
+			{children}
 			<SortForm current={activeSort} setter={setSort} />
 			<div className="cities__places-list places__list tabs__content">
 				{isLoading && SKELETONS}
