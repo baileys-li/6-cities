@@ -4,6 +4,7 @@ import { PlaceCard } from '../../../components/place-card/place-card';
 import { PremiumMark } from '../../../components/premium-mark/premium-mark';
 import { Price } from '../../../components/price/price';
 import { Rating } from '../../../components/rating/rating';
+import { Spinner } from '../../../components/spinner/spinner';
 import { useAppSelector, useDocumentTitle } from '../../../hooks';
 import {
 	selectOffer,
@@ -21,7 +22,7 @@ export function OfferPage() {
 	useDocumentTitle(offer?.title || '');
 
 	if (offer === null) {
-		return 'Loading...';
+		return <Spinner />;
 	}
 
 	const {
@@ -75,7 +76,7 @@ export function OfferPage() {
 			<div className="container">
 				<section className="near-places places">
 					<h2 className="near-places__title">
-							Other places in the neighbourhood
+						Other places in the neighbourhood
 					</h2>
 					<div className="near-places__list places__list">
 						{nearbyOffers.map((nearbyOffer) => (

@@ -15,7 +15,10 @@ export function loadOfferPageData({ params }: LoaderFunctionArgs) {
 	const offerState = store.getState().offer;
 	const isSuccess = id in offerState.info;
 	if (!isSuccess) {
-		fetchOffer(id);
+		return Promise.all([
+			fetchOffer(id),
+			fetchOfferExtra(id)
+		]);
 	}
 
 	return fetchOfferExtra(id);

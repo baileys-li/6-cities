@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import type { ServerOffer } from '../../types/offer';
 import type { Store } from '../../types/store';
 
-import { getRandomElement, randomSort } from '../../utils/random';
+import { getRandomElement } from '../../utils/random';
 import { selectActiveId } from './offers';
 
 const enum Default {
@@ -31,13 +31,10 @@ export const selectRandomNearbySlice = createSelector(
 	selectNearby,
 	selectActiveId,
 	(nearbyOffers, activeId) => {
-		if (Default.Size + 1 >= nearbyOffers.length) {
-			return [...nearbyOffers].sort(randomSort);
-		}
-
+		const size = Math.min(Default.Size, nearbyOffers.length - 1);
 		const sortedElements: ServerOffer[] = [];
 
-		while ((Default.Size as number) > sortedElements.length) {
+		while (size > sortedElements.length) {
 			let element = getRandomElement(nearbyOffers);
 			while (sortedElements.includes(element) || element.id === activeId) {
 				element = getRandomElement(nearbyOffers);
