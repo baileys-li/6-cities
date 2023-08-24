@@ -1,7 +1,7 @@
-import type { FullOffer } from '../../types/offer';
+import type { FullOffer } from '../../../types/offer';
 
-import { capitalize } from '../../utils/case';
-import { pluralIntl } from '../../utils/intl';
+import { capitalize } from '../../../utils/case';
+import { pluralIntl } from '../../../utils/intl';
 
 type FeaturesProps = Pick<FullOffer, 'bedrooms' | 'maxAdults' | 'type'>;
 

@@ -1,6 +1,6 @@
-import type { Review } from '../../types/review';
+import type { Review } from '../../../types/review';
 
-import { Rating } from '../../components/rating/rating';
+import { Rating } from '../../../components/rating/rating';
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', {
 	month: 'long',

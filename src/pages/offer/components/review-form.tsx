@@ -2,23 +2,22 @@ import type { FormEvent } from 'react';
 
 import { useEffect, useRef, useState } from 'react';
 
-import { FormRating } from '../../components/form-rating/form-rating';
-import { useActionCreators } from '../../hooks';
-import { commentsThunks } from '../../store/thunks/comments';
+import { FormRating } from '../../../components/form-rating/form-rating';
+import { useActionCreators } from '../../../hooks';
+import { postComment } from '../../../store/thunks/comments';
+import { useOfferId } from '../hooks/id';
 
-interface Props {
-	offerId: string;
-}
 
 type HTMLReviewForm = HTMLFormElement & {
 	rating: RadioNodeList;
 	review: HTMLTextAreaElement;
 };
 
-export function ReviewForm({ offerId }: Props) {
+export function ReviewForm() {
+	const offerId = useOfferId();
 	const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 	const [isFormDisabled, setFormDisabled] = useState(false);
-	const { postComment } = useActionCreators(commentsThunks);
+	const {post} = useActionCreators({ post: postComment });
 	const formRef = useRef<HTMLReviewForm>(null);
 
 	function handleInput(event: FormEvent<HTMLFormElement>) {
@@ -48,7 +47,7 @@ export function ReviewForm({ offerId }: Props) {
 		setSubmitDisabled(true);
 		setFormDisabled(true);
 
-		postComment({
+		post({
 			body: {
 				comment: form.review.value,
 				rating: Number(form.rating.value),

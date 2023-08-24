@@ -6,13 +6,13 @@ import { RequestStatus } from '../../constants';
 import { getNearBy, getOffer } from '../thunks/offers';
 
 interface OffersSlice {
-	info: FullOffer | null;
+	info: Record<FullOffer['id'], FullOffer>;
 	nearby: ServerOffer[];
 	status: RequestStatus;
 }
 
 const initialState: OffersSlice = {
-	info: null,
+	info: {},
 	nearby: [],
 	status: RequestStatus.Idle,
 };
@@ -20,7 +20,8 @@ const initialState: OffersSlice = {
 export const offerSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(getOffer.fulfilled, (state, action) => {
-			state.info = action.payload;
+			const offer = action.payload;
+			state.info[offer.id] = offer;
 			state.status = RequestStatus.Success;
 		});
 		builder.addCase(getOffer.rejected, (state) => {
@@ -35,12 +36,7 @@ export const offerSlice = createSlice({
 	},
 	initialState,
 	name: 'offer',
-	reducers: {
-		clear(state) {
-			state.info = null;
-			state.nearby = [];
-		},
-	},
+	reducers: {},
 });
 
 export const offerActions = {...offerSlice.actions};

@@ -2,15 +2,13 @@ import type { LoaderFunctionArgs } from 'react-router-dom';
 
 import { store } from '../../store';
 import { offersActions } from '../../store/slices/offers';
-import { commentsThunks } from '../../store/thunks/comments';
-import { getNearBy, getOffer } from '../../store/thunks/offers';
+import { fetchOfferPageData } from '../../utils/load-offfer';
+
 export interface OfferPageLoaderResponse {
-	isAuthorized: boolean;
+	isLoading: boolean;
 }
 
-export function loadOfferPageData({
-	params,
-}: LoaderFunctionArgs) {
+export function loadOfferPageData({ params }: LoaderFunctionArgs) {
 	const id = params.id;
 
 	if (id === undefined) {
@@ -19,11 +17,14 @@ export function loadOfferPageData({
 
 	store.dispatch(offersActions.setActiveOffer(id));
 
-	Promise.all([
-		store.dispatch(getOffer(id)),
-		store.dispatch(getNearBy(id)),
-		store.dispatch(commentsThunks.fetchComments(id)),
-	]);
+	const offerState = store.getState().offer;
+	const isSuccess = id in offerState.info;
+	const isLoading = !isSuccess;
+	if (isLoading) {
+		fetchOfferPageData(id);
+	}
 
-	return null;
+	return {
+		isLoading,
+	};
 }

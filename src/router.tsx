@@ -21,6 +21,11 @@ export const router = createBrowserRouter([
 				path: `/${id}`,
 			})),
 			{
+				element: <OfferPage />,
+				loader: loadOfferPageData,
+				path: AppRoute.Offer,
+			},
+			{
 				children: [
 					{
 						element: <FavoritesPage />,
@@ -39,11 +44,6 @@ export const router = createBrowserRouter([
 				],
 				element: <PublicRoute />,
 				path: AppRoute.Login,
-			},
-			{
-				element: <OfferPage />,
-				loader: loadOfferPageData,
-				path: AppRoute.Offer,
 			},
 		],
 		errorElement: <Page404 />,

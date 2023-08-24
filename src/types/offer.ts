@@ -1,3 +1,5 @@
+import type { CityName } from '../constants';
+
 interface ServerLocation {
 	latitude: number;
 	longitude: number;
@@ -6,7 +8,7 @@ interface ServerLocation {
 
 interface City {
 	location: ServerLocation;
-	name: string;
+	name: CityName;
 }
 
 interface ServerOffer {

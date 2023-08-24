@@ -13,13 +13,13 @@ import { activeIcon, defaultIcon } from './icons';
 
 type GenericOffer = Pick<ServerOffer, 'city' | 'id' | 'location'>
 interface MapProps {
-	city: CityName;
+	city?: CityName;
 	className?: string;
 	offers: GenericOffer[];
 }
 
 export function Map({
-	city,
+	city = 'Paris',
 	className,
 	offers
 }: MapProps): JSX.Element {

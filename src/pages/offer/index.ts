@@ -1,2 +1,2 @@
 export { loadOfferPageData } from './loader';
-export { OfferPage } from './offer-page';
+export { OfferPage } from './components/offer-page';

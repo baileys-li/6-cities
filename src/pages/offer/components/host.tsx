@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import type { FullOffer } from '../../types/offer';
+import type { FullOffer } from '../../../types/offer';
 
 type HostProps = Pick<FullOffer, 'description' | 'host'>;
 

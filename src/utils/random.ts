@@ -39,22 +39,5 @@ const getRandomElement = <Element>(array: Element[] | readonly Element[]) => arr
 
 const getRandomBoolean = () => Boolean(getRandomInteger(RandomBoolean.FALSE, RandomBoolean.TRUE));
 
-function getRandomSlice<Element>(array: Element[] | readonly Element[], size: number = Default.Slice) {
-	if (size >= array.length) {
-		return [...array].sort(randomSort);
-	}
 
-	const sortedElements: Element[] = [];
-
-	while (sortedElements.length < size) {
-		let element = getRandomElement(array);
-		while (sortedElements.includes(element)) {
-			element = getRandomElement(array);
-		}
-		sortedElements.push(element);
-	}
-
-	return sortedElements;
-}
-
-export { getRandomBoolean, getRandomElement, getRandomInteger, getRandomSlice, randomSort };
+export { getRandomBoolean, getRandomElement, getRandomInteger, randomSort };

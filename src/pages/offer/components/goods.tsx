@@ -1,4 +1,4 @@
-import type { FullOffer } from '../../types/offer';
+import type { FullOffer } from '../../../types/offer';
 
 type GoodsProps = Pick<FullOffer, 'goods'>;
 

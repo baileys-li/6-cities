@@ -4,6 +4,7 @@ import { memo } from 'react';
 import type { ServerOffer } from '../../types/offer';
 
 import { capitalize } from '../../utils/case';
+import { prefetchOffer } from '../../utils/load-offfer';
 import { FavoriteButton } from '../favorite-button/favorite-button';
 import { Link } from '../link/link';
 import { PremiumMark } from '../premium-mark/premium-mark';
@@ -42,7 +43,8 @@ function PlaceCard_({
 	const href = `/offer/${id}`;
 
 	function handleMouseEnter() {
-		setActive!(id);
+		setActive?.(id);
+		prefetchOffer(id);
 	}
 
 	function onMouseLeave() {
@@ -54,7 +56,7 @@ function PlaceCard_({
 			className={clsx('place-card', {
 				[`${extraBemBlock}__card`]: extraBemBlock,
 			})}
-			onMouseEnter={setActive && handleMouseEnter}
+			onMouseEnter={handleMouseEnter}
 			onMouseLeave={setActive && onMouseLeave}
 		>
 			{isPremium && <PremiumMark bemBlock="place-card" />}
