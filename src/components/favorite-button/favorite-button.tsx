@@ -3,10 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AppRoute } from '../../constants/routes';
-import {
-	useActionCreators,
-	useAuth
-} from '../../hooks';
+import { useActionCreators, useAuth } from '../../hooks';
 import { favoritesActions } from '../../store/slices/favorites';
 
 interface FavoriteButtonProps {
@@ -26,16 +23,16 @@ function FavoriteButton_({
 	offerId,
 	width = 18,
 }: FavoriteButtonProps) {
-	const [disable, setDisable] = useState(false);
+	const [isOn, setOn] = useState(isFavorite);
 	const { changeFavorite } = useActionCreators(favoritesActions);
 
-	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
+	const favoriteLabel = `${isOn ? 'In' : 'To'} bookmarks`;
 	const buttonClass = `${bemBlock}__bookmark-button`;
 
 	const favoriteClass = clsx(
 		buttonClass,
 		{
-			[`${buttonClass}--active`]: isFavorite,
+			[`${buttonClass}--active`]: isOn,
 		},
 		'button'
 	);
@@ -52,18 +49,13 @@ function FavoriteButton_({
 
 		changeFavorite({
 			offerId,
-			status: Number(!isFavorite),
-		}).then(() => setDisable(false));
-
+			status: Number(!isOn),
+		});
+		setOn((prev) => !prev);
 	}
 
 	return (
-		<button
-			className={favoriteClass}
-			disabled={disable}
-			onClick={handleClick}
-			type="button"
-		>
+		<button className={favoriteClass} onClick={handleClick} type="button">
 			<svg
 				className={`${bemBlock}__bookmark-icon`}
 				height={height}
