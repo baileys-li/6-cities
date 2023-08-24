@@ -1,8 +1,7 @@
-import { memo, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import type { ServerOffer } from '../../../types/offer';
 
-import { Map } from '../../../components/map/map';
 import { PlaceCard } from '../../../components/place-card/place-card';
 import { PlaceCardSkeleton } from '../../../components/place-card/place-card.skeleton';
 import { useActionCreators } from '../../../hooks';
@@ -23,8 +22,6 @@ const SKELETONS = Array.from({ length: Default.SkeletonsCount }, (_, index) => (
 	<PlaceCardSkeleton extraBemBlock="cities" key={index} />
 ));
 
-const MemoMap = memo(Map);
-
 export function ListWithMap({ isLoading = false, offers }: ListWithMapProps) {
 	const { setActiveOffer } = useActionCreators(offersActions);
 	const [activeSort, setSort] = useState(SortOption.Popular);
@@ -43,44 +40,39 @@ export function ListWithMap({ isLoading = false, offers }: ListWithMapProps) {
 	}, [offers, activeSort]);
 
 	return (
-		<div className="cities__places-container container">
-			<section className="cities__places places">
-				<h2 className="visually-hidden">Places</h2>
-				<Headline count={offers.length} />
-				<SortForm current={activeSort} setter={setSort} />
-				<div className="cities__places-list places__list tabs__content">
-					{isLoading && SKELETONS}
-					{sortedOffers.map(
-						({
-							id,
-							isFavorite,
-							isPremium,
-							previewImage,
-							price,
-							rating,
-							title,
-							type,
-						}) => (
-							<PlaceCard
-								extraBemBlock="cities"
-								id={id}
-								isFavorite={isFavorite}
-								isPremium={isPremium}
-								key={id}
-								previewImage={previewImage}
-								price={price}
-								rating={rating}
-								setActive={setActiveOffer}
-								title={title}
-								type={type}
-							/>
-						)
-					)}
-				</div>
-			</section>
-			<div className="cities__right-section">
-				{!!offers.length && <MemoMap className="cities__map" offers={offers} />}
+		<section className="cities__places places">
+			<h2 className="visually-hidden">Places</h2>
+			<Headline count={offers.length} />
+			<SortForm current={activeSort} setter={setSort} />
+			<div className="cities__places-list places__list tabs__content">
+				{isLoading && SKELETONS}
+				{sortedOffers.map(
+					({
+						id,
+						isFavorite,
+						isPremium,
+						previewImage,
+						price,
+						rating,
+						title,
+						type,
+					}) => (
+						<PlaceCard
+							extraBemBlock="cities"
+							id={id}
+							isFavorite={isFavorite}
+							isPremium={isPremium}
+							key={id}
+							previewImage={previewImage}
+							price={price}
+							rating={rating}
+							setActive={setActiveOffer}
+							title={title}
+							type={type}
+						/>
+					)
+				)}
 			</div>
-		</div>
+		</section>
 	);
 }

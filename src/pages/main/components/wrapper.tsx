@@ -25,7 +25,13 @@ export const Wrapper = ({ children, isEmpty }: WrapperProps) => (
 			<h1 className="visually-hidden">{HEADLINE}</h1>
 			<MemoTabs />
 			<div className="cities">
-				{children}
+				<div
+					className={clsx('cities__places-container container', {
+						'cities__places-container--empty': isEmpty,
+					})}
+				>
+					{children}
+				</div>
 			</div>
 		</main>
 	</div>
