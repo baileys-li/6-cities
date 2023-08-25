@@ -36,6 +36,7 @@ export function LoginForm() {
 				<input
 					className="login__input form__input"
 					name="email"
+					pattern="^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$"
 					placeholder="Email"
 					required
 					type="email"
@@ -46,6 +47,7 @@ export function LoginForm() {
 				<input
 					className="login__input form__input"
 					name="password"
+					pattern='^(?=.*[a-zA-Z])(?=.*\d).+$'
 					placeholder="Password"
 					required
 					type="password"
