@@ -1,10 +1,12 @@
+import { memo } from 'react';
+
 import { Logo, Navigation } from './components';
 
 export interface HeaderProps {
 	hideNavigation?: boolean;
 }
 
-export const Header = ({ hideNavigation = false }: HeaderProps) => (
+const Header_ = ({ hideNavigation = false }: HeaderProps) => (
 	<header className="header">
 		<div className="container">
 			<div className="header__wrapper">
@@ -16,3 +18,5 @@ export const Header = ({ hideNavigation = false }: HeaderProps) => (
 		</div>
 	</header>
 );
+
+export const Header = memo(Header_);

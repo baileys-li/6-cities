@@ -1,9 +1,10 @@
 import clsx from 'clsx';
+import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { CITIES } from '../../../constants';
 
-export function Tabs() {
+function Tabs_() {
 	return (
 		<div className="tabs">
 			<section className="locations container">
@@ -30,3 +31,5 @@ export function Tabs() {
 		</div>
 	);
 }
+
+export const Tabs = memo(Tabs_);

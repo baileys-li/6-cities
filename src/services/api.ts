@@ -1,5 +1,3 @@
-import type { AxiosInstance } from 'axios';
-
 import axios, { isAxiosError } from 'axios';
 import { toast } from 'react-hot-toast';
 
@@ -10,10 +8,10 @@ const enum Default {
 	Timeout = 5000,
 }
 
-export const createAPI = (): AxiosInstance => {
+export const createAPI = () => {
 	const api = axios.create({
-		baseURL: Default.BaseUrl as string,
-		timeout: Default.Timeout as number,
+		baseURL: Default.BaseUrl as const,
+		timeout: Default.Timeout as const,
 	});
 
 	api.interceptors.request.use((config) => {

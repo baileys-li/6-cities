@@ -1,7 +1,7 @@
 import type { CityName } from '../../../constants';
 
 import { Map } from '../../../components/map/map';
-import { useCityOffers, useLoadOffers } from '../hooks';
+import { useCityOffers } from '../hooks';
 import { EmptySection } from './empty-section';
 import { Headline } from './headline';
 import { ListWithMap } from './list-with-map';
@@ -12,9 +12,7 @@ interface MainPageProps {
 }
 
 export function MainPage({ city }: MainPageProps) {
-	const { isLoading } = useLoadOffers();
-	const { hasOffers, offers } = useCityOffers(city);
-
+	const { hasOffers, isLoading, offers } = useCityOffers(city);
 	const showEmpty = !isLoading && !hasOffers;
 
 	return (

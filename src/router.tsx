@@ -6,7 +6,7 @@ import { Page404 } from './pages/404';
 import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
 import { FavoritesPage } from './pages/favorites';
 import { LoginPage } from './pages/login/login-page';
-import { MainPage } from './pages/main';
+import { MainPage, loadMainPageData } from './pages/main';
 import { OfferLayout, OfferPage, loadOfferPageData } from './pages/offer';
 
 export const router = createBrowserRouter([
@@ -18,6 +18,7 @@ export const router = createBrowserRouter([
 			},
 			...CITIES.map(({ id, name }) => ({
 				element: <MainPage city={name} />,
+				loader: loadMainPageData,
 				path: `/${id}`,
 			})),
 			{

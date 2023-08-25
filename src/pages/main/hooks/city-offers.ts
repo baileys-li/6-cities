@@ -1,13 +1,18 @@
+import { useMemo } from 'react';
+
 import { useAppSelector } from '../../../hooks';
-import { selectOffers } from '../../../store/selectors/offers';
+import { selectOffersState } from '../../../store/selectors/offers';
 
 export function useCityOffers(city: string) {
-	const offers = useAppSelector(selectOffers);
-	const filteredOffers = offers.filter(
-		({ city: { name } }) => name === city
+	const { isLoading, offers } = useAppSelector(selectOffersState);
+	const filteredOffers = useMemo(
+		() => isLoading ? [] : offers.filter(({ city: { name } }) => name === city),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[city, isLoading]
 	);
 	return {
 		hasOffers: Boolean(filteredOffers.length),
+		isLoading,
 		offers: filteredOffers,
 	};
 }
