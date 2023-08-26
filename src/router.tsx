@@ -7,12 +7,13 @@ import { FavoritesPage } from './pages/favorites';
 import { LoginPage } from './pages/login/login-page';
 import { MainPage, loadMainPageData } from './pages/main';
 import { OfferLayout, OfferPage, loadOfferPageData } from './pages/offer';
+import { RandomCityRoute } from './pages/random-city';
 
 export const router = createBrowserRouter([
 	{
 		children: [
 			{
-				element: <Navigate to={`/${CITIES[0].id}`} />,
+				element: <RandomCityRoute />,
 				index: true,
 			},
 			...CITIES.map(({ id, name }) => ({
