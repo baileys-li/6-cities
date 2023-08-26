@@ -1,36 +1,9 @@
-import type { FormEvent } from 'react';
-
-import { toast } from 'react-hot-toast';
-
-import { useActionCreators } from '../../../hooks';
-import { userActions } from '../../../store/slices/user';
-
-type HTMLLoginForm = HTMLFormElement & {
-	email: HTMLInputElement;
-	password: HTMLInputElement;
-};
+import { Form, useNavigation } from 'react-router-dom';
 
 export function LoginForm() {
-	const { login } = useActionCreators(userActions);
-
-	function handleSubmit(event: FormEvent<HTMLLoginForm>) {
-		event.preventDefault();
-		const form = event.currentTarget;
-
-		toast.promise(
-			login({
-				email: form.email.value,
-				password: form.password.value,
-			}).unwrap(),
-			{
-				error: <b>Failed.</b>,
-				loading: 'Loging...',
-				success: <b>Successed login!</b>,
-			}
-		);
-	}
+	const { state } = useNavigation();
 	return (
-		<form className="login__form form" method="post" onSubmit={handleSubmit}>
+		<Form action="/login" className="login__form form" method="post">
 			<div className="login__input-wrapper form__input-wrapper">
 				<label className="visually-hidden">E-mail</label>
 				<input
@@ -47,15 +20,19 @@ export function LoginForm() {
 				<input
 					className="login__input form__input"
 					name="password"
-					pattern='^(?=.*[a-zA-Z])(?=.*\d).+$'
+					pattern="^(?=.*[a-zA-Z])(?=.*\d).+$"
 					placeholder="Password"
 					required
 					type="password"
 				/>
 			</div>
-			<button className="login__submit form__submit button" type="submit">
+			<button
+				className="login__submit form__submit button"
+				disabled={state !== 'idle'}
+				type="submit"
+			>
 				Sign in
 			</button>
-		</form>
+		</Form>
 	);
 }
