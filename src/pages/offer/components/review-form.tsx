@@ -1,12 +1,12 @@
 import type { FormEvent } from 'react';
 
 import { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 import { FormRating } from '../../../components/form-rating/form-rating';
 import { useActionCreators } from '../../../hooks';
 import { postComment } from '../../../store/thunks/comments';
 import { useOfferId } from '../hooks/id';
-
 
 type HTMLReviewForm = HTMLFormElement & {
 	rating: RadioNodeList;
@@ -17,7 +17,7 @@ export function ReviewForm() {
 	const offerId = useOfferId();
 	const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 	const [isFormDisabled, setFormDisabled] = useState(false);
-	const {post} = useActionCreators({ post: postComment });
+	const { post } = useActionCreators({ post: postComment });
 	const formRef = useRef<HTMLReviewForm>(null);
 
 	function handleInput(event: FormEvent<HTMLFormElement>) {
@@ -32,11 +32,13 @@ export function ReviewForm() {
 	function handleError() {
 		setFormDisabled(false);
 		setSubmitDisabled(false);
+		return 'Something went wrong';
 	}
 
 	function handleSuccess() {
 		setFormDisabled(false);
 		formRef.current?.reset();
+		return 'Comment sent!';
 	}
 
 	useEffect(() => () => formRef.current?.reset(), [offerId]);
@@ -46,16 +48,20 @@ export function ReviewForm() {
 		event.preventDefault();
 		setSubmitDisabled(true);
 		setFormDisabled(true);
-
-		post({
-			body: {
-				comment: form.review.value,
-				rating: Number(form.rating.value),
-			},
-			offerId,
-		})
-			.unwrap()
-			.then(handleSuccess, handleError);
+		toast.promise(
+			post({
+				body: {
+					comment: form.review.value,
+					rating: Number(form.rating.value),
+				},
+				offerId,
+			}).unwrap(),
+			{
+				error: handleError,
+				loading: 'Sending...',
+				success: handleSuccess,
+			}
+		);
 	}
 
 	return (
