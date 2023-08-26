@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
 import { CITIES } from '../../../constants';
-import { AppRoute } from '../../../constants/routes';
+import { AppRoute } from '../../../constants';
 import { Link } from '../../link/link';
 
 const IMAGE = (

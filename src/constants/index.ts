@@ -1,13 +1,20 @@
-export const PROJECT_NAME = '6 cities';
+const APP_NAME = '6 cities';
 
-const OFFER_TYPES = [
-	'Private room',
-	'Apartment',
-	'House',
-	'Hotel',
-	'Cursed Old House',
-	'Palace',
-] as const;
+const AppRoute = {
+	City: '/:city',
+	Favorites: '/favorites',
+	Login: '/login',
+	Main: '/',
+	NotFound: '/404',
+	Offer: '/offer',
+	OfferId: '/offer/:id',
+} as const;
+
+const enum AuthorizationStatus {
+	Auth,
+	NoAuth,
+	Unknown,
+}
 
 const CITIES = [
 	{
@@ -42,35 +49,13 @@ const CITIES = [
 	},
 ] as const;
 
-type CityName = (typeof CITIES)[number]['name'];
-type CityId = (typeof CITIES)[number]['id'];
-
-const GOODS = [
-	'Wi-Fi',
-	'Washing machine',
-	'Towels',
-	'Heating',
-	'Coffee machine',
-	'Baby seat',
-	'Kitchen',
-	'Dishwasher',
-	'Cabel TV',
-	'Fridge',
-];
-
-const enum AuthorizationStatus {
-	Auth,
-	NoAuth,
-	Unknown,
-}
-
-const enum Endpoint {
-	Comments = '/comments',
-	Favorite = '/favorite',
-	Login = '/login',
-	Logout = '/logout',
-	Offers = '/offers',
-}
+const Endpoint = {
+	Comments: '/comments',
+	Favorite: '/favorite',
+	Login: '/login',
+	Logout: '/logout',
+	Offers: '/offers',
+};
 
 const enum FavoriteStatus {
 	Added = 1,
@@ -82,17 +67,14 @@ const enum RequestStatus {
 	Loading,
 	Success,
 	Failed,
-	Refetch,
 }
 
 export {
+	APP_NAME,
+	AppRoute,
 	AuthorizationStatus,
 	CITIES,
 	Endpoint,
 	FavoriteStatus,
-	GOODS,
-	OFFER_TYPES,
 	RequestStatus,
 };
-
-export type { CityId, CityName };

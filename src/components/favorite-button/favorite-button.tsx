@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { AppRoute } from '../../constants/routes';
+import { AppRoute } from '../../constants';
 import { useActionCreators, useAuth } from '../../hooks';
 import { favoritesActions } from '../../store/slices/favorites';
 

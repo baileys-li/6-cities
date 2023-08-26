@@ -3,6 +3,7 @@ import { memo } from 'react';
 
 import type { ServerOffer } from '../../types/offer';
 
+import { AppRoute } from '../../constants';
 import { capitalize } from '../../utils/case';
 import { fetchOffer } from '../../utils/load-offfer';
 import { FavoriteButton } from '../favorite-button/favorite-button';
@@ -11,21 +12,25 @@ import { PremiumMark } from '../premium-mark/premium-mark';
 import { Price } from '../price/price';
 import { Rating } from '../rating/rating';
 
-type OfferCardProps = Pick<
-	ServerOffer,
-	| 'id'
-	| 'isFavorite'
-	| 'isPremium'
-	| 'previewImage'
-	| 'price'
-	| 'rating'
-	| 'title'
-	| 'type'
-> & {
+type PlaceCardOfferKeys = Pick<
+ServerOffer,
+| 'id'
+| 'isFavorite'
+| 'isPremium'
+| 'previewImage'
+| 'price'
+| 'rating'
+| 'title'
+| 'type'
+>
+
+interface PlaceCardOwnProps {
 	extraBemBlock?: string;
 	imageWidth?: number;
 	setActive?: (id: ServerOffer['id'] | null) => void;
-};
+}
+
+type OfferCardProps = PlaceCardOfferKeys & PlaceCardOwnProps
 
 const scrollTop = () => scrollTo({ behavior: 'smooth', top: 0 });
 
@@ -42,7 +47,7 @@ function PlaceCard_({
 	title,
 	type,
 }: OfferCardProps) {
-	const href = `/offer/${id}`;
+	const href = `${AppRoute.Offer}/${id}`;
 
 	function handleMouseEnter() {
 		setActive?.(id);
@@ -99,3 +104,4 @@ function PlaceCard_({
 }
 
 export const PlaceCard = memo(PlaceCard_);
+export type { PlaceCardOfferKeys, PlaceCardOwnProps };

@@ -4,9 +4,10 @@ import { Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { memo, useEffect, useMemo, useRef } from 'react';
 
+import type { CityName } from '../../types/city';
 import type { ServerOffer } from '../../types/offer';
 
-import { CITIES, type CityName } from '../../constants';
+import { CITIES } from '../../constants';
 import { useAppSelector, useMap } from '../../hooks';
 import { selectActiveId } from '../../store/selectors/offers';
 import { activeIcon, defaultIcon } from './icons';

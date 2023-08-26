@@ -1,4 +1,4 @@
-import { AppRoute } from '../../../constants/routes';
+import { AppRoute } from '../../../constants';
 import { useAuth } from '../../../hooks';
 import { Link } from '../../link/link';
 import { LoggedNavigation } from './logged-nav/logged-nav';

@@ -2,12 +2,13 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import { Spinner } from '../components/spinner/spinner';
 import { AuthorizationStatus } from '../constants';
-import { AppRoute } from '../constants/routes';
+import { AppRoute } from '../constants';
 import { useAppSelector } from '../hooks';
+import { selectAuthStatus } from '../store/selectors/user';
 
 // eslint-disable-next-line react/display-name
 const createAccessRoute = (accessStatus: AuthorizationStatus, navigateRoute: string) => () => {
-	const status = useAppSelector((state) => state.user.status);
+	const status = useAppSelector(selectAuthStatus);
 	if (status === AuthorizationStatus.Unknown) {
 		return <Spinner />;
 	}

@@ -1,11 +1,23 @@
+
+import type { CityId, CityName } from '../../../types/city';
 import type { ServerOffer } from '../../../types/offer';
 
-import { PlaceCard } from '../../../components/place-card/place-card';
+import { Link } from '../../../components/link/link';
+import { createMapper } from '../../../components/place-card';
+import { CITIES } from '../../../constants';
+
+const cityToSlug = {} as Record<CityName, `/${CityId}`>;
+
+for (const city of CITIES) {
+	cityToSlug[city.name] = `/${city.id}`;
+}
+
+const mapper = createMapper({ extraBemBlock: 'favorites', imageWidth: 150 });
 
 export function FavoritesList({ offers }: { offers: ServerOffer[] }) {
-	const cities: string[] = [];
+	const cities: CityName[] = [];
 
-	const offersByCity: Record<string, ServerOffer[]> = {};
+	const offersByCity = {} as Record<CityName, ServerOffer[]>;
 
 	for (const offer of offers) {
 		const city = offer.city.name;
@@ -28,20 +40,13 @@ export function FavoritesList({ offers }: { offers: ServerOffer[] }) {
 							<li className="favorites__locations-items" key={city}>
 								<div className="favorites__locations locations locations--current">
 									<div className="locations__item">
-										<a className="locations__item-link" href="#">
+										<Link className="locations__item-link" href={cityToSlug[city]}>
 											<span>{city}</span>
-										</a>
+										</Link>
 									</div>
 								</div>
 								<div className="favorites__places">
-									{offersByCity[city].map((offer) => (
-										<PlaceCard
-											{...offer}
-											extraBemBlock="favorites"
-											imageWidth={150}
-											key={offer.id}
-										/>
-									))}
+									{offersByCity[city].map(mapper)}
 								</div>
 							</li>
 						))}

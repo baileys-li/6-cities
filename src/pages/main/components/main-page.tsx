@@ -1,4 +1,4 @@
-import type { CityName } from '../../../constants';
+import type { CityName } from '../../../types/city';
 
 import { Map } from '../../../components/map/map';
 import { useCityOffers } from '../hooks';
@@ -16,7 +16,7 @@ export function MainPage({ city }: MainPageProps) {
 	const showEmpty = !isLoading && !hasOffers;
 
 	return (
-		<Wrapper isEmpty={!hasOffers}>
+		<Wrapper isEmpty={showEmpty}>
 			{showEmpty ? (
 				<EmptySection city={city} />
 			) : (

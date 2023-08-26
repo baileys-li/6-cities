@@ -5,6 +5,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { ServerOffer } from '../../types/offer';
 
 import { RequestStatus } from '../../constants';
+import { setPending, setRejected, setSuccessWithItems } from '../../utils/request-status';
 import { login } from '../thunks/auth';
 import { changeFavorite } from '../thunks/favorites';
 import { fetchAllOffers } from '../thunks/offers';
@@ -29,16 +30,9 @@ const refetch = (state: OffersSlice) => {
 
 export const offersSlice = createSlice({
 	extraReducers: (builder) => {
-		builder.addCase(fetchAllOffers.fulfilled, (state, action) => {
-			state.items = action.payload;
-			state.status = RequestStatus.Success;
-		});
-		builder.addCase(fetchAllOffers.rejected, (state) => {
-			state.status = RequestStatus.Failed;
-		});
-		builder.addCase(fetchAllOffers.pending, (state) => {
-			state.status = RequestStatus.Loading;
-		});
+		builder.addCase(fetchAllOffers.fulfilled, setSuccessWithItems);
+		builder.addCase(fetchAllOffers.rejected, setRejected);
+		builder.addCase(fetchAllOffers.pending, setPending);
 		builder.addCase(changeFavorite.fulfilled, (state, action) => {
 			const id = action.payload.offer.id;
 			const isFavorite = Boolean(action.payload.status);

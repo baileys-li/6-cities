@@ -1,8 +1,7 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 
-import { CITIES } from './constants';
-import { AppRoute } from './constants/routes';
-import { Page404 } from './pages/404';
+import { AppRoute, CITIES } from './constants';
+import { Page404 } from './pages/404/404';
 import { PrivateRoute, PublicRoute } from './pages/AccessRoute';
 import { FavoritesPage } from './pages/favorites';
 import { LoginPage } from './pages/login/login-page';
@@ -30,11 +29,11 @@ export const router = createBrowserRouter([
 					{
 						element: <OfferPage />,
 						loader: loadOfferPageData,
-						path: AppRoute.Offer,
+						path: AppRoute.OfferId,
 					},
 				],
 				element: <OfferLayout />,
-				path: '/offer',
+				path: AppRoute.Offer,
 			},
 			{
 				children: [

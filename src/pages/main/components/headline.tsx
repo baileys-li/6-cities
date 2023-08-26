@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import type { CityName } from '../../../constants';
+import type { CityName } from '../../../types/city';
 
 import { useDocumentTitle } from '../../../hooks';
 import { pluralIntl } from '../../../utils/intl';
@@ -19,15 +19,13 @@ const getPlaceWord = (count: number) => {
 };
 
 const Headline_ = ({ city, count }: HeadlineProps) => {
-	const headline = `${count ? getPlaceWord(count) : 'Loading offers'} in ${city}`;
+	const headline = `${
+		count ? getPlaceWord(count) : 'Loading offers'
+	} in ${city}`;
 
 	useDocumentTitle(headline);
 
-	return (
-		<b className="places__found">
-			{headline}
-		</b>
-	);
+	return <b className="places__found">{headline}</b>;
 };
 
 export const Headline = memo(Headline_);

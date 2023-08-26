@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { ServerOffer } from '../../types/offer';
 
 import { FavoriteStatus, RequestStatus } from '../../constants';
+import { setPending, setRejected, setSuccessWithItems } from '../../utils/request-status';
 import { changeFavorite, fetchFavorites } from '../thunks/favorites';
 interface FavoritesState {
 	items: ServerOffer[];
@@ -16,16 +17,9 @@ const initialState: FavoritesState = {
 
 export const favoritesSlice = createSlice({
 	extraReducers: (builder) => {
-		builder.addCase(fetchFavorites.fulfilled, (state, action) => {
-			state.items = action.payload;
-			state.status = RequestStatus.Success;
-		});
-		builder.addCase(fetchFavorites.rejected, (state) => {
-			state.status = RequestStatus.Failed;
-		});
-		builder.addCase(fetchFavorites.pending, (state) => {
-			state.status = RequestStatus.Loading;
-		});
+		builder.addCase(fetchFavorites.fulfilled, setSuccessWithItems);
+		builder.addCase(fetchFavorites.rejected, setRejected);
+		builder.addCase(fetchFavorites.pending, setPending);
 		builder.addCase(changeFavorite.fulfilled, (state, action) => {
 			switch (action.payload.status) {
 				case FavoriteStatus.Added:
@@ -44,7 +38,6 @@ export const favoritesSlice = createSlice({
 });
 
 export const favoritesActions = {
-	...favoritesSlice.actions,
 	changeFavorite,
 	fetchFavorites,
 };

@@ -4,11 +4,11 @@ import { useMemo, useState } from 'react';
 
 import type { ServerOffer } from '../../../types/offer';
 
-import { PlaceCard } from '../../../components/place-card/place-card';
-import { PlaceCardSkeleton } from '../../../components/place-card/place-card.skeleton';
+import { PlaceCardSkeleton, createMapper } from '../../../components/place-card';
 import { useActionCreators } from '../../../hooks';
 import { offersActions } from '../../../store/slices/offers';
-import { SortForm, SortOption } from './sort';
+import { SortOption } from '../constants';
+import { SortForm } from './sort';
 
 interface ListWithMapProps {
 	children: ReactNode;
@@ -27,6 +27,7 @@ const SKELETONS = Array.from({ length: Default.SkeletonsCount }, (_, index) => (
 export function ListWithMap({ children, isLoading = false, offers }: ListWithMapProps) {
 	const { setActiveOffer } = useActionCreators(offersActions);
 	const [activeSort, setSort] = useState(SortOption.Popular);
+	const mapper = createMapper({ setActive: setActiveOffer });
 
 	const sortedOffers = useMemo(() => {
 		switch (activeSort) {
@@ -48,32 +49,7 @@ export function ListWithMap({ children, isLoading = false, offers }: ListWithMap
 			<SortForm current={activeSort} setter={setSort} />
 			<div className="cities__places-list places__list tabs__content">
 				{isLoading && SKELETONS}
-				{sortedOffers.map(
-					({
-						id,
-						isFavorite,
-						isPremium,
-						previewImage,
-						price,
-						rating,
-						title,
-						type,
-					}) => (
-						<PlaceCard
-							extraBemBlock="cities"
-							id={id}
-							isFavorite={isFavorite}
-							isPremium={isPremium}
-							key={id}
-							previewImage={previewImage}
-							price={price}
-							rating={rating}
-							setActive={setActiveOffer}
-							title={title}
-							type={type}
-						/>
-					)
-				)}
+				{sortedOffers.map(mapper)}
 			</div>
 		</section>
 	);

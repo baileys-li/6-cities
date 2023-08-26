@@ -1,19 +1,17 @@
 import { useEffect } from 'react';
 
-import { RequestStatus } from '../../../../constants';
-import { useActionCreators, useAppSelector } from '../../../../hooks';
-import { selectFavoritesStatusAndCount } from '../../../../store/selectors/favorites';
+import { useActionCreators, useFavorites } from '../../../../hooks';
 import { favoritesActions } from '../../../../store/slices/favorites';
 
 export function useFavoriteCount() {
-	const favorites = useAppSelector(selectFavoritesStatusAndCount);
+	const {count, isIdle} = useFavorites();
 	const { fetchFavorites } = useActionCreators(favoritesActions);
 
 	useEffect(() => {
-		if (favorites.status === RequestStatus.Idle) {
+		if (isIdle) {
 			fetchFavorites();
 		}
-	}, [favorites.status, fetchFavorites]);
+	}, [isIdle, fetchFavorites]);
 
-	return favorites.count;
+	return count;
 }

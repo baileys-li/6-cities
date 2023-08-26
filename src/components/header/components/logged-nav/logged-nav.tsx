@@ -1,11 +1,12 @@
-import { AppRoute } from '../../../../constants/routes';
+import { AppRoute } from '../../../../constants';
 import { useAppSelector } from '../../../../hooks';
+import { selectUser } from '../../../../store/selectors/user';
 import { Link } from '../../../link/link';
 import { FavoriteCount } from '../favorite-count/favorite-count';
 import { useHandleLogout } from './hook';
 
 export function LoggedNavigation() {
-	const user = useAppSelector((state) => state.user.info!);
+	const user = useAppSelector(selectUser)!;
 	const handleLogout = useHandleLogout();
 
 	return (

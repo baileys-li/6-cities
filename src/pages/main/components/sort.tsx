@@ -1,21 +1,10 @@
 import { clsx } from 'clsx';
 import { memo } from 'react';
 
+import type { SortOption } from '../constants';
+
 import { useBoolean } from '../../../hooks';
-
-const SORT_OPTIONS = [
-	'Popular',
-	'Price: low to high',
-	'Price: high to low',
-	'Top rated first',
-];
-
-export const enum SortOption {
-	Popular,
-	PriceLowToHigh,
-	PriceHighToLow,
-	TopRatedFirst,
-}
+import { SORT_OPTIONS } from '../constants';
 
 interface SortFormProps {
 	current: SortOption;
