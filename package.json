@@ -8,11 +8,12 @@
 		"lint:fix": "eslint src --ext ts,tsx --fix",
 		"preview": "vite preview",
 		"start": "vite",
-		"test": "vitest --passWithNoTests"
+		"test": "vitest --passWithNoTests",
+		"test:ui": "vitest --ui --passWithNoTests"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "1.9.5",
-		"axios": "1.4.0",
+		"axios": "1.5.0",
 		"clsx": "^2.0.0",
 		"history": "5.3.0",
 		"http-status-codes": "2.2.0",
@@ -38,24 +39,25 @@
 		"@typescript-eslint/eslint-plugin": "6.4.1",
 		"@typescript-eslint/parser": "6.4.1",
 		"@vitejs/plugin-react": "4.0.4",
+		"@vitest/ui": "^0.34.3",
 		"axios-mock-adapter": "1.21.5",
-		"eslint": "8.47.0",
+		"eslint": "8.48.0",
 		"eslint-config-htmlacademy": "9.1.1",
 		"eslint-plugin-perfectionist": "1.5.1",
 		"eslint-plugin-react-hooks": "4.6.0",
 		"eslint-plugin-react-refresh": "0.4.3",
 		"jsdom": "22.1.0",
 		"postcss-calc": "^9.0.1",
-		"postcss-preset-env": "^9.1.1",
+		"postcss-preset-env": "^9.1.2",
 		"postcss-sort-media-queries": "^5.2.0",
 		"stylelint": "^15.10.3",
 		"stylelint-config-standard": "^34.0.0",
-		"typescript": "5.1.6",
+		"typescript": "5.2.2",
 		"vite": "4.4.9",
-		"vitest": "0.34.2"
+		"vitest": "0.34.3"
 	},
-	"packageManager": "pnpm@8.6.12",
+	"packageManager": "pnpm@8.7.0",
 	"volta": {
-		"node": "18.16.1"
+		"node": "18.17.1"
 	}
 }
