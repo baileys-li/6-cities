@@ -1,3 +1,9 @@
-const pluralIntl = new Intl.PluralRules('en-US');
+const DEFAULT_LOCALE = 'en-US';
 
-export { pluralIntl };
+const pluralIntl = new Intl.PluralRules(DEFAULT_LOCALE);
+const dateFormatter = new Intl.DateTimeFormat(DEFAULT_LOCALE, {
+	month: 'long',
+	year: 'numeric',
+});
+
+export { dateFormatter, pluralIntl };
