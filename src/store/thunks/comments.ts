@@ -33,4 +33,4 @@ const postComment = createAsyncThunk<Review, PostCommentProps, ThunkApi>(
 	}
 );
 
-export const commentsThunks = { fetchComments, postComment };
+export { fetchComments, postComment };

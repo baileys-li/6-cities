@@ -1,14 +1,5 @@
-interface ServerLocation {
-	latitude: number;
-	longitude: number;
-	zoom: number;
-}
-
-interface City {
-	location: ServerLocation;
-	name: string;
-}
-
+import type { City } from './city';
+import type { ServerLocation } from './location';
 interface ServerOffer {
 	city: City;
 	id: string;

@@ -1,13 +1,4 @@
-import { createSelector } from '@reduxjs/toolkit';
-
-import type { Store } from '../types/store';
-
-import { AuthorizationStatus } from '../constants';
+import { selectIsAuth } from '../store/selectors/user';
 import { useAppSelector } from './store';
 
-const selectAuthStatus = (state: Store) => state.user.status;
-const selectIsAuth = createSelector(selectAuthStatus, (status) => status === AuthorizationStatus.Auth);
-
-export function useAuth() {
-	return useAppSelector(selectIsAuth);
-}
+export const useAuth = () => useAppSelector(selectIsAuth);

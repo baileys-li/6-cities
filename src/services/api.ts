@@ -1,6 +1,5 @@
-import type { AxiosInstance } from 'axios';
-
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
+import { toast } from 'react-hot-toast';
 
 import { getToken } from './token';
 
@@ -9,10 +8,10 @@ const enum Default {
 	Timeout = 5000,
 }
 
-export const createAPI = (): AxiosInstance => {
+export const createAPI = () => {
 	const api = axios.create({
-		baseURL: Default.BaseUrl as string,
-		timeout: Default.Timeout as number,
+		baseURL: Default.BaseUrl as const,
+		timeout: Default.Timeout as const,
 	});
 
 	api.interceptors.request.use((config) => {
@@ -22,6 +21,18 @@ export const createAPI = (): AxiosInstance => {
 		}
 
 		return config;
+	});
+
+	api.interceptors.response.use(null, (error) => {
+		if (isAxiosError(error)) {
+			if (error.code === 'ERR_NETWORK') {
+				toast.error('Network error');
+			}
+
+			if (error.response && error.response.status >= 500) {
+				toast.error('Server error');
+			}
+		}
 	});
 
 	return api;

@@ -1,34 +1,25 @@
 import { clsx } from 'clsx';
 
+import { Footer } from '../../components/footer/footer';
 import { Layout } from '../../components/layout';
-import { useAppSelector } from '../../hooks';
-import { FavoritesEmpty } from './empty';
-import { FavoritesList } from './list';
+import { Spinner } from '../../components/spinner/spinner';
+import { useFavorites } from '../../hooks';
+import { FavoritesEmpty, FavoritesList } from './components';
 
 export function FavoritesPage() {
-	const favorites = useAppSelector((state) => state.favorites.items);
-	const hasFavorites = favorites.length > 0;
-
+	const { isLoading, isSuccess, offers } = useFavorites();
+	const showEmpty = isSuccess && offers.length === 0;
 	return (
 		<Layout
 			className={clsx('page', {
-				'page--favorites-empty': !hasFavorites,
+				'page--favorites-empty': showEmpty,
 			})}
 			title="Favorites"
 		>
-			{hasFavorites ? <FavoritesList offers={favorites} /> : <FavoritesEmpty />}
-
-			<footer className="footer container">
-				<a className="footer__logo-link" href="main.html">
-					<img
-						alt="6 cities logo"
-						className="footer__logo"
-						height={33}
-						src="img/logo.svg"
-						width={64}
-					/>
-				</a>
-			</footer>
+			{isLoading && <Spinner />}
+			{isSuccess && !showEmpty && <FavoritesList offers={offers} />}
+			{showEmpty && <FavoritesEmpty />}
+			<Footer />
 		</Layout>
 	);
 }

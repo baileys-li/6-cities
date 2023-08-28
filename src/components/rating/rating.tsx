@@ -1,9 +1,11 @@
+import { memo } from 'react';
+
 interface RatingProps {
 	bemBlock: 'offer' | 'place-card' | 'reviews';
 	rating: number;
 	showValue?: boolean;
 }
-export const Rating = ({
+const Rating_ = ({
 	bemBlock,
 	rating,
 	showValue = false,
@@ -20,3 +22,5 @@ export const Rating = ({
 		)}
 	</div>
 );
+
+export const Rating = memo(Rating_);

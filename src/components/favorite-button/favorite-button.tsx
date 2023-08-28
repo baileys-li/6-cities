@@ -1,14 +1,9 @@
 import { clsx } from 'clsx';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { RequestStatus } from '../../constants';
-import { AppRoute } from '../../constants/routes';
-import {
-	useActionCreators,
-	useAppSelector,
-	useAuth,
-	useBoolean,
-} from '../../hooks';
+import { AppRoute } from '../../constants';
+import { useActionCreators, useAuth } from '../../hooks';
 import { favoritesActions } from '../../store/slices/favorites';
 
 interface FavoriteButtonProps {
@@ -22,31 +17,31 @@ const enum Default {
 	HeightCoefficient = 18 / 17,
 }
 
-export function FavoriteButton({
+function FavoriteButton_({
 	bemBlock = 'place-card',
 	isFavorite = false,
 	offerId,
 	width = 18,
 }: FavoriteButtonProps) {
-	const { isOn, toggle } = useBoolean(isFavorite);
+	const [isOn, setOn] = useState(isFavorite);
 	const { changeFavorite } = useActionCreators(favoritesActions);
-	const status = useAppSelector((state) => state.favorites.status);
+	const isAuthorized = useAuth();
+	const navigate = useNavigate();
 
-	const favoriteLabel = `${isOn ? 'In' : 'To'} bookmarks`;
+	const isActive = isAuthorized && isOn;
+
+	const favoriteLabel = `${isActive ? 'In' : 'To'} bookmarks`;
 	const buttonClass = `${bemBlock}__bookmark-button`;
 
 	const favoriteClass = clsx(
 		buttonClass,
 		{
-			[`${buttonClass}--active`]: isOn,
+			[`${buttonClass}--active`]: isActive,
 		},
 		'button'
 	);
 
 	const height = width * Default.HeightCoefficient;
-
-	const isAuthorized = useAuth();
-	const navigate = useNavigate();
 
 	function handleClick() {
 		if (!isAuthorized) {
@@ -57,16 +52,11 @@ export function FavoriteButton({
 			offerId,
 			status: Number(!isOn),
 		});
-		toggle();
+		setOn((prev) => !prev);
 	}
 
 	return (
-		<button
-			className={favoriteClass}
-			disabled={status === RequestStatus.Loading}
-			onClick={handleClick}
-			type="button"
-		>
+		<button className={favoriteClass} onClick={handleClick} type="button">
 			<svg
 				className={`${bemBlock}__bookmark-icon`}
 				height={height}
@@ -78,3 +68,5 @@ export function FavoriteButton({
 		</button>
 	);
 }
+
+export const FavoriteButton = FavoriteButton_;

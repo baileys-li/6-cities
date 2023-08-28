@@ -2,31 +2,32 @@
 import { clsx } from 'clsx';
 import { Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 
-import type { CityName } from '../../constants';
+import type { CityName } from '../../types/city';
 import type { ServerOffer } from '../../types/offer';
 
-import { useMap } from '../../hooks';
+import { CITIES } from '../../constants';
+import { useAppSelector, useMap } from '../../hooks';
+import { selectActiveId } from '../../store/selectors/offers';
 import { activeIcon, defaultIcon } from './icons';
 
 type GenericOffer = Pick<ServerOffer, 'city' | 'id' | 'location'>
 interface MapProps {
-	activeId?: null | string;
+	city?: CityName;
 	className?: string;
 	offers: GenericOffer[];
 }
 
-export function Map({
-	activeId = null,
+function Map_({
+	city = 'Paris',
 	className,
-	offers,
+	offers
 }: MapProps): JSX.Element {
 	const mapRef = useRef(null);
-	const city = offers[0].city;
-	const cityName = city.name as CityName;
-	const cityNameRef = useRef<CityName>(city.name as CityName);
-	const map = useMap(mapRef, city);
+	const location = useMemo(() => CITIES.find(({name}) => name === city)?.location, [city]);
+	const map = useMap(mapRef, location);
+	const activeId = useAppSelector(selectActiveId);
 	useEffect(() => {
 		if (map) {
 			const markerLayer = layerGroup().addTo(map);
@@ -48,12 +49,13 @@ export function Map({
 	}, [map, offers, activeId]);
 
 	useEffect(() => {
-		if (map && cityNameRef.current !== cityName) {
-			map.panTo([city.location.latitude, city.location.longitude]);
-			cityNameRef.current = cityName;
+		if (map && location) {
+			map.panTo([location.latitude, location.longitude]);
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [cityName, cityNameRef, map]);
+	}, [location]);
 
 	return <div className={clsx(className, 'map')} ref={mapRef}></div>;
 }
+
+export const Map = memo(Map_);

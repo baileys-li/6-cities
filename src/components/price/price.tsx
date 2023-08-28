@@ -1,10 +1,12 @@
+import { memo } from 'react';
+
 interface PriceProps {
 	bemBlock: 'offer' | 'place-card';
 	price: number;
 	showSlash?: boolean;
 }
 
-export function Price({ bemBlock, price, showSlash = false }: PriceProps) {
+function Price_({ bemBlock, price, showSlash = false }: PriceProps) {
 	let text = ' night';
 	if (showSlash) {
 		text = `/${text}`;
@@ -16,3 +18,5 @@ export function Price({ bemBlock, price, showSlash = false }: PriceProps) {
 		</div>
 	);
 }
+
+export const Price = memo(Price_);

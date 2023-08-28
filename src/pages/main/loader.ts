@@ -1,4 +1,11 @@
+import { RequestStatus } from '../../constants';
 import { store } from '../../store';
-import { getAllOffers } from '../../store/thunks/offers';
+import { offersActions } from '../../store/slices/offers';
 
-export const loadMainPageData = () => store.dispatch(getAllOffers());
+export function loadMainPageData() {
+	if (store.getState().offers.status === RequestStatus.Idle) {
+		store.dispatch(offersActions.fetchAllOffers());
+	}
+
+	return null;
+}

@@ -1,5 +1,4 @@
-import type { HTMLAttributes } from 'react';
-
+import { type HTMLAttributes, memo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 type LinkProps = Pick<
@@ -9,7 +8,7 @@ type LinkProps = Pick<
 	href: string;
 };
 
-export function Link({ children, href, ...props }: LinkProps) {
+function Link_({ children, href, ...props }: LinkProps) {
 	const isExternal = href.startsWith('http');
 	const isAnchor = href.startsWith('#');
 
@@ -35,3 +34,5 @@ export function Link({ children, href, ...props }: LinkProps) {
 		</RouterLink>
 	);
 }
+
+export const Link = memo(Link_);

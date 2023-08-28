@@ -5,8 +5,8 @@ import type { ThunkApi } from '../../types/store';
 
 import { Endpoint } from '../../constants';
 
-const getAllOffers = createAsyncThunk<ServerOffer[], undefined, ThunkApi>(
-	'offers/getAll',
+const fetchAllOffers = createAsyncThunk<ServerOffer[], undefined, ThunkApi>(
+	'fetchOffers/all',
 	async (_arg, { extra: api }) => {
 		const response = await api.get<ServerOffer[]>(Endpoint.Offers);
 		return response.data;
@@ -14,7 +14,7 @@ const getAllOffers = createAsyncThunk<ServerOffer[], undefined, ThunkApi>(
 );
 
 const getOffer = createAsyncThunk<FullOffer, string, ThunkApi>(
-	'offers/getAll',
+	'fetchOffers/one',
 	async (offerID, { extra: api }) => {
 		const response = await api.get<FullOffer>(`${Endpoint.Offers}/${offerID}`);
 		return response.data;
@@ -22,11 +22,11 @@ const getOffer = createAsyncThunk<FullOffer, string, ThunkApi>(
 );
 
 const getNearBy = createAsyncThunk<ServerOffer[], string, ThunkApi>(
-	'offers/getNear',
+	'fetchOffers/near',
 	async (offerID, { extra: api }) => {
 		const response = await api.get<ServerOffer[]>(`${Endpoint.Offers}/${offerID}/nearby`);
 		return response.data;
 	}
 );
 
-export { getAllOffers, getNearBy, getOffer };
+export { fetchAllOffers, getNearBy, getOffer };

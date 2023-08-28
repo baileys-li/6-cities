@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { ServerOffer } from '../../types/offer';
 
 import { FavoriteStatus, RequestStatus } from '../../constants';
+import { setPending, setRejected, setSuccessWithItems } from '../../utils/request-status';
 import { changeFavorite, fetchFavorites } from '../thunks/favorites';
-
 interface FavoritesState {
 	items: ServerOffer[];
 	status: RequestStatus;
@@ -17,18 +17,10 @@ const initialState: FavoritesState = {
 
 export const favoritesSlice = createSlice({
 	extraReducers: (builder) => {
-		builder.addCase(fetchFavorites.fulfilled, (state, action) => {
-			state.items = action.payload;
-			state.status = RequestStatus.Success;
-		});
-		builder.addCase(fetchFavorites.rejected, (state) => {
-			state.status = RequestStatus.Failed;
-		});
-		builder.addCase(fetchFavorites.pending, (state) => {
-			state.status = RequestStatus.Loading;
-		});
+		builder.addCase(fetchFavorites.fulfilled, setSuccessWithItems);
+		builder.addCase(fetchFavorites.rejected, setRejected);
+		builder.addCase(fetchFavorites.pending, setPending);
 		builder.addCase(changeFavorite.fulfilled, (state, action) => {
-			state.status = RequestStatus.Success;
 			switch (action.payload.status) {
 				case FavoriteStatus.Added:
 					state.items.push(action.payload.offer);
@@ -39,12 +31,6 @@ export const favoritesSlice = createSlice({
 					);
 			}
 		});
-		builder.addCase(changeFavorite.rejected, (state) => {
-			state.status = RequestStatus.Failed;
-		});
-		builder.addCase(changeFavorite.pending, (state) => {
-			state.status = RequestStatus.Loading;
-		});
 	},
 	initialState,
 	name: 'favorites',
@@ -52,7 +38,6 @@ export const favoritesSlice = createSlice({
 });
 
 export const favoritesActions = {
-	...favoritesSlice.actions,
 	changeFavorite,
 	fetchFavorites,
 };

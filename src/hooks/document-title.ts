@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { PROJECT_NAME } from '../constants';
+import { APP_NAME } from '../constants';
 
 export function useDocumentTitle(title: string) {
 	useEffect(() => {
@@ -11,6 +11,6 @@ export function useDocumentTitle(title: string) {
 	}, []);
 
 	useEffect(() => {
-		document.title = `${title} | ${PROJECT_NAME}`;
+		document.title = `${title} | ${APP_NAME}`;
 	}, [title]);
 }
