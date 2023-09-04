@@ -1,11 +1,7 @@
 import type { Review } from '../../../types/review';
 
 import { Rating } from '../../../components/rating/rating';
-
-const dateFormatter = new Intl.DateTimeFormat('en-US', {
-	month: 'long',
-	year: 'numeric',
-});
+import { dateFormatter } from '../../../utils/intl';
 
 type ReviewItemProps = Pick<Review, 'comment' | 'date' | 'rating' | 'user'>;
 

@@ -6,8 +6,7 @@ import { AppRoute } from '../constants';
 import { useAppSelector } from '../hooks';
 import { selectAuthStatus } from '../store/selectors/user';
 
-// eslint-disable-next-line react/display-name
-const createAccessRoute = (accessStatus: AuthorizationStatus, navigateRoute: string) => () => {
+const createAccessRoute = (accessStatus: AuthorizationStatus, navigateRoute: string) => function AccessRoute() {
 	const status = useAppSelector(selectAuthStatus);
 	if (status === AuthorizationStatus.Unknown) {
 		return <Spinner />;

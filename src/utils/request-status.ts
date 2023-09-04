@@ -10,16 +10,16 @@ interface StateWithItems<I> {
 	items: I[];
 }
 
-function setRejected(state: StateWithRequestStatus) {
-	state.status = RequestStatus.Failed;
+function saveItems<I>(state: StateWithItems<I>, action: PayloadAction<I[]>) {
+	state.items = action.payload;
 }
 
 function setPending(state: StateWithRequestStatus) {
 	state.status = RequestStatus.Loading;
 }
 
-function saveItems<I>(state: StateWithItems<I>, action: PayloadAction<I[]>) {
-	state.items = action.payload;
+function setRejected(state: StateWithRequestStatus) {
+	state.status = RequestStatus.Failed;
 }
 
 function setSuccessWithItems<I>(
