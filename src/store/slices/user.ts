@@ -12,7 +12,6 @@ interface UserSlice {
 	status: AuthorizationStatus;
 }
 
-
 const initialState: UserSlice = {
 	info: null,
 	status: AuthorizationStatus.Unknown,
@@ -41,6 +40,12 @@ export const userSlice = createSlice({
 	initialState,
 	name: 'user',
 	reducers: {},
+	selectors: {
+		isAuth: (state) => state.status === AuthorizationStatus.Auth,
+		status: (state) => state.status,
+		user: (state) => state.info,
+	}
 });
 
+export const userSelectors = userSlice.selectors;
 export const userActions = { checkAuth, login, logout};

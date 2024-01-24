@@ -51,6 +51,13 @@ export const offersSlice = createSlice({
 			state.activeOffer = action.payload;
 		}
 	},
+
+	selectors: {
+		activeId: (state) => state.activeOffer,
+		isLoading: (state) => state.status === RequestStatus.Loading,
+		offers: (state) => state.items
+	}
 });
 
+export const offersSelectors = offersSlice.selectors;
 export const offersActions = {...offersSlice.actions, fetchAllOffers};

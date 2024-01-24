@@ -1,12 +1,12 @@
 import { AppRoute } from '../../../../constants';
 import { useAppSelector } from '../../../../hooks';
-import { selectUser } from '../../../../store/selectors/user';
+import { userSelectors } from '../../../../store/slices/user';
 import { Link } from '../../../link/link';
 import { FavoriteCount } from '../favorite-count/favorite-count';
 import { useHandleLogout } from './hook';
 
 export function LoggedNavigation() {
-	const user = useAppSelector(selectUser)!;
+	const user = useAppSelector(userSelectors.user)!;
 	const handleLogout = useHandleLogout();
 
 	return (

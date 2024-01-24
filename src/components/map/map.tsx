@@ -9,7 +9,7 @@ import type { ServerOffer } from '../../types/offer';
 
 import { CITIES } from '../../constants';
 import { useAppSelector, useMap } from '../../hooks';
-import { selectActiveId } from '../../store/selectors/offers';
+import { offersSelectors } from '../../store/slices/offers';
 import { activeIcon, defaultIcon } from './icons';
 
 type GenericOffer = Pick<ServerOffer, 'city' | 'id' | 'location'>
@@ -27,7 +27,7 @@ function Map_({
 	const mapRef = useRef(null);
 	const location = useMemo(() => CITIES.find(({name}) => name === city)?.location, [city]);
 	const map = useMap(mapRef, location);
-	const activeId = useAppSelector(selectActiveId);
+	const activeId = useAppSelector(offersSelectors.activeId);
 	useEffect(() => {
 		if (map) {
 			const markerLayer = layerGroup().addTo(map);

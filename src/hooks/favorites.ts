@@ -1,13 +1,10 @@
 import { RequestStatus } from '../constants';
-import {
-	selectFavorites,
-	selectFavoritesStatus,
-} from '../store/selectors/favorites';
+import { favoritesSelectors } from '../store/slices/favorites';
 import { useAppSelector } from './store';
 
 export function useFavorites() {
-	const offers = useAppSelector(selectFavorites);
-	const status = useAppSelector(selectFavoritesStatus);
+	const offers = useAppSelector(favoritesSelectors.favorites);
+	const status = useAppSelector(favoritesSelectors.status);
 
 	return {
 		count: offers.length,

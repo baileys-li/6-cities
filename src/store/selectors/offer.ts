@@ -1,21 +1,18 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 import type { ServerOffer } from '../../types/offer';
-import type { Store } from '../../types/store';
 
 import { randomElement } from '../../utils/random';
-import { selectActiveId } from './offers';
+import { offerSlice } from '../slices/offer';
+import { offersSelectors } from '../slices/offers';
 
 const enum Default {
 	Size = 3,
 }
 
-const selectPrefetchedOffers = (state: Pick<Store, 'offer'>) =>
-	state.offer.info;
-
 const selectOffer = createSelector(
-	selectActiveId,
-	selectPrefetchedOffers,
+	offersSelectors.activeId,
+	offerSlice.selectors.offerHash,
 	(id, cache) => {
 		if (id === null || !(id in cache)) {
 			return null;
@@ -25,11 +22,9 @@ const selectOffer = createSelector(
 	}
 );
 
-const selectNearby = (state: Store) => state.offer.nearby;
-
-export const selectRandomNearbySlice = createSelector(
-	selectNearby,
-	selectActiveId,
+const selectRandomNearbySlice = createSelector(
+	offerSlice.selectors.nearby,
+	offersSelectors.activeId,
 	(nearbyOffers, activeId) => {
 		const size = Math.min(Default.Size, nearbyOffers.length - 1);
 		const sortedElements: ServerOffer[] = [];
@@ -46,4 +41,4 @@ export const selectRandomNearbySlice = createSelector(
 	}
 );
 
-export { selectOffer, selectPrefetchedOffers };
+export { selectOffer, selectRandomNearbySlice };

@@ -13,7 +13,7 @@ interface OffersSlice {
 
 const initialState: OffersSlice = {
 	info: {},
-	nearby: []
+	nearby: [],
 };
 
 export const offerSlice = createSlice({
@@ -40,6 +40,10 @@ export const offerSlice = createSlice({
 	initialState,
 	name: 'offer',
 	reducers: {},
+	selectors: {
+		nearby: (state) => state.nearby,
+		offerHash: (state) => state.info,
+	},
 });
 
-export const offerActions = {...offerSlice.actions};
+export const offerActions = { ...offerSlice.actions };

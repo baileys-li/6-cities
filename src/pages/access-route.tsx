@@ -4,10 +4,10 @@ import { Spinner } from '../components/spinner/spinner';
 import { AuthorizationStatus } from '../constants';
 import { AppRoute } from '../constants';
 import { useAppSelector } from '../hooks';
-import { selectAuthStatus } from '../store/selectors/user';
+import { userSelectors } from '../store/slices/user';
 
 const createAccessRoute = (accessStatus: AuthorizationStatus, navigateRoute: string) => function AccessRoute() {
-	const status = useAppSelector(selectAuthStatus);
+	const status = useAppSelector(userSelectors.status);
 	if (status === AuthorizationStatus.Unknown) {
 		return <Spinner />;
 	}

@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 
 import { useAppSelector } from '../../../hooks';
-import { selectOffersState } from '../../../store/selectors/offers';
+import { offersSelectors } from '../../../store/slices/offers';
 
 export function useCityOffers(city: string) {
-	const { isLoading, offers } = useAppSelector(selectOffersState);
+	const isLoading = useAppSelector(offersSelectors.isLoading);
+	const offers = useAppSelector(offersSelectors.offers);
 
 	const filteredOffers = useMemo(
 		() => isLoading ? [] : offers.filter(({ city: { name } }) => name === city),
