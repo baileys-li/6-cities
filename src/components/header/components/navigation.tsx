@@ -1,10 +1,10 @@
-import { AppRoute } from '../../../constants';
-import { useAuth } from '../../../hooks';
-import { Link } from '../../link/link';
-import { LoggedNavigation } from './logged-nav/logged-nav';
+import { AppRoute } from '../../../constants'
+import { useAuth } from '../../../hooks'
+import { Link } from '../../link/link'
+import { LoggedNavigation } from './logged-nav/logged-nav'
 
 export function Navigation() {
-	const isAuthorized = useAuth();
+	const isAuthorized = useAuth()
 
 	return (
 		<nav className="header__nav">
@@ -13,10 +13,7 @@ export function Navigation() {
 			) : (
 				<ul className="header__nav-list">
 					<li className="header__nav-item user">
-						<Link
-							className="header__nav-link header__nav-link--profile"
-							href={AppRoute.Login}
-						>
+						<Link className="header__nav-link header__nav-link--profile" href={AppRoute.Login}>
 							<div className="header__avatar-wrapper user__avatar-wrapper"></div>
 							<span className="header__login">Sign in</span>
 						</Link>
@@ -24,5 +21,5 @@ export function Navigation() {
 				</ul>
 			)}
 		</nav>
-	);
+	)
 }

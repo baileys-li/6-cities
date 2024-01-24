@@ -1,49 +1,49 @@
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 
-import { AppRoute, CITIES } from './constants';
-import { Page404 } from './pages/404/404';
-import { PrivateRoute, PublicRoute } from './pages/access-route';
-import { FavoritesPage } from './pages/favorites';
-import { LoginPage, handleLogin } from './pages/login';
-import { MainPage, loadMainPageData } from './pages/main';
-import { OfferLayout, OfferPage, loadOfferPageData } from './pages/offer';
+import { AppRoute, CITIES } from './constants'
+import { PrivateRoute, PublicRoute } from './pages/access-route'
+import { FavoritesPage } from './pages/favorites'
+import { LoginPage, handleLogin } from './pages/login'
+import { MainPage, loadMainPageData } from './pages/main'
+import { NotFound } from './pages/not-found/not-found'
+import { OfferLayout, OfferPage, loadOfferPageData } from './pages/offer'
 
 export const router = createBrowserRouter([
 	{
 		children: [
 			{
 				element: <Navigate to={`/${CITIES[0].id}`} />,
-				index: true,
+				index: true
 			},
 			...CITIES.map(({ id, name }) => ({
 				element: <MainPage city={name} />,
 				loader: loadMainPageData,
-				path: `/${id}`,
+				path: `/${id}`
 			})),
 			{
 				children: [
 					{
 						element: <Navigate to="/404 " />,
-						index: true,
+						index: true
 					},
 					{
 						element: <OfferPage />,
 						loader: loadOfferPageData,
-						path: AppRoute.OfferId,
-					},
+						path: AppRoute.OfferId
+					}
 				],
 				element: <OfferLayout />,
-				path: AppRoute.Offer,
+				path: AppRoute.Offer
 			},
 			{
 				children: [
 					{
 						element: <FavoritesPage />,
 						index: true,
-						path: AppRoute.Favorites,
-					},
+						path: AppRoute.Favorites
+					}
 				],
-				element: <PrivateRoute />,
+				element: <PrivateRoute />
 			},
 			{
 				children: [
@@ -51,12 +51,12 @@ export const router = createBrowserRouter([
 						action: handleLogin,
 						element: <LoginPage />,
 						index: true,
-						path: AppRoute.Login,
-					},
+						path: AppRoute.Login
+					}
 				],
-				element: <PublicRoute />,
-			},
+				element: <PublicRoute />
+			}
 		],
-		errorElement: <Page404 />,
-	},
-]);
+		errorElement: <NotFound />
+	}
+])

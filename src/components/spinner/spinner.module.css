@@ -33,12 +33,9 @@
 	animation: rotator 2s linear infinite;
 }
 
-
-
 .path {
 	stroke-dasharray: 187;
 	stroke-dashoffset: 0;
 	transform-origin: center;
 	animation: dash 2s ease-in-out infinite;
 }
-

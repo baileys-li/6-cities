@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
 
 export function useOfferId() {
-	const { id } = useParams() as { id: string };
-	return id;
+	const { id } = useParams() as { id: string }
+	return id
 }

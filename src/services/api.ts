@@ -1,39 +1,39 @@
-import axios, { isAxiosError } from 'axios';
-import { toast } from 'react-hot-toast';
+import axios, { isAxiosError } from 'axios'
+import { toast } from 'react-hot-toast'
 
-import { getToken } from './token';
+import { getToken } from './token'
 
 const enum Default {
-	BaseUrl = 'https://13.design.pages.academy/six-cities',
-	Timeout = 5000,
+	BaseUrl = 'https://14.design.pages.academy/six-cities',
+	Timeout = 5000
 }
 
 export const createAPI = () => {
 	const api = axios.create({
 		baseURL: Default.BaseUrl as const,
-		timeout: Default.Timeout as const,
-	});
+		timeout: Default.Timeout as const
+	})
 
-	api.interceptors.request.use((config) => {
-		const token = getToken();
+	api.interceptors.request.use(config => {
+		const token = getToken()
 		if (token && config.headers) {
-			config.headers['X-Token'] = token;
+			config.headers['X-Token'] = token
 		}
 
-		return config;
-	});
+		return config
+	})
 
-	api.interceptors.response.use(null, (error) => {
+	api.interceptors.response.use(null, error => {
 		if (isAxiosError(error)) {
 			if (error.code === 'ERR_NETWORK') {
-				toast.error('Network error');
+				toast.error('Network error')
 			}
 
 			if (error.response && error.response.status >= 500) {
-				toast.error('Server error');
+				toast.error('Server error')
 			}
 		}
-	});
+	})
 
-	return api;
-};
+	return api
+}

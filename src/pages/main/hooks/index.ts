@@ -1,1 +1,1 @@
-export { useCityOffers } from './city-offers';
+export { useCityOffers } from './city-offers'

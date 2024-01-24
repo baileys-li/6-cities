@@ -21,14 +21,14 @@ plugins:
 - perfectionist
 rules:
   react-refresh/only-export-components: warn
-  indent:
-    - error
-    - tab
-    - SwitchCase: 1
+  indent: off
   "@typescript-eslint/consistent-type-exports":
     - error
     - fixMixedExportsWithInlineTypeSpecifier: true
   "@typescript-eslint/consistent-type-imports": error
+  "@typescript-eslint/member-delimiter-style": off
+  semi: off
+  arrow-parens: off
 
 overrides:
 - files:

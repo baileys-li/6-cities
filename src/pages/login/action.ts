@@ -1,22 +1,22 @@
-import { toast } from 'react-hot-toast';
-import { type ActionFunctionArgs } from 'react-router-dom';
+import { toast } from 'react-hot-toast'
+import { type ActionFunctionArgs } from 'react-router-dom'
 
-import { store } from '../../store';
-import { login } from '../../store/thunks/auth';
+import { store } from '../../store'
+import { login } from '../../store/thunks/auth'
 
 export const handleLogin = async ({ request }: ActionFunctionArgs) => {
 	if (request.method !== 'POST') {
-		return null;
+		return null
 	}
 
-	const form = await request.formData();
+	const form = await request.formData()
 
 	toast.promise(
 		store
 			.dispatch(
 				login({
 					email: form.get('email') as string,
-					password: form.get('password') as string,
+					password: form.get('password') as string
 				})
 			)
 			.unwrap(),
@@ -25,7 +25,7 @@ export const handleLogin = async ({ request }: ActionFunctionArgs) => {
 			loading: 'Logging...',
 			success: 'Logged in!'
 		}
-	);
+	)
 
-	return true;
-};
+	return true
+}

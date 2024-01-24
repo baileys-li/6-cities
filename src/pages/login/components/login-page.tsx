@@ -1,6 +1,6 @@
-import { Layout } from '../../../components/layout';
-import { LoginForm } from './form';
-import { RandomCity } from './radom-city';
+import { Layout } from '../../../components/layout'
+import { LoginForm } from './form'
+import { RandomCity } from './radom-city'
 
 export const LoginPage = () => (
 	<Layout className="page page--gray page--login" hideNavigation title="Login">
@@ -14,4 +14,4 @@ export const LoginPage = () => (
 			</div>
 		</main>
 	</Layout>
-);
+)

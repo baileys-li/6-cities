@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
-import { useActionCreators, useFavorites } from '../../../../hooks';
-import { favoritesActions } from '../../../../store/slices/favorites';
+import { useActionCreators, useFavorites } from '../../../../hooks'
+import { favoritesActions } from '../../../../store/slices/favorites'
 
 export function useFavoriteCount() {
-	const {count, isIdle} = useFavorites();
-	const { fetchFavorites } = useActionCreators(favoritesActions);
+	const { count, isIdle } = useFavorites()
+	const { fetchFavorites } = useActionCreators(favoritesActions)
 
 	useEffect(() => {
 		if (isIdle) {
-			fetchFavorites();
+			fetchFavorites()
 		}
-	}, [isIdle, fetchFavorites]);
+	}, [isIdle, fetchFavorites])
 
-	return count;
+	return count
 }
