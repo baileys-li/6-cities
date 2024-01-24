@@ -1,11 +1,11 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 
 import { AppRoute, CITIES } from './constants';
-import { Page404 } from './pages/404/404';
 import { PrivateRoute, PublicRoute } from './pages/access-route';
 import { FavoritesPage } from './pages/favorites';
 import { LoginPage, handleLogin } from './pages/login';
 import { MainPage, loadMainPageData } from './pages/main';
+import { NotFound } from './pages/not-found/not-found';
 import { OfferLayout, OfferPage, loadOfferPageData } from './pages/offer';
 
 export const router = createBrowserRouter([
@@ -57,6 +57,6 @@ export const router = createBrowserRouter([
 				element: <PublicRoute />,
 			},
 		],
-		errorElement: <Page404 />,
+		errorElement: <NotFound />,
 	},
 ]);

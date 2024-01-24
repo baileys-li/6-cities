@@ -10,11 +10,11 @@ import {
 	selectOffer,
 	selectRandomNearbySlice,
 } from '../../../store/selectors/offer';
-import { Reviews } from './Reviews';
 import { Features } from './features';
 import { Gallery } from './gallery';
 import { Goods } from './goods';
 import { Host } from './host';
+import { Reviews } from './reviews';
 
 const mapper = createMapper({ extraBemBlock: 'near-places' });
 
