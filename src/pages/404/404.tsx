@@ -7,7 +7,7 @@ import css from './404.module.css';
 export const Page404 = () => (
 	<Layout className="page page--favorites-empty" title="Not Found">
 		<main className={css.page}>
-			<h1>Page Not found</h1>
+			<h1>404: Page Not found</h1>
 			<Link className="button form__submit" href={AppRoute.Main}>
 				Go to Main page
 			</Link>
