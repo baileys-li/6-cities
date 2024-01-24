@@ -11,7 +11,7 @@ import { Features } from './features'
 import { Gallery } from './gallery'
 import { Goods } from './goods'
 import { Host } from './host'
-import { Reviews } from './reviews'
+import { Reviews } from './reviews-section'
 
 const mapper = createMapper({ extraBemBlock: 'near-places' })
 
