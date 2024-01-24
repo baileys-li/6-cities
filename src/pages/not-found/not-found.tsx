@@ -1,8 +1,8 @@
-import { Footer } from '../../components/footer/footer';
-import { Layout } from '../../components/layout';
-import { Link } from '../../components/link/link';
-import { AppRoute } from '../../constants';
-import css from './not-found.module.css';
+import { Footer } from '../../components/footer/footer'
+import { Layout } from '../../components/layout'
+import { Link } from '../../components/link/link'
+import { AppRoute } from '../../constants'
+import css from './not-found.module.css'
 
 export const NotFound = () => (
 	<Layout className="page page--favorites-empty" title="Not Found">
@@ -14,4 +14,4 @@ export const NotFound = () => (
 		</main>
 		<Footer />
 	</Layout>
-);
+)

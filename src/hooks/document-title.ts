@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
-import { APP_NAME } from '../constants';
+import { APP_NAME } from '../constants'
 
 export function useDocumentTitle(title: string) {
 	useEffect(() => {
-		const initialTitle = document.title;
+		const initialTitle = document.title
 		return () => {
-			document.title = initialTitle;
-		};
-	}, []);
+			document.title = initialTitle
+		}
+	}, [])
 
 	useEffect(() => {
-		document.title = `${title} | ${APP_NAME}`;
-	}, [title]);
+		document.title = `${title} | ${APP_NAME}`
+	}, [title])
 }

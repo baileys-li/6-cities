@@ -1,4 +1,4 @@
-import css from './spinner.module.css';
+import css from './spinner.module.css'
 
 export const Spinner = () => (
 	<div className={css.wrapper}>
@@ -12,15 +12,7 @@ export const Spinner = () => (
 			viewBox="0 0 66 66"
 			width={66}
 		>
-			<circle
-				className={css.path}
-				cx={33}
-				cy={33}
-				fill="none"
-				r={30}
-				strokeLinecap="round"
-				strokeWidth={6}
-			/>
+			<circle className={css.path} cx={33} cy={33} fill="none" r={30} strokeLinecap="round" strokeWidth={6} />
 		</svg>
 	</div>
-);
+)

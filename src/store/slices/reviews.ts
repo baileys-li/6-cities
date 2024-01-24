@@ -1,25 +1,25 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 
-import type { Review } from '../../types/review';
+import type { Review } from '../../types/review'
 
-import { saveItems } from '../../utils/request-status';
-import { compareDates } from '../../utils/time';
-import { fetchComments, postComment } from '../thunks/comments';
+import { saveItems } from '../../utils/request-status'
+import { compareDates } from '../../utils/time'
+import { fetchComments, postComment } from '../thunks/comments'
 
 interface ReviewState {
-	items: Review[];
+	items: Review[]
 }
 
 const initialState: ReviewState = {
-	items: [],
-};
+	items: []
+}
 
 export const reviewSlice = createSlice({
-	extraReducers: (builder) => {
-		builder.addCase(fetchComments.fulfilled, saveItems);
+	extraReducers: builder => {
+		builder.addCase(fetchComments.fulfilled, saveItems)
 		builder.addCase(postComment.fulfilled, (state, action) => {
-			state.items.push(action.payload);
-		});
+			state.items.push(action.payload)
+		})
 	},
 	initialState,
 	name: 'reviews',
@@ -27,13 +27,13 @@ export const reviewSlice = createSlice({
 	selectors: {
 		reviews: createSelector(
 			(state: ReviewState) => state.items,
-			(reviews) => [...reviews].sort(compareDates)
+			reviews => [...reviews].sort(compareDates)
 		)
 	}
-});
+})
 
-export const selectReviews = reviewSlice.selectors.reviews;
+export const selectReviews = reviewSlice.selectors.reviews
 export const favoritesActions = {
 	fetchComments,
-	postComment,
-};
+	postComment
+}

@@ -1,12 +1,12 @@
-import type { MouseEvent } from 'react';
+import type { MouseEvent } from 'react'
 
-import { useActionCreators } from '../../../../hooks';
-import { userActions } from '../../../../store/slices/user';
+import { useActionCreators } from '../../../../hooks'
+import { userActions } from '../../../../store/slices/user'
 
 export function useHandleLogout() {
-	const { logout } = useActionCreators(userActions);
+	const { logout } = useActionCreators(userActions)
 	return function handleLogout(event: MouseEvent<HTMLAnchorElement>) {
-		event.preventDefault();
-		logout();
-	};
+		event.preventDefault()
+		logout()
+	}
 }

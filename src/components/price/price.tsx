@@ -1,22 +1,22 @@
-import { memo } from 'react';
+import { memo } from 'react'
 
 interface PriceProps {
-	bemBlock: 'offer' | 'place-card';
-	price: number;
-	showSlash?: boolean;
+	bemBlock: 'offer' | 'place-card'
+	price: number
+	showSlash?: boolean
 }
 
 function Price_({ bemBlock, price, showSlash = false }: PriceProps) {
-	let text = ' night';
+	let text = ' night'
 	if (showSlash) {
-		text = `/${text}`;
+		text = `/${text}`
 	}
 	return (
 		<div className={`${bemBlock}__price`}>
 			<b className={`${bemBlock}__price-value`}>€{price}</b>
 			<span className={`${bemBlock}__price-text`}>{text}</span>
 		</div>
-	);
+	)
 }
 
-export const Price = memo(Price_);
+export const Price = memo(Price_)

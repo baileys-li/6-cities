@@ -1,13 +1,13 @@
 interface Review {
-	comment: string;
-	date: string;
-	id: string;
-	rating: number;
+	comment: string
+	date: string
+	id: string
+	rating: number
 	user: {
-		avatarUrl: string;
-		isPro: boolean;
-		name: string;
-	};
+		avatarUrl: string
+		isPro: boolean
+		name: string
+	}
 }
 
-export type { Review };
+export type { Review }

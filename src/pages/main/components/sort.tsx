@@ -1,18 +1,18 @@
-import { clsx } from 'clsx';
-import { memo } from 'react';
+import { clsx } from 'clsx'
+import { memo } from 'react'
 
-import type { SortOption } from '../constants';
+import type { SortOption } from '../constants'
 
-import { useBoolean } from '../../../hooks';
-import { SORT_OPTIONS } from '../constants';
+import { useBoolean } from '../../../hooks'
+import { SORT_OPTIONS } from '../constants'
 
 interface SortFormProps {
-	current: SortOption;
-	setter: (option: SortOption) => void;
+	current: SortOption
+	setter: (option: SortOption) => void
 }
 
 function SortForm_({ current, setter }: SortFormProps) {
-	const { isOn, toggle } = useBoolean(false);
+	const { isOn, toggle } = useBoolean(false)
 	return (
 		<form action="#" className="places__sorting" method="get" onClick={toggle}>
 			<span className="places__sorting-caption">Sort by </span>
@@ -24,13 +24,13 @@ function SortForm_({ current, setter }: SortFormProps) {
 			</span>
 			<ul
 				className={clsx('places__options', 'places__options--custom', {
-					'places__options--opened': isOn,
+					'places__options--opened': isOn
 				})}
 			>
 				{SORT_OPTIONS.map((option, index) => (
 					<li
 						className={clsx('places__option', {
-							'places__option--active': (index as SortOption) === current,
+							'places__option--active': (index as SortOption) === current
 						})}
 						key={option}
 						onClick={() => setter(index)}
@@ -41,7 +41,7 @@ function SortForm_({ current, setter }: SortFormProps) {
 				))}
 			</ul>
 		</form>
-	);
+	)
 }
 
-export const SortForm = memo(SortForm_);
+export const SortForm = memo(SortForm_)

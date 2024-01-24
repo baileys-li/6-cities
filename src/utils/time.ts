@@ -1,10 +1,9 @@
 interface WithDate {
-	date: string;
+	date: string
 }
 
-const getTime = (date: string) => new Date(date).getTime();
+const getTime = (date: string) => new Date(date).getTime()
 
-const compareDates = (first: WithDate, second: WithDate) =>
-	getTime(second.date) - getTime(first.date);
+const compareDates = (first: WithDate, second: WithDate) => getTime(second.date) - getTime(first.date)
 
-export { compareDates, getTime };
+export { compareDates, getTime }

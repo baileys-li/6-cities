@@ -1,2 +1,2 @@
-export { Logo } from './logo';
-export { Navigation } from './navigation';
+export { Logo } from './logo'
+export { Navigation } from './navigation'

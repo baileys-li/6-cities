@@ -1,9 +1,9 @@
-import { Link } from '../../../components/link/link';
-import { CITIES } from '../../../constants';
-import { randomElement } from '../../../utils/random';
+import { Link } from '../../../components/link/link'
+import { CITIES } from '../../../constants'
+import { randomElement } from '../../../utils/random'
 
 export function RandomCity() {
-	const { id, name } = randomElement(CITIES);
+	const { id, name } = randomElement(CITIES)
 	return (
 		<section className="locations locations--login locations--current">
 			<div className="locations__item">
@@ -12,5 +12,5 @@ export function RandomCity() {
 				</Link>
 			</div>
 		</section>
-	);
+	)
 }

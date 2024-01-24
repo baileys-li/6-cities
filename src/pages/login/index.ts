@@ -1,2 +1,2 @@
-export { handleLogin } from './action';
-export { LoginPage } from './components/login-page';
+export { handleLogin } from './action'
+export { LoginPage } from './components/login-page'

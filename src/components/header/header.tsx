@@ -1,9 +1,9 @@
-import { memo } from 'react';
+import { memo } from 'react'
 
-import { Logo, Navigation } from './components';
+import { Logo, Navigation } from './components'
 
 export interface HeaderProps {
-	hideNavigation?: boolean;
+	hideNavigation?: boolean
 }
 
 const Header_ = ({ hideNavigation = false }: HeaderProps) => (
@@ -17,6 +17,6 @@ const Header_ = ({ hideNavigation = false }: HeaderProps) => (
 			</div>
 		</div>
 	</header>
-);
+)
 
-export const Header = memo(Header_);
+export const Header = memo(Header_)

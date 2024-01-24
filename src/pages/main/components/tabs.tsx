@@ -1,8 +1,8 @@
-import clsx from 'clsx';
-import { memo } from 'react';
-import { NavLink } from 'react-router-dom';
+import clsx from 'clsx'
+import { memo } from 'react'
+import { NavLink } from 'react-router-dom'
 
-import { CITIES } from '../../../constants';
+import { CITIES } from '../../../constants'
 
 function Tabs_() {
 	return (
@@ -16,7 +16,7 @@ function Tabs_() {
 									clsx(
 										'locations__item-link',
 										{
-											'tabs__item--active': isActive,
+											'tabs__item--active': isActive
 										},
 										'tabs__item'
 									)}
@@ -29,7 +29,7 @@ function Tabs_() {
 				</ul>
 			</section>
 		</div>
-	);
+	)
 }
 
-export const Tabs = memo(Tabs_);
+export const Tabs = memo(Tabs_)

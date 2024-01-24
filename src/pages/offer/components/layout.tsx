@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom'
 
-import { Layout } from '../../../components/layout';
+import { Layout } from '../../../components/layout'
 
 export function OfferLayout() {
 	return (
@@ -9,5 +9,5 @@ export function OfferLayout() {
 				<Outlet />
 			</main>
 		</Layout>
-	);
+	)
 }
