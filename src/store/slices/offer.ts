@@ -27,10 +27,9 @@ export const offerSlice = createSlice({
 			state.nearby = action.payload;
 		});
 		builder.addCase(changeFavorite.fulfilled, (state, action) => {
-			const offer = action.payload.offer.id;
-			const isFavorite = Boolean(action.payload.status);
-			if (offer in state.info) {
-				state.info[offer].isFavorite = isFavorite;
+			const {id, isFavorite} = action.payload;
+			if (id in state.info) {
+				state.info[id].isFavorite = isFavorite;
 			}
 		});
 		builder.addCase(login.fulfilled, (state) => {

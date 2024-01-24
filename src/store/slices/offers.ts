@@ -34,12 +34,11 @@ export const offersSlice = createSlice({
 		builder.addCase(fetchAllOffers.rejected, setRejected);
 		builder.addCase(fetchAllOffers.pending, setPending);
 		builder.addCase(changeFavorite.fulfilled, (state, action) => {
-			const id = action.payload.offer.id;
-			const isFavorite = Boolean(action.payload.status);
-			const foundOffer = state.items.find((offer) => offer.id === id);
+			const offerToChange = action.payload;
+			const foundOffer = state.items.find((offer) => offer.id === offerToChange.id);
 
 			if (foundOffer) {
-				foundOffer.isFavorite = isFavorite;
+				foundOffer.isFavorite = offerToChange.isFavorite;
 			}
 		});
 		builder.addCase(login.fulfilled, refetch);

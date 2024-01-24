@@ -19,17 +19,13 @@ interface ChangeProps {
 	status: FavoriteStatus;
 }
 
-interface ChangeResponse {
-	offer: ServerOffer;
-	status: FavoriteStatus;
-}
-const changeFavorite = createAsyncThunk<ChangeResponse, ChangeProps, ThunkApi>(
+const changeFavorite = createAsyncThunk<ServerOffer, ChangeProps, ThunkApi>(
 	'favorite/change',
 	async ({ offerId, status }, { extra: api }) => {
 		const response = await api.post<ServerOffer>(
 			`${Endpoint.Favorite}/${offerId}/${status}`
 		);
-		return { offer: response.data, status };
+		return response.data;
 	}
 );
 

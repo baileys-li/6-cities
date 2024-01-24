@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { ServerOffer } from '../../types/offer';
 
-import { FavoriteStatus, RequestStatus } from '../../constants';
+import { RequestStatus } from '../../constants';
 import { setPending, setRejected, setSuccessWithItems } from '../../utils/request-status';
 import { changeFavorite, fetchFavorites } from '../thunks/favorites';
 interface FavoritesState {
@@ -21,14 +21,12 @@ export const favoritesSlice = createSlice({
 		builder.addCase(fetchFavorites.rejected, setRejected);
 		builder.addCase(fetchFavorites.pending, setPending);
 		builder.addCase(changeFavorite.fulfilled, (state, action) => {
-			switch (action.payload.status) {
-				case FavoriteStatus.Added:
-					state.items.push(action.payload.offer);
-					break;
-				case FavoriteStatus.Removed:
-					state.items = state.items.filter(
-						({ id }) => id !== action.payload.offer.id
-					);
+			if (action.payload.isFavorite) {
+				state.items.push(action.payload);
+			} else {
+				state.items = state.items.filter(
+					({ id }) => id !== action.payload.id
+				);
 			}
 		});
 	},
