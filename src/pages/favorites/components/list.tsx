@@ -14,37 +14,24 @@ for (const city of CITIES) {
 const mapper = createMapper({ extraBemBlock: 'favorites', imageWidth: 150 })
 
 export function FavoritesList({ offers }: { offers: ServerOffer[] }) {
-	const cities: CityName[] = []
+	const offersByCity = Object.groupBy(offers, offer => offer.city.name)
 
-	const offersByCity = {} as Record<CityName, ServerOffer[]>
-
-	for (const offer of offers) {
-		const city = offer.city.name
-		if (city in offersByCity) {
-			offersByCity[city].push(offer)
-			continue
-		}
-
-		cities.push(city)
-		offersByCity[city] = [offer]
-		continue
-	}
 	return (
 		<main className="page__main page__main--favorites">
 			<div className="page__favorites-container container">
 				<section className="favorites">
 					<h1 className="favorites__title">Saved listing</h1>
 					<ul className="favorites__list">
-						{cities.map(city => (
+						{Object.keys(offersByCity).map(city => (
 							<li className="favorites__locations-items" key={city}>
 								<div className="favorites__locations locations locations--current">
 									<div className="locations__item">
-										<Link className="locations__item-link" href={cityToSlug[city]}>
+										<Link className="locations__item-link" href={cityToSlug[city as CityName]}>
 											<span>{city}</span>
 										</Link>
 									</div>
 								</div>
-								<div className="favorites__places">{offersByCity[city].map(mapper)}</div>
+								<div className="favorites__places">{offersByCity[city as CityName]?.map(mapper)}</div>
 							</li>
 						))}
 					</ul>
