@@ -24,7 +24,7 @@ export function ReviewForm() {
 		const form = event.currentTarget as HTMLReviewForm
 		const review = form.review.value
 		const rating = form.rating.value
-		setSubmitDisabled(review.length <= 50 || review.length > 300 || rating === '0')
+		setSubmitDisabled(review.length < 50 || review.length > 300 || !Boolean(rating))
 	}
 
 	function handleError() {
