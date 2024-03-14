@@ -38,9 +38,7 @@ function Option({ disabled, label, value }: OptionProps) {
 
 export function FormRating({ className, disabled = false, setRating }: FormRatingProps) {
 	function handleChange(event: ChangeEvent<HTMLInputElement>) {
-		if (setRating) {
-			setRating(Number(event.target.value))
-		}
+		setRating?.(Number(event.target.value))
 	}
 	return (
 		<div className={clsx('form__rating', className)} onChange={handleChange}>
