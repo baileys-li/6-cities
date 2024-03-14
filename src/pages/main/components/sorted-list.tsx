@@ -22,7 +22,7 @@ const enum Default {
 
 const SKELETONS = Array.from({ length: Default.SkeletonsCount }, (_, index) => <PlaceCardSkeleton extraBemBlock="cities" key={index} />)
 
-export function ListWithMap({ children, isLoading = false, offers }: ListWithMapProps) {
+export function SortedList({ children, isLoading = false, offers }: ListWithMapProps) {
 	const { setActiveOffer } = useActionCreators(offersActions)
 	const [activeSort, setSort] = useState(SortOption.Popular)
 	const mapper = createMapper({ setActive: setActiveOffer })

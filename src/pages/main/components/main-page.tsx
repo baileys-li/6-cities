@@ -4,7 +4,7 @@ import { Map } from '../../../components/map/map'
 import { useCityOffers } from '../hooks'
 import { EmptySection } from './empty-section'
 import { Headline } from './headline'
-import { ListWithMap } from './list-with-map'
+import { SortedList } from './sorted-list'
 import { Wrapper } from './wrapper'
 
 interface MainPageProps {
@@ -20,9 +20,9 @@ export function MainPage({ city }: MainPageProps) {
 			{showEmpty ? (
 				<EmptySection city={city} />
 			) : (
-				<ListWithMap isLoading={isLoading} offers={offers}>
+				<SortedList isLoading={isLoading} offers={offers}>
 					<Headline city={city} count={offers.length} />
-				</ListWithMap>
+				</SortedList>
 			)}
 			<div className="cities__right-section">{!showEmpty && <Map city={city} className="cities__map" offers={offers} />}</div>
 		</Wrapper>
