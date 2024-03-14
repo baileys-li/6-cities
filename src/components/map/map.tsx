@@ -23,30 +23,35 @@ function Map_({ city = 'Paris', className, offers }: MapProps): JSX.Element {
 	const location = useMemo(() => CITIES.find(({ name }) => name === city)?.location, [city])
 	const map = useMap(mapRef, location)
 	const activeId = useAppSelector(offersSelectors.activeId)
+	const layer = useRef(layerGroup())
+
 	useEffect(() => {
 		if (map) {
-			const markerLayer = layerGroup().addTo(map)
-			offers.forEach(offer => {
-				const marker = new Marker({
-					lat: offer.location.latitude,
-					lng: offer.location.longitude
-				})
+			offers.forEach(offer =>
+				new Marker(
+					{
+						lat: offer.location.latitude,
+						lng: offer.location.longitude
+					},
+					{
+						icon: activeId === offer.id ? activeIcon : defaultIcon
+					}
+				).addTo(layer.current)
+			)
 
-				marker.setIcon(activeId === offer.id ? activeIcon : defaultIcon).addTo(markerLayer)
-			})
-
+			const savedLayer = layer.current
 			return () => {
-				map.removeLayer(markerLayer)
+				savedLayer.clearLayers()
 			}
 		}
 	}, [map, offers, activeId])
 
 	useEffect(() => {
 		if (map && location) {
+			layer.current.addTo(map)
 			map.panTo([location.latitude, location.longitude])
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [location])
+	}, [location, map])
 
 	return <div className={clsx(className, 'map')} ref={mapRef}></div>
 }
