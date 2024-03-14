@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast'
 import { getToken } from './token'
 
 const enum Default {
-	BaseUrl = 'https://14.design.pages.academy/six-cities',
+	BaseUrl = 'https://15.design.htmlacademy.pro/six-cities/',
 	Timeout = 5000
 }
 
