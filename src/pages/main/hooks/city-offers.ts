@@ -1,20 +1,20 @@
 import { useMemo } from 'react'
 
+import type { CityName } from '../../../types/city'
+
 import { useAppSelector } from '../../../hooks'
 import { offersSelectors } from '../../../store/slices/offers'
 
-export function useCityOffers(city: string) {
+export function useCityOffers(city: CityName) {
 	const isLoading = useAppSelector(offersSelectors.isLoading)
 	const offers = useAppSelector(offersSelectors.offers)
 
-	const filteredOffers = useMemo(
-		() => (isLoading ? [] : offers.filter(({ city: { name } }) => name === city)),
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[city, isLoading]
-	)
+	const offersByCity = useMemo(() => Object.groupBy(offers, ({ city }) => city.name), [offers])
+	const currentOffers = offersByCity[city] || []
+
 	return {
-		hasOffers: Boolean(filteredOffers.length),
+		hasOffers: Boolean(currentOffers.length),
 		isLoading,
-		offers: filteredOffers
+		offers: currentOffers
 	}
 }

@@ -5,6 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { Provider } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
 
+import './polyfills'
 import { router } from './router'
 import { store } from './store'
 import { checkAuth } from './store/thunks/auth'
