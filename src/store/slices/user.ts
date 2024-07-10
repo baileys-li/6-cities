@@ -26,20 +26,24 @@ function processFailed(state: UserSlice) {
 	state.status = AuthorizationStatus.NoAuth
 }
 
+function setUnAuth(state: UserSlice) {
+	state.info = null
+	state.status = AuthorizationStatus.NoAuth
+}
+
 export const userSlice = createSlice({
 	extraReducers: builder => {
 		builder.addCase(checkAuth.fulfilled, processSuccess)
 		builder.addCase(checkAuth.rejected, processFailed)
 		builder.addCase(login.fulfilled, processSuccess)
 		builder.addCase(login.rejected, processFailed)
-		builder.addCase(logout.fulfilled, state => {
-			state.info = null
-			state.status = AuthorizationStatus.NoAuth
-		})
+		builder.addCase(logout.fulfilled, setUnAuth)
 	},
 	initialState,
 	name: 'user',
-	reducers: {},
+	reducers: {
+		setUnAuth
+	},
 	selectors: {
 		isAuth: state => state.status === AuthorizationStatus.Auth,
 		status: state => state.status,
@@ -48,4 +52,4 @@ export const userSlice = createSlice({
 })
 
 export const userSelectors = userSlice.selectors
-export const userActions = { checkAuth, login, logout }
+export const userActions = { ...userSlice.actions, checkAuth, login, logout }

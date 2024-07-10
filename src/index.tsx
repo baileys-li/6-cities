@@ -7,12 +7,13 @@ import { RouterProvider } from 'react-router-dom'
 
 import './polyfills'
 import { router } from './router'
+import { getToken } from './services/token'
 import { store } from './store'
-import { checkAuth } from './store/thunks/auth'
+import { userActions } from './store/slices/user'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-store.dispatch(checkAuth())
+store.dispatch(userActions[getToken() ? 'checkAuth' : 'setUnAuth']())
 
 root.render(
 	<React.StrictMode>

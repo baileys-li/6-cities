@@ -19,7 +19,8 @@ function Tabs_() {
 											'tabs__item--active': isActive
 										},
 										'tabs__item'
-									)}
+									)
+								}
 								to={`/${id}`}
 							>
 								<span>{name}</span>
