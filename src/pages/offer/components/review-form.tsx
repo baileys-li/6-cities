@@ -20,8 +20,8 @@ export function ReviewForm() {
 	const { post } = useActionCreators({ post: postComment })
 	const formRef = useRef<HTMLReviewForm>(null)
 
-	function handleInput(event: FormEvent<HTMLFormElement>) {
-		const form = event.currentTarget as HTMLReviewForm
+	function handleInput(event: FormEvent<HTMLReviewForm>) {
+		const form = event.currentTarget
 		const review = form.review.value
 		const rating = form.rating.value
 		setSubmitDisabled(review.length < 50 || review.length > 300 || !rating)

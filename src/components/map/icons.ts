@@ -5,16 +5,18 @@ const enum Source {
 	Default = '/img/pin.svg'
 }
 
-const defaultIcon = new Icon({
-	iconAnchor: [13.5, 39],
-	iconSize: [27, 39],
-	iconUrl: Source.Default
-})
+const ICON_SIZE = {
+	iconAnchor: [13.5, 39] as [number, number],
+	iconSize: [27, 39] as [number, number]
+}
 
-const activeIcon = new Icon({
-	iconAnchor: [13.5, 39],
-	iconSize: [27, 39],
-	iconUrl: Source.Active
-})
-
-export { activeIcon, defaultIcon }
+export const PinIcon = {
+	Active: new Icon({
+		...ICON_SIZE,
+		iconUrl: Source.Active
+	}),
+	Default: new Icon({
+		...ICON_SIZE,
+		iconUrl: Source.Default
+	})
+}

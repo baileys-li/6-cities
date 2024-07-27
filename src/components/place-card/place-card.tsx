@@ -17,7 +17,7 @@ type PlaceCardOfferKeys = Pick<ServerOffer, 'id' | 'isFavorite' | 'isPremium' | 
 interface PlaceCardOwnProps {
 	extraBemBlock?: string
 	imageWidth?: number
-	setActive?: (id: ServerOffer['id'] | null) => void
+	setActive?: (id: ServerOffer['id']) => void
 }
 
 type OfferCardProps = PlaceCardOfferKeys & PlaceCardOwnProps
@@ -33,7 +33,7 @@ function PlaceCard_({ extraBemBlock, id, imageWidth = 260, isFavorite, isPremium
 	}
 
 	function onMouseLeave() {
-		setActive!(null)
+		setActive!('')
 	}
 
 	return (

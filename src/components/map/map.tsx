@@ -1,57 +1,40 @@
 import { clsx } from 'clsx'
-import { Marker, layerGroup } from 'leaflet'
+import { layerGroup } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { memo, useEffect, useMemo, useRef } from 'react'
+import { memo, useRef } from 'react'
 
 import type { CityName } from '../../types/city'
-import type { ServerOffer } from '../../types/offer'
+import type { ServerLocation } from '../../types/offer'
+import type { GenericOffer } from './hooks/update-markers'
 
 import { CITIES } from '../../constants'
-import { useAppSelector, useMap } from '../../hooks'
-import { offersSelectors } from '../../store/slices/offers'
-import { activeIcon, defaultIcon } from './icons'
+import { useActiveMarker } from './hooks/active-market'
+import { useInitLeaflet } from './hooks/init-leaflet'
+import { useUpdateLocation } from './hooks/update-location'
+import { useUpdateMarkers } from './hooks/update-markers'
 
-type GenericOffer = Pick<ServerOffer, 'city' | 'id' | 'location'>
 interface MapProps {
 	city?: CityName
 	className?: string
 	offers: GenericOffer[]
 }
 
+const locationByCity = CITIES.reduce(
+	(acc, { location, name }) => {
+		acc[name] = location
+		return acc
+	},
+	{} as Record<CityName, ServerLocation>
+)
+
 function Map_({ city = 'Paris', className, offers }: MapProps): JSX.Element {
 	const mapRef = useRef(null)
-	const location = useMemo(() => CITIES.find(({ name }) => name === city)?.location, [city])
-	const map = useMap(mapRef, location)
-	const activeId = useAppSelector(offersSelectors.activeId)
+	const location = locationByCity[city]
+	const map = useInitLeaflet(mapRef, location)
 	const layer = useRef(layerGroup())
-
-	useEffect(() => {
-		if (map) {
-			offers.forEach(offer =>
-				new Marker(
-					{
-						lat: offer.location.latitude,
-						lng: offer.location.longitude
-					},
-					{
-						icon: activeId === offer.id ? activeIcon : defaultIcon
-					}
-				).addTo(layer.current)
-			)
-
-			const savedLayer = layer.current
-			return () => {
-				savedLayer.clearLayers()
-			}
-		}
-	}, [map, offers, activeId])
-
-	useEffect(() => {
-		if (map && location) {
-			layer.current.addTo(map)
-			map.panTo([location.latitude, location.longitude])
-		}
-	}, [location, map])
+	const markers = useUpdateMarkers(map, offers, layer)
+	useUpdateLocation(map, location, layer)
+	useActiveMarker(markers)
 
 	return <div className={clsx(className, 'map')} ref={mapRef}></div>
 }

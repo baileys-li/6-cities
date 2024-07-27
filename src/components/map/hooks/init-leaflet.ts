@@ -1,11 +1,16 @@
 import type { MutableRefObject } from 'react'
 
-import { Map as LeafletMap, TileLayer } from 'leaflet'
+import leaflet, { type LeafletMap, TileLayer } from 'leaflet'
 import { useEffect, useRef, useState } from 'react'
 
-import type { ServerLocation } from '../types/offer'
+import type { ServerLocation } from '../../../types/location'
 
-export function useMap(
+const enum TileOption {
+	Attribute = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	Url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+}
+
+export function useInitLeaflet(
 	mapRef: MutableRefObject<HTMLElement | null>,
 	location: ServerLocation = {
 		latitude: 0,
@@ -18,7 +23,7 @@ export function useMap(
 
 	useEffect(() => {
 		if (mapRef.current !== null && !isRenderedRef.current) {
-			const instance = new LeafletMap(mapRef.current, {
+			const instance = leaflet.map(mapRef.current, {
 				center: {
 					lat: location.latitude,
 					lng: location.longitude
@@ -26,9 +31,8 @@ export function useMap(
 				zoom: location.zoom
 			})
 
-			const layer = new TileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-				attribution:
-					'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+			const layer = new TileLayer(TileOption.Url, {
+				attribution: TileOption.Attribute
 			})
 
 			instance.addLayer(layer)

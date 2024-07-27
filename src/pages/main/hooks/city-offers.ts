@@ -9,7 +9,7 @@ export function useCityOffers(city: CityName) {
 	const isLoading = useAppSelector(offersSelectors.isLoading)
 	const offers = useAppSelector(offersSelectors.offers)
 
-	const offersByCity = useMemo(() => Object.groupBy(offers, ({ city }) => city.name), [offers])
+	const offersByCity = useMemo(() => Object.groupBy(offers, ({ city: { name } }) => name), [offers])
 	const currentOffers = offersByCity[city] || []
 
 	return {

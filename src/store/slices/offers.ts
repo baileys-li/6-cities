@@ -11,13 +11,13 @@ import { changeFavorite } from '../thunks/favorites'
 import { fetchAllOffers } from '../thunks/offers'
 
 interface OffersSlice {
-	activeOffer: null | string
+	activeOffer: string
 	items: ServerOffer[]
 	status: RequestStatus
 }
 
 const initialState: OffersSlice = {
-	activeOffer: null,
+	activeOffer: '',
 	items: [],
 	status: RequestStatus.Idle
 }
