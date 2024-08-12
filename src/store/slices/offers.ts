@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-import { createSlice } from '@reduxjs/toolkit'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 
 import type { ServerOffer } from '../../types/offer'
 
@@ -58,5 +58,10 @@ export const offersSlice = createSlice({
 	}
 })
 
-export const offersSelectors = offersSlice.selectors
+export const offersSelectors = {
+	...offersSlice.selectors,
+
+	cityOffers: createSelector(offersSlice.selectors.offers, (offers) => Object.groupBy(offers, ({ city: { name } }) => name)
+	)
+}
 export const offersActions = { ...offersSlice.actions, fetchAllOffers }

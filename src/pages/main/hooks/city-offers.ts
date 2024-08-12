@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+
 
 import type { CityName } from '../../../types/city'
 
@@ -7,10 +7,9 @@ import { offersSelectors } from '../../../store/slices/offers'
 
 export function useCityOffers(city: CityName) {
 	const isLoading = useAppSelector(offersSelectors.isLoading)
-	const offers = useAppSelector(offersSelectors.offers)
+	const offers = useAppSelector(offersSelectors.cityOffers)
 
-	const offersByCity = useMemo(() => Object.groupBy(offers, ({ city: { name } }) => name), [offers])
-	const currentOffers = offersByCity[city] || []
+	const currentOffers = offers[city] || []
 
 	return {
 		hasOffers: Boolean(currentOffers.length),
