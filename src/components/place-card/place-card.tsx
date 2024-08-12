@@ -1,3 +1,5 @@
+import type { HTMLAttributes, MouseEvent } from 'react'
+
 import { clsx } from 'clsx'
 import { memo } from 'react'
 
@@ -14,26 +16,34 @@ import { Rating } from '../rating/rating'
 
 type PlaceCardOfferKeys = Pick<ServerOffer, 'id' | 'isFavorite' | 'isPremium' | 'previewImage' | 'price' | 'rating' | 'title' | 'type'>
 
-interface PlaceCardOwnProps {
+interface PlaceCardOwnProps extends Pick<HTMLAttributes<HTMLDivElement>, 'onMouseEnter' | 'onMouseLeave'> {
 	extraBemBlock?: string
 	imageWidth?: number
-	setActive?: (id: ServerOffer['id']) => void
 }
 
 type OfferCardProps = PlaceCardOfferKeys & PlaceCardOwnProps
 
 const scrollTop = () => scrollTo({ behavior: 'smooth', top: 0 })
 
-function PlaceCard_({ extraBemBlock, id, imageWidth = 260, isFavorite, isPremium, previewImage, price, rating, setActive, title, type }: OfferCardProps) {
+function PlaceCard_({
+	extraBemBlock,
+	id,
+	imageWidth = 260,
+	isFavorite,
+	isPremium,
+	onMouseEnter,
+	onMouseLeave,
+	previewImage,
+	price,
+	rating,
+	title,
+	type
+}: OfferCardProps) {
 	const href = `${AppRoute.Offer}/${id}`
 
-	function handleMouseEnter() {
-		setActive?.(id)
+	function handleMouseEnter(evt: MouseEvent<HTMLDivElement>) {
+		onMouseEnter?.(evt)
 		fetchOffer(id)
-	}
-
-	function onMouseLeave() {
-		setActive!('')
 	}
 
 	return (
@@ -41,8 +51,9 @@ function PlaceCard_({ extraBemBlock, id, imageWidth = 260, isFavorite, isPremium
 			className={clsx('place-card', {
 				[`${extraBemBlock}__card`]: extraBemBlock
 			})}
+			data-id={id}
 			onMouseEnter={handleMouseEnter}
-			onMouseLeave={setActive && onMouseLeave}
+			onMouseLeave={onMouseLeave}
 		>
 			{isPremium && <PremiumMark bemBlock="place-card" />}
 			<div

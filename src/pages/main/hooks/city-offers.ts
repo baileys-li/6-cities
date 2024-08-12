@@ -1,5 +1,3 @@
-
-
 import type { CityName } from '../../../types/city'
 
 import { useAppSelector } from '../../../hooks'

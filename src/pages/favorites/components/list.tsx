@@ -2,7 +2,7 @@ import type { CityId, CityName } from '../../../types/city'
 import type { ServerOffer } from '../../../types/offer'
 
 import { Link } from '../../../components/link/link'
-import { createMapper } from '../../../components/place-card'
+import { PlaceList } from '../../../components/place-card'
 import { CITIES } from '../../../constants'
 
 const cityToSlug = {} as Record<CityName, `/${CityId}`>
@@ -10,8 +10,6 @@ const cityToSlug = {} as Record<CityName, `/${CityId}`>
 for (const city of CITIES) {
 	cityToSlug[city.name] = `/${city.id}`
 }
-
-const mapper = createMapper({ extraBemBlock: 'favorites', imageWidth: 150 })
 
 export function FavoritesList({ offers }: { offers: ServerOffer[] }) {
 	const offersByCity = Object.groupBy(offers, offer => offer.city.name)
@@ -31,7 +29,9 @@ export function FavoritesList({ offers }: { offers: ServerOffer[] }) {
 										</Link>
 									</div>
 								</div>
-								<div className="favorites__places">{offersByCity[city as CityName]?.map(mapper)}</div>
+								<div className="favorites__places">
+									<PlaceList extraBemBlock="favorites" imageWidth={150} offers={offersByCity[city as CityName]!} />
+								</div>
 							</li>
 						))}
 					</ul>

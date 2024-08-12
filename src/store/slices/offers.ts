@@ -61,7 +61,6 @@ export const offersSlice = createSlice({
 export const offersSelectors = {
 	...offersSlice.selectors,
 
-	cityOffers: createSelector(offersSlice.selectors.offers, (offers) => Object.groupBy(offers, ({ city: { name } }) => name)
-	)
+	cityOffers: createSelector(offersSlice.selectors.offers, offers => Object.groupBy(offers, ({ city: { name } }) => name))
 }
 export const offersActions = { ...offersSlice.actions, fetchAllOffers }

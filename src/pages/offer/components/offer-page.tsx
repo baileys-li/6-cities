@@ -1,6 +1,6 @@
 import { FavoriteButton } from '../../../components/favorite-button/favorite-button'
 import { Map } from '../../../components/map/map'
-import { createMapper } from '../../../components/place-card'
+import { PlaceList } from '../../../components/place-card'
 import { PremiumMark } from '../../../components/premium-mark/premium-mark'
 import { Price } from '../../../components/price/price'
 import { Rating } from '../../../components/rating/rating'
@@ -12,8 +12,6 @@ import { Gallery } from './gallery'
 import { Goods } from './goods'
 import { Host } from './host'
 import { Reviews } from './reviews-section'
-
-const mapper = createMapper({ extraBemBlock: 'near-places' })
 
 export function OfferPage() {
 	const offer = useAppSelector(selectOffer)!
@@ -51,7 +49,9 @@ export function OfferPage() {
 			<div className="container">
 				<section className="near-places places">
 					<h2 className="near-places__title">Other places in the neighbourhood</h2>
-					<div className="near-places__list places__list">{nearbyOffers.map(mapper)}</div>
+					<div className="near-places__list places__list">
+						<PlaceList extraBemBlock="near-places" offers={nearbyOffers} />
+					</div>
 				</section>
 			</div>
 		</>
